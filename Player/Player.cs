@@ -9,8 +9,7 @@ public partial class Player : CharacterBody3D
     [Export] private ColorRect RectHSpeed;
     [Export] private Label LabelJerk;
     [Export] private ColorRect RectJerk;
-    [Export] private Label LabelJerkDuration;
-    [Export] private ColorRect RectJerkDuration;
+    [Export] private AudioStreamPlayer AudioFootsteps;
 
     private float MouseSensitivity = 0.001f;
 
@@ -20,15 +19,19 @@ public partial class Player : CharacterBody3D
     private bool InputRunRight = false;
     private bool InputRunBack = false;
 
-    private float RunJerkDuration = 0f; //allows running acceleration to increase slowly over a few seconds - only applies on-ground
-    private float RunJerkDurationMax = 2f; //time in seconds until jerk becomes static acceleration
-    private float RunJerkMagnitude = 100f; //1.5x this value is max jerk
-    private float RunJerkDurationDecayRate = 4f; //How many times faster jerk decreases rather than increases
+    //Jerk allows running acceleration to increase slowly over a few seconds - only applies on-ground
+    private float RunJerkMagnitude = 100f; //the maximum acceleration that jerk imparts on the player once fully developed
+    private float RunJerkDevelopment = 0f; //no touchy :)
+    private float RunJerkDevelopmentPeriod = 2f; //time in seconds that jerk takes to fully develop
+    private float RunJerkDevelopmentDecayRate = 4f; //How many times faster jerk decreases rather than increases
 
-    private float RunAccelerationTwitch = 160f; //allows for fast direction change
-    private float RunAirAccelerationTwitchCoefficient = 0.25f; //reduces control while in-air
+    private float RunAcceleration = 160f; //allows for fast direction change
+    private float RunAccelerationAirCoefficient = 0.25f; //reduces control while in-air
 
-    private float RunDragGround = 12f; //LARGER VALUES ARE HIGHER DRAG - speed reduces when on-ground
+    private float RunDragGround = 12f; //LARGER VALUES ARE HIGHER DRAG
+
+    private float RunAccelerationSlidingCoefficient = 0.25f; //Larger values are higher speed
+    private float RunDragSlidingCoefficient = 0.3f; //LARGER VALUES ARE HIGHER DRAG
 
     private float RunMaxSpeedGround = 10f; //run acceleration reduces as top speed is approached
     private float RunMaxSpeedAir = 5f; //lower top speed in air to keep air movements strictly for direction change rather than to build speed
@@ -38,7 +41,7 @@ public partial class Player : CharacterBody3D
     private float JumpAcceleration = 10f;
 
     //Crouch
-    private bool InputTechCrouch = false;
+    private bool InputTechCrouchOrSlide = false;
 
     //Dash
     private bool InputTechDash = false;
@@ -52,8 +55,8 @@ public partial class Player : CharacterBody3D
         InputRunBack    = Input.IsActionPressed("dir_back");
 
         //Tech
-        InputTechJump   = Input.IsActionJustPressed("tech_jump");
-        InputTechCrouch = Input.IsActionPressed("tech_crouch");
+        InputTechJump   = Input.IsActionPressed("tech_jump");
+        InputTechCrouchOrSlide = Input.IsActionPressed("tech_crouch");
         InputTechDash   = Input.IsActionPressed("tech_dash");
 
         //Look
@@ -80,26 +83,46 @@ public partial class Player : CharacterBody3D
 
     public override void _PhysicsProcess(double delta)
     {
+        //Slide
+        bool isSliding = false;
+        if (InputTechCrouchOrSlide)
+        {
+            isSliding = true;
+        }
+
         //Run
-        Vector3 runVector = Run((float)delta);
+        Vector3 runVector = Run((float)delta, isSliding);
+        Velocity += runVector * (float)delta;
 
         //Jump
         if (InputTechJump && IsOnFloor())
         {
-            GD.Print("Jump!");
-            Velocity += Vector3.Up * JumpAcceleration;
+                Velocity += Vector3.Up * JumpAcceleration;
         }
 
-        //Combine all vectors
-        Velocity += (runVector + GetGravity()) * (float)delta;
-
+        //Gravity
+        if (!IsOnFloor())
+        {
+            Velocity += GetGravity() * (float)delta;
+        }
+        
         //Drag
-        Velocity *= IsOnFloor() ? Mathf.Clamp(1f - (RunDragGround * (float)delta), 0f, 1f) : 1f;
+        if (IsOnFloor())
+        {
+            float slidingCoefficient = 1f;
+            if (isSliding)
+            {
+                slidingCoefficient = RunDragSlidingCoefficient;
+            }
+
+            Velocity *= Mathf.Clamp(1f - (RunDragGround * slidingCoefficient * (float)delta), 0f, 1f);
+        }
+
         //Apply
         MoveAndSlide();
     }
 
-    private Vector3 Run(float delta)
+    private Vector3 Run(float delta, bool isSliding)
     {
         //Run Direction
         Vector3 runDirection = Vector3.Zero;
@@ -108,6 +131,7 @@ public partial class Player : CharacterBody3D
         if (InputRunRight) runDirection += GlobalBasis.X;
         if (InputRunBack) runDirection += GlobalBasis.Z;
         runDirection = runDirection.Normalized();
+
 
         //--
         //Alignment
@@ -133,14 +157,21 @@ public partial class Player : CharacterBody3D
         float runAlignmentScaled = Mathf.Clamp(1f - runAlignment / runDynamicMaxSpeed, 0f, 1f);
         //--
 
+
         //--
-        //Ground vs Air Acceleration
-        float runDynamicAccelerationTwitch = RunAccelerationTwitch;
+        float runDynamicAccelerationTwitch = RunAcceleration;
         if (!IsOnFloor())
         {
-            runDynamicAccelerationTwitch *= RunAirAccelerationTwitchCoefficient;
+            //Ground vs Air Acceleration
+            runDynamicAccelerationTwitch *= RunAccelerationAirCoefficient;
+        }
+        if (InputTechCrouchOrSlide)
+        {
+            //Different acceleration when crouched/sliding
+            runDynamicAccelerationTwitch *= RunAccelerationSlidingCoefficient;
         }
         //--
+
 
         //--
         //Jerk
@@ -150,26 +181,35 @@ public partial class Player : CharacterBody3D
         float jerkAlignment = Mathf.Clamp(runAlignment / (runDynamicMaxSpeed / 2f), 0f, 1f);
         if (runDirection.Normalized().Length() == 1)
         {
-            //Increase acceleration (i.e. make this jerk rather than simply accelerate)
-            if (IsOnFloor()) RunJerkDuration = Mathf.Min((RunJerkDuration + (float)delta) * jerkAlignment, RunJerkDurationMax);
+            if (!isSliding)
+            {
+                //Increase acceleration (i.e. make this jerk rather than simply accelerate)
+                if (IsOnFloor()) RunJerkDevelopment = Mathf.Min((RunJerkDevelopment + (float)delta) * jerkAlignment, RunJerkDevelopmentPeriod);
+            }
         }
         else
         {
             //Decrease
-            RunJerkDuration = Mathf.Max(RunJerkDuration - ((float)delta * RunJerkDurationDecayRate), 0f);
+            RunJerkDevelopment = Mathf.Max(RunJerkDevelopment - ((float)delta * RunJerkDevelopmentDecayRate), 0f);
         }
 
         //Apply development
-        float jerk = (RunJerkDuration / RunJerkDurationMax) * RunJerkMagnitude;
+        float jerk = (RunJerkDevelopment / RunJerkDevelopmentPeriod) * RunJerkMagnitude;
 
         //Labels
         LabelJerk.Text = $"Jerk: {jerk:F2}";
-        RectJerk.Scale = new(jerk / (RunJerkMagnitude * 1.5f), 1f);
-
-        LabelJerkDuration.Text = $"Jerk Development: {RunJerkDuration:F2}";
-        RectJerkDuration.Scale = new(RunJerkDuration / RunJerkDurationMax, 1f);
+        RectJerk.Scale = new(jerk / RunJerkMagnitude, 1f);
         //--
 
+
+        //--
+        //Audio
+        if (IsOnFloor() && !AudioFootsteps.Playing && runDirection.Normalized().Length() == 1)
+        {
+            AudioFootsteps.Play();
+        }
+        //--
+        
         //Add run values together
         float runMagnitude = runDynamicAccelerationTwitch * runAlignmentScaled;
         if (IsOnFloor()) runMagnitude += jerk;
