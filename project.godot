@@ -73,6 +73,7 @@ select={
 
 [physics]
 
+3d/physics_engine="JoltPhysics3D"
 3d/default_gravity=20.0
 
 [rendering]

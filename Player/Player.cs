@@ -50,14 +50,19 @@ public partial class Player : CharacterBody3D
     private const float ClimbAcceleration = 6f; //Multiple of gravity. Vertical acceleration applied when climbing
     private const float ClimbPeriod = 2f; //time in seconds you can accelerate upwards on the wall for
     private float ClimbRemaining = 0f; //no touchy :)
+
     private bool CanClimb = false; //no touchy :) Can't climb after jumping off until landing on the ground again
+
+    private const float WallJumpAcceleration = 20f; //instantaneous vertical acceleration
+
     private float WallRunAcceleration = 1000f; //additional horizontal acceleration applied when wall-running
+    private const float WallRunVerticalAcceleration = 1.5f; //Multiple of gravity, proportional to climb remaining. Vertical acceleration applied when wall-running
 
     //JUMP
     private bool InputTechJump = false;
     private const float JumpAcceleration = 10f; //instantaneous vertical acceleration
 
-    private const float JumpCooldown = 0.4f; //the minimum time in seconds that must pass before the player can jump again (we compare this to JumpFatigueRecencyTimer)
+    private const float JumpCooldown = 0.2f; //the minimum time in seconds that must pass before the player can jump again (we compare this to JumpFatigueRecencyTimer)
 
     private float JumpFatigueOnGroundTimer = 0f; //no touchy :) halved immediately after jumping, counts up to JumpFatigueOnGroundTimerPeriod
     private const float JumpFatigueOnGroundTimerPeriod = 0.5f; //time in seconds on the ground until on-ground jump fatigue goes away entirely
@@ -303,10 +308,10 @@ public partial class Player : CharacterBody3D
         }
 
         //Wall jump
-        if (IsOnWall() && InputTechJump && CanClimb && JumpFatigueRecencyTimer >= JumpCooldown)
+        if (IsOnWall() && InputTechJump && !InputRunForward && CanClimb && JumpFatigueRecencyTimer >= JumpCooldown)
         {
             CanClimb = false;
-            Jump(delta, (GetWallNormal() + Vector3.Up).Normalized(), JumpAcceleration);
+            Jump(delta, (GetWallNormal() + Vector3.Up + Vector3.Up).Normalized(), WallJumpAcceleration);
         }
 
         
@@ -327,9 +332,13 @@ public partial class Player : CharacterBody3D
 
                     //testBox.Position = new Vector3(Position.X, Position.Y + 1f, Position.Z) + (2f * projectedDirection);
 
+                    //Horizontal acceleration
                     Velocity += projectedDirection * (WallRunAcceleration * (1f - dotWall) * delta);
+
+                    //Vertical acceleration
+                    Velocity += -GetGravity() * (WallRunVerticalAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall * delta);
                 }
-                
+
                 //Decrement
                 ClimbRemaining = Mathf.Max(ClimbRemaining - delta, 0f);
             }
