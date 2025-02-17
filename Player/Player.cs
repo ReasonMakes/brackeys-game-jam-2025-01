@@ -17,6 +17,8 @@ public partial class Player : CharacterBody3D
 
     [Export] private AudioStreamPlayer AudioFootsteps;
 
+    [Export] private CsgBox3D testBox;
+
     private float MouseSensitivity = 0.001f;
 
     //RUN
@@ -37,14 +39,14 @@ public partial class Player : CharacterBody3D
     private const float RunJerkMagnitude = 100f; //the maximum acceleration that jerk imparts on the player once fully developed
     private float RunJerkDevelopment = 0f; //no touchy :)
     private const float RunJerkDevelopmentPeriod = 2f; //time in seconds that jerk takes to fully develop
-    private const float RunJerkDevelopmentDecayRate = 0.1f; //How many times faster jerk decreases rather than increases
+    private const float RunJerkDevelopmentDecayRate = 0.2f; //How many times faster jerk decreases rather than increases
 
-    //CLIMB
-    private const float ClimbAcceleration = 2f; //Proportional to gravity. Vertical acceleration applied when climbing
-    private const float ClimbWeakenJerk = 0.1f; //how quickly does your acceleration weaken as you climb
+    //CLIMB/WALL-JUMPING/WALL-RUNNING
+    private const float ClimbAcceleration = 6f; //Multiple of gravity. Vertical acceleration applied when climbing
     private const float ClimbPeriod = 2f; //time in seconds you can accelerate upwards on the wall for
     private float ClimbRemaining = 0f; //no touchy :)
-    private bool CanClimb = false; //can't climb after jumping off until landing on the ground again
+    private bool CanClimb = false; //no touchy :) Can't climb after jumping off until landing on the ground again
+    private float WallRunAcceleration = 1000f; //additional horizontal acceleration applied when wall-running
 
     //JUMP
     private bool InputTechJump = false;
@@ -113,12 +115,14 @@ public partial class Player : CharacterBody3D
             isSliding = true;
         }
 
+        bool isClimbingOrWallRunning = IsOnWall() && InputRunForward && ClimbRemaining > 0f && CanClimb;
+
         //Run
-        Vector3 runVector = Run(delta, isSliding);
+        Vector3 runVector = Run(delta, isSliding, isClimbingOrWallRunning);
         Velocity += runVector * delta;
 
         //Wall Climb
-        Climb(delta);
+        Climb(delta, runVector);
 
         //Dash
         Dash(delta);
@@ -136,7 +140,7 @@ public partial class Player : CharacterBody3D
         }
         
         //Drag
-        if (IsOnFloor())
+        if (IsOnFloor() || isClimbingOrWallRunning)
         {
             float slidingCoefficient = 1f;
             if (isSliding)
@@ -151,7 +155,7 @@ public partial class Player : CharacterBody3D
         MoveAndSlide();
     }
 
-    private Vector3 Run(float delta, bool isSliding)
+    private Vector3 Run(float delta, bool isSliding, bool isClimbingOrWallRunning)
     {
         //Run Direction
         Vector3 runDirection = Vector3.Zero;
@@ -188,12 +192,14 @@ public partial class Player : CharacterBody3D
 
 
         //--
+        //Twitch acceleration
         float runDynamicAccelerationTwitch = RunAcceleration;
         if (!IsOnFloor())
         {
             //Ground vs Air Acceleration
             runDynamicAccelerationTwitch *= RunAccelerationAirCoefficient;
         }
+
         if (InputTechCrouchOrSlide)
         {
             //Different acceleration when crouched/sliding
@@ -211,7 +217,10 @@ public partial class Player : CharacterBody3D
         if (!isSliding && runDirection.Normalized().Length() == 1)
         {
             //Increase acceleration (i.e. make this jerk rather than simply accelerate)
-            if (IsOnFloor()) RunJerkDevelopment = Mathf.Min((RunJerkDevelopment + delta) * jerkAlignment, RunJerkDevelopmentPeriod);
+            if (IsOnFloor() || isClimbingOrWallRunning)
+            {
+                RunJerkDevelopment = Mathf.Min((RunJerkDevelopment + delta) * jerkAlignment, RunJerkDevelopmentPeriod);
+            }
         }
         else if (IsOnFloor())
         {
@@ -221,7 +230,6 @@ public partial class Player : CharacterBody3D
                 0f
             );
         }
-        GD.Print($"RunJerkDevelopment: {RunJerkDevelopment}\nRunJerkDevelopmentPeriod: {RunJerkDevelopmentPeriod}\n(RunJerkDevelopmentPeriod - RunJerkDevelopment): {(RunJerkDevelopmentPeriod - RunJerkDevelopment)}");
 
         //Apply development
         float jerk = (RunJerkDevelopment / RunJerkDevelopmentPeriod) * RunJerkMagnitude;
@@ -268,26 +276,51 @@ public partial class Player : CharacterBody3D
         RectDash.Scale = new(DashCooldown / DashCooldownPeriod, 1f);
     }
 
-    private void Climb(float delta)
+    private void Climb(float delta, Vector3 runVector)
     {
         if (IsOnFloor())
         {
             CanClimb = true;
         }
 
+        //Exhaustion
+        if (ClimbRemaining == 0f)
+        {
+            CanClimb = false;
+        }
+
+        //Wall jump
         if (IsOnWall() && InputTechJump)
         {
             CanClimb = false;
             Velocity += (GetWallNormal() + Vector3.Up).Normalized() * JumpAcceleration;
         }
 
-        if (IsOnWall() && InputRunForward && ClimbRemaining > 0f && CanClimb)
+        
+        if (IsOnWall() && InputRunForward)
         {
-            //Climb
-            Velocity += -GetGravity() * (ClimbAcceleration * (ClimbRemaining/ClimbPeriod) * delta);
+            if (ClimbRemaining > 0f && CanClimb)
+            {
+                float dotWall = Mathf.Max(GetWallNormal().Dot(GlobalBasis.Z), 0f); // 0 to 1, where 1 is facing the wall
+                GD.Print(dotWall);
 
-            //Decrement
-            ClimbRemaining = Mathf.Max(ClimbRemaining - delta, 0f);
+                //Climb
+                Velocity += -GetGravity() * (ClimbAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall * delta);
+
+                //Wall-run
+                if (!IsOnFloor())
+                {
+                    Vector3 wallTangent = GetWallNormal().Cross(Vector3.Up); //pretty much all the way there
+                    Vector3 projectedDirection = (wallTangent * runVector.Dot(wallTangent)).Normalized(); //consider which horizontal direction we're going along the wall
+
+                    //testBox.Position = new Vector3(Position.X, Position.Y + 1f, Position.Z) + (2f * projectedDirection);
+
+                    Velocity += projectedDirection * (WallRunAcceleration * (1f - dotWall) * delta);
+                }
+                
+                //Decrement
+                ClimbRemaining = Mathf.Max(ClimbRemaining - delta, 0f);
+            }
         }
         else
         {
@@ -295,8 +328,14 @@ public partial class Player : CharacterBody3D
             ClimbRemaining = Mathf.Min(ClimbRemaining + delta, ClimbPeriod);
         }
 
+        if (IsOnFloor())
+        {
+            //Replenish climb
+            ClimbRemaining = Mathf.Min(ClimbRemaining + delta, ClimbPeriod);
+        }
+
         //Label
-        LabelClimb.Text = $"Climb: {ClimbRemaining:F2}";
+        LabelClimb.Text = $"Climb: {ClimbRemaining:F2}, CanClimb: {CanClimb}";
         RectClimb.Scale = new(ClimbRemaining / ClimbPeriod, 1f);
     }
 }
