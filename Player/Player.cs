@@ -12,6 +12,8 @@ public partial class Player : CharacterBody3D
     [Export] private ColorRect RectJerk;
     [Export] private Label LabelDash;
     [Export] private ColorRect RectDash;
+    [Export] private Label LabelClimb;
+    [Export] private ColorRect RectClimb;
 
     [Export] private AudioStreamPlayer AudioFootsteps;
 
@@ -35,7 +37,14 @@ public partial class Player : CharacterBody3D
     private const float RunJerkMagnitude = 100f; //the maximum acceleration that jerk imparts on the player once fully developed
     private float RunJerkDevelopment = 0f; //no touchy :)
     private const float RunJerkDevelopmentPeriod = 2f; //time in seconds that jerk takes to fully develop
-    private const float RunJerkDevelopmentDecayRate = 4f; //How many times faster jerk decreases rather than increases
+    private const float RunJerkDevelopmentDecayRate = 0.1f; //How many times faster jerk decreases rather than increases
+
+    //CLIMB
+    private const float ClimbAcceleration = 2f; //Proportional to gravity. Vertical acceleration applied when climbing
+    private const float ClimbWeakenJerk = 0.1f; //how quickly does your acceleration weaken as you climb
+    private const float ClimbPeriod = 2f; //time in seconds you can accelerate upwards on the wall for
+    private float ClimbRemaining = 0f; //no touchy :)
+    private bool CanClimb = false; //can't climb after jumping off until landing on the ground again
 
     //JUMP
     private bool InputTechJump = false;
@@ -43,7 +52,7 @@ public partial class Player : CharacterBody3D
 
     //CROUCH/SLIDE
     private bool InputTechCrouchOrSlide = false;
-    private const float RunAccelerationSlidingCoefficient = 0.25f; //Larger values are higher acceleration
+    private const float RunAccelerationSlidingCoefficient = 0.15f; //Larger values are higher acceleration
     private const float RunDragSlidingCoefficient = 0.3f; //LARGER VALUES ARE HIGHER DRAG
 
     //DASH
@@ -107,6 +116,9 @@ public partial class Player : CharacterBody3D
         //Run
         Vector3 runVector = Run(delta, isSliding);
         Velocity += runVector * delta;
+
+        //Wall Climb
+        Climb(delta);
 
         //Dash
         Dash(delta);
@@ -196,19 +208,20 @@ public partial class Player : CharacterBody3D
         //Develop
         //Value from 0.5 to 1 depending on how aligned our running is with our current hVelocity
         float jerkAlignment = Mathf.Clamp(runAlignment / (runDynamicMaxSpeed / 2f), 0f, 1f);
-        if (runDirection.Normalized().Length() == 1)
+        if (!isSliding && runDirection.Normalized().Length() == 1)
         {
-            if (!isSliding)
-            {
-                //Increase acceleration (i.e. make this jerk rather than simply accelerate)
-                if (IsOnFloor()) RunJerkDevelopment = Mathf.Min((RunJerkDevelopment + (float)delta) * jerkAlignment, RunJerkDevelopmentPeriod);
-            }
+            //Increase acceleration (i.e. make this jerk rather than simply accelerate)
+            if (IsOnFloor()) RunJerkDevelopment = Mathf.Min((RunJerkDevelopment + delta) * jerkAlignment, RunJerkDevelopmentPeriod);
         }
-        else
+        else if (IsOnFloor())
         {
-            //Decrease
-            RunJerkDevelopment = Mathf.Max(RunJerkDevelopment - ((float)delta * RunJerkDevelopmentDecayRate), 0f);
+            //Decrement exponentially
+            RunJerkDevelopment = Mathf.Max(
+                RunJerkDevelopment - ((delta + (RunJerkDevelopmentPeriod - RunJerkDevelopment)) * RunJerkDevelopmentDecayRate),
+                0f
+            );
         }
+        GD.Print($"RunJerkDevelopment: {RunJerkDevelopment}\nRunJerkDevelopmentPeriod: {RunJerkDevelopmentPeriod}\n(RunJerkDevelopmentPeriod - RunJerkDevelopment): {(RunJerkDevelopmentPeriod - RunJerkDevelopment)}");
 
         //Apply development
         float jerk = (RunJerkDevelopment / RunJerkDevelopmentPeriod) * RunJerkMagnitude;
@@ -253,5 +266,37 @@ public partial class Player : CharacterBody3D
         //Label
         LabelDash.Text = $"Dash: {DashCooldown:F2}";
         RectDash.Scale = new(DashCooldown / DashCooldownPeriod, 1f);
+    }
+
+    private void Climb(float delta)
+    {
+        if (IsOnFloor())
+        {
+            CanClimb = true;
+        }
+
+        if (IsOnWall() && InputTechJump)
+        {
+            CanClimb = false;
+            Velocity += (GetWallNormal() + Vector3.Up).Normalized() * JumpAcceleration;
+        }
+
+        if (IsOnWall() && InputRunForward && ClimbRemaining > 0f && CanClimb)
+        {
+            //Climb
+            Velocity += -GetGravity() * (ClimbAcceleration * (ClimbRemaining/ClimbPeriod) * delta);
+
+            //Decrement
+            ClimbRemaining = Mathf.Max(ClimbRemaining - delta, 0f);
+        }
+        else
+        {
+            //Replenish climb
+            ClimbRemaining = Mathf.Min(ClimbRemaining + delta, ClimbPeriod);
+        }
+
+        //Label
+        LabelClimb.Text = $"Climb: {ClimbRemaining:F2}";
+        RectClimb.Scale = new(ClimbRemaining / ClimbPeriod, 1f);
     }
 }
