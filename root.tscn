@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://da3cc6bh5v41y"]
+[gd_scene load_steps=13 format=3 uid="uid://da3cc6bh5v41y"]
 
 [ext_resource type="Script" path="res://Control.cs" id="1_35hfb"]
 [ext_resource type="Script" path="res://player/Player.cs" id="1_apfbn"]
 [ext_resource type="AudioStream" uid="uid://bf1woreaiwyeu" path="res://player/footstep1_foley.wav" id="3_ayyig"]
+[ext_resource type="Shader" path="res://UI/dash_lines.gdshader" id="3_pkdfa"]
 [ext_resource type="AudioStream" uid="uid://duu2gyofsi4xw" path="res://player/footstep2_foley_placeholder.wav" id="4_b3fct"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_53okd"]
@@ -21,6 +22,9 @@ glow_enabled = true
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf7un"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3x3s7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0g6ut"]
+shader = ExtResource("3_pkdfa")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_c134s"]
 random_pitch = 1.02
@@ -157,6 +161,15 @@ mesh = SubResource("CapsuleMesh_3x3s7")
 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="ColorRect Dash Lines" type="ColorRect" parent="CharacterBody3D/Camera3D"]
+material = SubResource("ShaderMaterial_0g6ut")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 
 [node name="Audio Footsteps" type="AudioStreamPlayer" parent="CharacterBody3D"]
 stream = SubResource("AudioStreamRandomizer_c134s")
