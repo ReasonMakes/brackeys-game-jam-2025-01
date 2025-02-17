@@ -14,6 +14,10 @@ public partial class Player : CharacterBody3D
     [Export] private ColorRect RectDash;
     [Export] private Label LabelClimb;
     [Export] private ColorRect RectClimb;
+    [Export] private Label LabelJumpFatigueRecency;
+    [Export] private ColorRect RectJumpFatigueRecency;
+    [Export] private Label LabelJumpFatigueOnGround;
+    [Export] private ColorRect RectJumpFatigueOnGround;
 
     [Export] private AudioStreamPlayer AudioFootsteps;
 
@@ -31,6 +35,7 @@ public partial class Player : CharacterBody3D
     private const float RunAccelerationAirCoefficient = 0.25f; //reduces control while in-air
 
     private const float RunDragGround = 12f; //LARGER VALUES ARE HIGHER DRAG
+    private const float RunDragAir = 0.1f; //LARGER VALUES ARE HIGHER DRAG
 
     private const float RunMaxSpeedGround = 10f; //run acceleration reduces as top speed is approached
     private const float RunMaxSpeedAir = 5f; //lower top speed in air to keep air movements strictly for direction change rather than to build speed
@@ -50,7 +55,17 @@ public partial class Player : CharacterBody3D
 
     //JUMP
     private bool InputTechJump = false;
-    private const float JumpAcceleration = 10f;
+    private const float JumpAcceleration = 10f; //instantaneous vertical acceleration
+
+    private const float JumpCooldown = 0.4f; //the minimum time in seconds that must pass before the player can jump again (we compare this to JumpFatigueRecencyTimer)
+
+    private float JumpFatigueOnGroundTimer = 0f; //no touchy :) halved immediately after jumping, counts up to JumpFatigueOnGroundTimerPeriod
+    private const float JumpFatigueOnGroundTimerPeriod = 0.5f; //time in seconds on the ground until on-ground jump fatigue goes away entirely
+
+    private float JumpFatigueRecencyTimer = 0f; //no touchy :) 0 immediately after jumping, counts up to JumpFatigueRecentTimerPeriod
+    private const float JumpFatigueRecencyTimerPeriod = 0.5f; //time in seconds after a jump until recency jump fatigue goes away entirely
+    
+    private const float JumpFatigueMinimumCoefficient = 0.08f; //the minimum coefficient that jump acceleration can be multiplied by (applies if jump fatigue is extreme)
 
     //CROUCH/SLIDE
     private bool InputTechCrouchOrSlide = false;
@@ -59,8 +74,8 @@ public partial class Player : CharacterBody3D
 
     //DASH
     private bool InputTechDash = false;
-    private const float DashAcceleration = 100f; //dash acceleration magnitude
-    private const float DashAccelerationAirCoefficient = 0.1f; //lower values are lessened acceleration while in the air
+    private const float DashAcceleration = 300f; //dash acceleration magnitude
+    private const float DashAccelerationAirCoefficient = 0.12f; //lower values are lessened acceleration while in the air
     private float DashCooldown = 0f; //no touchy :)
     private const float DashCooldownPeriod = 5f; //time in seconds until you can use the tech again
 
@@ -76,11 +91,6 @@ public partial class Player : CharacterBody3D
         InputTechJump   = Input.IsActionPressed("tech_jump");
         InputTechCrouchOrSlide = Input.IsActionPressed("tech_crouch");
         InputTechDash   = Input.IsActionJustReleased("tech_dash"); //Mouse wheel only has a released event
-
-        if (Input.IsActionPressed("tech_dash"))
-        {
-            GD.Print("Dash inputted");
-        }
 
         //Look
         if (@event is InputEventMouseMotion mouseMotion)
@@ -128,10 +138,7 @@ public partial class Player : CharacterBody3D
         Dash(delta);
 
         //Jump
-        if (InputTechJump && IsOnFloor())
-        {
-                Velocity += Vector3.Up * JumpAcceleration;
-        }
+        ProcessJump(delta, Vector3.Up, JumpAcceleration);
 
         //Gravity
         if (!IsOnFloor())
@@ -142,6 +149,7 @@ public partial class Player : CharacterBody3D
         //Drag
         if (IsOnFloor() || isClimbingOrWallRunning)
         {
+            //Ground
             float slidingCoefficient = 1f;
             if (isSliding)
             {
@@ -149,6 +157,11 @@ public partial class Player : CharacterBody3D
             }
 
             Velocity *= Mathf.Clamp(1f - (RunDragGround * slidingCoefficient * delta), 0f, 1f);
+        }
+        else
+        {
+            //Air
+            Velocity *= Mathf.Clamp(1f - (RunDragAir * delta), 0f, 1f);
         }
 
         //Apply
@@ -290,10 +303,10 @@ public partial class Player : CharacterBody3D
         }
 
         //Wall jump
-        if (IsOnWall() && InputTechJump)
+        if (IsOnWall() && InputTechJump && CanClimb && JumpFatigueRecencyTimer >= JumpCooldown)
         {
             CanClimb = false;
-            Velocity += (GetWallNormal() + Vector3.Up).Normalized() * JumpAcceleration;
+            Jump(delta, (GetWallNormal() + Vector3.Up).Normalized(), JumpAcceleration);
         }
 
         
@@ -302,7 +315,6 @@ public partial class Player : CharacterBody3D
             if (ClimbRemaining > 0f && CanClimb)
             {
                 float dotWall = Mathf.Max(GetWallNormal().Dot(GlobalBasis.Z), 0f); // 0 to 1, where 1 is facing the wall
-                GD.Print(dotWall);
 
                 //Climb
                 Velocity += -GetGravity() * (ClimbAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall * delta);
@@ -322,7 +334,7 @@ public partial class Player : CharacterBody3D
                 ClimbRemaining = Mathf.Max(ClimbRemaining - delta, 0f);
             }
         }
-        else
+        else if (CanClimb)
         {
             //Replenish climb
             ClimbRemaining = Mathf.Min(ClimbRemaining + delta, ClimbPeriod);
@@ -337,5 +349,50 @@ public partial class Player : CharacterBody3D
         //Label
         LabelClimb.Text = $"Climb: {ClimbRemaining:F2}, CanClimb: {CanClimb}";
         RectClimb.Scale = new(ClimbRemaining / ClimbPeriod, 1f);
+    }
+
+    private void ProcessJump(float delta, Vector3 direction, float magnitude)
+    {
+        //Increment recency timer
+        JumpFatigueRecencyTimer = Mathf.Min(JumpFatigueRecencyTimer + delta, JumpFatigueRecencyTimerPeriod);
+
+        if (IsOnFloor())
+        {
+            //Increment on-ground timer
+            JumpFatigueOnGroundTimer = Mathf.Min(JumpFatigueOnGroundTimer + delta, JumpFatigueOnGroundTimerPeriod);
+
+            //Act
+            if (InputTechJump && JumpFatigueRecencyTimer >= JumpCooldown)
+            {
+                //Jump upwards
+                Jump(delta, Vector3.Up, JumpAcceleration);
+
+                //Reset timers
+                JumpFatigueOnGroundTimer = Mathf.Max(JumpFatigueOnGroundTimer/2f, JumpFatigueMinimumCoefficient);
+                JumpFatigueRecencyTimer = 0f;
+            }
+        }
+
+        //Label
+        LabelJumpFatigueRecency.Text = $"Jump fatigue recency: {JumpFatigueRecencyTimer:F2}";
+        RectJumpFatigueRecency.Scale = new(JumpFatigueRecencyTimer/JumpFatigueRecencyTimerPeriod, 1f);
+
+        LabelJumpFatigueOnGround.Text = $"Jump fatigue on-ground: {JumpFatigueOnGroundTimer:F2}";
+        RectJumpFatigueOnGround.Scale = new(JumpFatigueOnGroundTimer/JumpFatigueOnGroundTimerPeriod, 1f);
+    }
+
+    private void Jump(float delta, Vector3 direction, float magnitude)
+    {
+        //Determine fatigue
+        float fatigue = Mathf.Max(
+            JumpFatigueMinimumCoefficient,
+            Mathf.Min(
+                JumpFatigueRecencyTimer / JumpFatigueRecencyTimerPeriod,     //recency jump fatigue
+                JumpFatigueOnGroundTimer / JumpFatigueOnGroundTimerPeriod    //on-ground jump fatigue
+            )
+        );
+
+        //Act
+        Velocity += direction * (magnitude * fatigue);
     }
 }
