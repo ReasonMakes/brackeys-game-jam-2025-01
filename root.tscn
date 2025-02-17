@@ -180,6 +180,11 @@ transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 9.5, 4
 use_collision = true
 size = Vector3(10.5, 1, 18)
 
+[node name="CSGBox3D6 Wall4" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 1.06109, 4.25, 36.0258)
+use_collision = true
+size = Vector3(10.5, 1, 18)
+
 [node name="CSGBox3D6 Wall3" type="CSGBox3D" parent="GreyBox"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 19.5, 4.25, 35.5)
 use_collision = true
