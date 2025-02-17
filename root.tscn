@@ -1,10 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://da3cc6bh5v41y"]
+[gd_scene load_steps=15 format=3 uid="uid://da3cc6bh5v41y"]
 
 [ext_resource type="Script" path="res://Control.cs" id="1_35hfb"]
 [ext_resource type="Script" path="res://player/Player.cs" id="1_apfbn"]
+[ext_resource type="Texture2D" uid="uid://c536iphygdlso" path="res://images/health.png" id="2_ttusi"]
 [ext_resource type="Material" uid="uid://daiyptmfwsngr" path="res://player/dash_lines_material.tres" id="3_3dh8n"]
+[ext_resource type="Texture2D" uid="uid://cdhyfw7mtbr8o" path="res://images/ability hex.png" id="3_8euu3"]
 [ext_resource type="AudioStream" uid="uid://bf1woreaiwyeu" path="res://player/footstep1_foley.wav" id="3_ayyig"]
 [ext_resource type="AudioStream" uid="uid://duu2gyofsi4xw" path="res://player/footstep2_foley_placeholder.wav" id="4_b3fct"]
+[ext_resource type="Texture2D" uid="uid://bpikbdh4qapfe" path="res://images/task hex.png" id="4_qs002"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_53okd"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -126,6 +129,27 @@ offset_right = 318.0
 offset_bottom = 230.0
 text = "Jump fatigue on-ground: "
 
+[node name="health" type="TextureRect" parent="UI"]
+offset_left = 12.0
+offset_top = 658.0
+offset_right = 688.0
+offset_bottom = 756.0
+texture = ExtResource("2_ttusi")
+
+[node name="abilities" type="TextureRect" parent="UI"]
+offset_left = 966.0
+offset_top = 658.0
+offset_right = 1346.0
+offset_bottom = 756.0
+texture = ExtResource("3_8euu3")
+
+[node name="tasks" type="TextureRect" parent="UI"]
+offset_left = 342.0
+offset_top = 23.0
+offset_right = 520.0
+offset_bottom = 170.0
+texture = ExtResource("4_qs002")
+
 [node name="Player Vector Test Box" type="CSGBox3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.4, 4.6, -2)
 
@@ -161,6 +185,7 @@ mesh = SubResource("CapsuleMesh_3x3s7")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 
 [node name="ColorRect Dash Lines" type="ColorRect" parent="CharacterBody3D/Camera3D"]
+visible = false
 material = ExtResource("3_3dh8n")
 anchors_preset = 15
 anchor_right = 1.0
