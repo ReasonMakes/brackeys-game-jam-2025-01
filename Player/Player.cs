@@ -5,46 +5,53 @@ using System;
 public partial class Player : CharacterBody3D
 {
     [Export] private Camera3D Cam;
+
     [Export] private Label LabelHSpeed;
     [Export] private ColorRect RectHSpeed;
     [Export] private Label LabelJerk;
     [Export] private ColorRect RectJerk;
+    [Export] private Label LabelDash;
+    [Export] private ColorRect RectDash;
+
     [Export] private AudioStreamPlayer AudioFootsteps;
 
     private float MouseSensitivity = 0.001f;
 
-    //Run
+    //RUN
     private bool InputRunForward = false;
     private bool InputRunLeft = false;
     private bool InputRunRight = false;
     private bool InputRunBack = false;
 
+    private const float RunAcceleration = 160f; //allows for fast direction change
+    private const float RunAccelerationAirCoefficient = 0.25f; //reduces control while in-air
+
+    private const float RunDragGround = 12f; //LARGER VALUES ARE HIGHER DRAG
+
+    private const float RunMaxSpeedGround = 10f; //run acceleration reduces as top speed is approached
+    private const float RunMaxSpeedAir = 5f; //lower top speed in air to keep air movements strictly for direction change rather than to build speed
+
     //Jerk allows running acceleration to increase slowly over a few seconds - only applies on-ground
-    private float RunJerkMagnitude = 100f; //the maximum acceleration that jerk imparts on the player once fully developed
+    private const float RunJerkMagnitude = 100f; //the maximum acceleration that jerk imparts on the player once fully developed
     private float RunJerkDevelopment = 0f; //no touchy :)
-    private float RunJerkDevelopmentPeriod = 2f; //time in seconds that jerk takes to fully develop
-    private float RunJerkDevelopmentDecayRate = 4f; //How many times faster jerk decreases rather than increases
+    private const float RunJerkDevelopmentPeriod = 2f; //time in seconds that jerk takes to fully develop
+    private const float RunJerkDevelopmentDecayRate = 4f; //How many times faster jerk decreases rather than increases
 
-    private float RunAcceleration = 160f; //allows for fast direction change
-    private float RunAccelerationAirCoefficient = 0.25f; //reduces control while in-air
-
-    private float RunDragGround = 12f; //LARGER VALUES ARE HIGHER DRAG
-
-    private float RunAccelerationSlidingCoefficient = 0.25f; //Larger values are higher speed
-    private float RunDragSlidingCoefficient = 0.3f; //LARGER VALUES ARE HIGHER DRAG
-
-    private float RunMaxSpeedGround = 10f; //run acceleration reduces as top speed is approached
-    private float RunMaxSpeedAir = 5f; //lower top speed in air to keep air movements strictly for direction change rather than to build speed
-
-    //Jump
+    //JUMP
     private bool InputTechJump = false;
-    private float JumpAcceleration = 10f;
+    private const float JumpAcceleration = 10f;
 
-    //Crouch
+    //CROUCH/SLIDE
     private bool InputTechCrouchOrSlide = false;
+    private const float RunAccelerationSlidingCoefficient = 0.25f; //Larger values are higher acceleration
+    private const float RunDragSlidingCoefficient = 0.3f; //LARGER VALUES ARE HIGHER DRAG
 
-    //Dash
+    //DASH
     private bool InputTechDash = false;
+    private const float DashAcceleration = 100f; //dash acceleration magnitude
+    private const float DashAccelerationAirCoefficient = 0.1f; //lower values are lessened acceleration while in the air
+    private float DashCooldown = 0f; //no touchy :)
+    private const float DashCooldownPeriod = 5f; //time in seconds until you can use the tech again
 
     public override void _Input(InputEvent @event)
     {
@@ -57,7 +64,12 @@ public partial class Player : CharacterBody3D
         //Tech
         InputTechJump   = Input.IsActionPressed("tech_jump");
         InputTechCrouchOrSlide = Input.IsActionPressed("tech_crouch");
-        InputTechDash   = Input.IsActionPressed("tech_dash");
+        InputTechDash   = Input.IsActionJustReleased("tech_dash"); //Mouse wheel only has a released event
+
+        if (Input.IsActionPressed("tech_dash"))
+        {
+            GD.Print("Dash inputted");
+        }
 
         //Look
         if (@event is InputEventMouseMotion mouseMotion)
@@ -81,8 +93,10 @@ public partial class Player : CharacterBody3D
         }
     }
 
-    public override void _PhysicsProcess(double delta)
+    public override void _PhysicsProcess(double deltaDouble)
     {
+        float delta = (float)deltaDouble;
+
         //Slide
         bool isSliding = false;
         if (InputTechCrouchOrSlide)
@@ -91,8 +105,11 @@ public partial class Player : CharacterBody3D
         }
 
         //Run
-        Vector3 runVector = Run((float)delta, isSliding);
-        Velocity += runVector * (float)delta;
+        Vector3 runVector = Run(delta, isSliding);
+        Velocity += runVector * delta;
+
+        //Dash
+        Dash(delta);
 
         //Jump
         if (InputTechJump && IsOnFloor())
@@ -103,7 +120,7 @@ public partial class Player : CharacterBody3D
         //Gravity
         if (!IsOnFloor())
         {
-            Velocity += GetGravity() * (float)delta;
+            Velocity += GetGravity() * delta;
         }
         
         //Drag
@@ -115,7 +132,7 @@ public partial class Player : CharacterBody3D
                 slidingCoefficient = RunDragSlidingCoefficient;
             }
 
-            Velocity *= Mathf.Clamp(1f - (RunDragGround * slidingCoefficient * (float)delta), 0f, 1f);
+            Velocity *= Mathf.Clamp(1f - (RunDragGround * slidingCoefficient * delta), 0f, 1f);
         }
 
         //Apply
@@ -126,10 +143,10 @@ public partial class Player : CharacterBody3D
     {
         //Run Direction
         Vector3 runDirection = Vector3.Zero;
-        if (InputRunForward) runDirection -= GlobalBasis.Z;
-        if (InputRunLeft) runDirection -= GlobalBasis.X;
-        if (InputRunRight) runDirection += GlobalBasis.X;
-        if (InputRunBack) runDirection += GlobalBasis.Z;
+        if (InputRunForward)    runDirection -= GlobalBasis.Z;
+        if (InputRunLeft)       runDirection -= GlobalBasis.X;
+        if (InputRunRight)      runDirection += GlobalBasis.X;
+        if (InputRunBack)       runDirection += GlobalBasis.Z;
         runDirection = runDirection.Normalized();
 
 
@@ -216,5 +233,25 @@ public partial class Player : CharacterBody3D
         Vector3 runVector = runDirection * runMagnitude;
 
         return runVector;
+    }
+
+    private void Dash(float delta)
+    {
+        //Act
+        if (InputTechDash && DashCooldown == 0f)
+        {
+            float dashAccelerationCombined = IsOnFloor() ? DashAcceleration : DashAcceleration * DashAccelerationAirCoefficient;
+            Velocity += -GlobalBasis.Z * dashAccelerationCombined;
+
+            //Reset
+            DashCooldown = DashCooldownPeriod;
+        }
+
+        //Decrement
+        DashCooldown = Mathf.Max(DashCooldown - delta, 0f);
+
+        //Label
+        LabelDash.Text = $"Dash: {DashCooldown:F2}";
+        RectDash.Scale = new(DashCooldown / DashCooldownPeriod, 1f);
     }
 }
