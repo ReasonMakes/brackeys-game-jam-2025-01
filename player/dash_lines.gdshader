@@ -16,7 +16,7 @@ void fragment()
         //float rotation_angle = (float(i) / float(numLines)) * TAU;
 		
 		float rotation_random = fract(sin(dot(UV, vec2(12.9898, 78.233))) * 43758.5453);
-		float rotation_angle = TIME * TAU / float(numLines) ;
+		float rotation_angle = 0.0 * TAU / float(numLines) ;
 
         // Rotation Matrix
         mat2 rotationMatrix = mat2(vec2(cos(rotation_angle), -sin(rotation_angle)),
