@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://da3cc6bh5v41y"]
+[gd_scene load_steps=12 format=3 uid="uid://da3cc6bh5v41y"]
 
 [ext_resource type="Script" path="res://Control.cs" id="1_35hfb"]
 [ext_resource type="Script" path="res://player/Player.cs" id="1_apfbn"]
+[ext_resource type="Material" uid="uid://daiyptmfwsngr" path="res://player/dash_lines_material.tres" id="3_3dh8n"]
 [ext_resource type="AudioStream" uid="uid://bf1woreaiwyeu" path="res://player/footstep1_foley.wav" id="3_ayyig"]
 [ext_resource type="AudioStream" uid="uid://duu2gyofsi4xw" path="res://player/footstep2_foley_placeholder.wav" id="4_b3fct"]
 
@@ -146,6 +147,7 @@ LabelJumpFatigueOnGround = NodePath("../UI/Label Jump Fatigue On-Ground")
 RectJumpFatigueOnGround = NodePath("../UI/Rect Jump Fatigue On-Ground")
 AudioFootsteps = NodePath("Audio Footsteps")
 testBox = NodePath("../Player Vector Test Box")
+DashMaterial = ExtResource("3_3dh8n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -157,6 +159,15 @@ mesh = SubResource("CapsuleMesh_3x3s7")
 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+
+[node name="ColorRect Dash Lines" type="ColorRect" parent="CharacterBody3D/Camera3D"]
+material = ExtResource("3_3dh8n")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
 
 [node name="Audio Footsteps" type="AudioStreamPlayer" parent="CharacterBody3D"]
 stream = SubResource("AudioStreamRandomizer_c134s")
