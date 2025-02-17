@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://da3cc6bh5v41y"]
+[gd_scene load_steps=33 format=3 uid="uid://da3cc6bh5v41y"]
 
 [ext_resource type="Script" path="res://Control.cs" id="1_35hfb"]
 [ext_resource type="Script" path="res://player/Player.cs" id="1_apfbn"]
@@ -6,24 +6,24 @@
 [ext_resource type="Material" uid="uid://daiyptmfwsngr" path="res://player/dash_lines_material.tres" id="3_3dh8n"]
 [ext_resource type="Texture2D" uid="uid://cdhyfw7mtbr8o" path="res://images/ability hex.png" id="3_8euu3"]
 [ext_resource type="Texture2D" uid="uid://bpikbdh4qapfe" path="res://images/task hex.png" id="4_qs002"]
-[ext_resource type="AudioStream" uid="uid://c3hbwkq65tym6" path="res://player/footsteps/_foley.wav" id="7_dserg"]
+[ext_resource type="AudioStream" uid="uid://c3hbwkq65tym6" path="res://player/Footsteps/_foley.wav" id="7_dserg"]
 [ext_resource type="AudioStream" uid="uid://slodwrswd1f4" path="res://music/atmos/atmoshpere_test.wav" id="7_yp1mt"]
-[ext_resource type="AudioStream" uid="uid://bdx63ii47rj7g" path="res://player/footsteps/_foley_1.wav" id="8_5fpe2"]
+[ext_resource type="AudioStream" uid="uid://bdx63ii47rj7g" path="res://player/Footsteps/_foley_1.wav" id="8_5fpe2"]
 [ext_resource type="AudioStream" uid="uid://btt1qm02lt0j6" path="res://music/atmos/proper_atmoshpere.mp3" id="8_8fplj"]
-[ext_resource type="AudioStream" uid="uid://d3q581eyg4jns" path="res://player/footsteps/_foley_10.wav" id="9_7jn74"]
+[ext_resource type="AudioStream" uid="uid://d3q581eyg4jns" path="res://player/Footsteps/_foley_10.wav" id="9_7jn74"]
 [ext_resource type="AudioStream" uid="uid://c2vu87eh4jkrx" path="res://music/menu/untitled_piano_sketching.wav" id="9_ac65s"]
 [ext_resource type="AudioStream" uid="uid://7isykgvifohr" path="res://music/upbeat/fast_paced.mp3" id="10_hmn48"]
-[ext_resource type="AudioStream" uid="uid://c06gek81k1hka" path="res://player/footsteps/_foley_11.wav" id="10_l7hn2"]
+[ext_resource type="AudioStream" uid="uid://c06gek81k1hka" path="res://player/Footsteps/_foley_11.wav" id="10_l7hn2"]
 [ext_resource type="AudioStream" uid="uid://bs03n17xf067j" path="res://music/upbeat/gameplay_round.mp3" id="11_nqp7v"]
-[ext_resource type="AudioStream" uid="uid://bhu541shmfvym" path="res://player/footsteps/_foley_2.wav" id="11_rhmoe"]
-[ext_resource type="AudioStream" uid="uid://c8d0hswhue3fp" path="res://player/footsteps/_foley_3.wav" id="12_5lst6"]
+[ext_resource type="AudioStream" uid="uid://bhu541shmfvym" path="res://player/Footsteps/_foley_2.wav" id="11_rhmoe"]
+[ext_resource type="AudioStream" uid="uid://c8d0hswhue3fp" path="res://player/Footsteps/_foley_3.wav" id="12_5lst6"]
 [ext_resource type="Script" path="res://music/Music.cs" id="12_gw8xm"]
-[ext_resource type="AudioStream" uid="uid://brixphp7ue6am" path="res://player/footsteps/_foley_4.wav" id="13_hnqxj"]
-[ext_resource type="AudioStream" uid="uid://c2dds86swytdt" path="res://player/footsteps/_foley_5.wav" id="14_8golb"]
-[ext_resource type="AudioStream" uid="uid://cqmvwbix0xogc" path="res://player/footsteps/_foley_6.wav" id="15_ap6bp"]
-[ext_resource type="AudioStream" uid="uid://jxy2nt6gt4c8" path="res://player/footsteps/_foley_7.wav" id="16_vyru2"]
-[ext_resource type="AudioStream" uid="uid://dblo8mqeng6da" path="res://player/footsteps/_foley_8.wav" id="17_letx8"]
-[ext_resource type="AudioStream" uid="uid://dtx2kj6i581po" path="res://player/footsteps/_foley_9.wav" id="18_3cixs"]
+[ext_resource type="AudioStream" uid="uid://brixphp7ue6am" path="res://player/Footsteps/_foley_4.wav" id="13_hnqxj"]
+[ext_resource type="AudioStream" uid="uid://c2dds86swytdt" path="res://player/Footsteps/_foley_5.wav" id="14_8golb"]
+[ext_resource type="AudioStream" uid="uid://cqmvwbix0xogc" path="res://player/Footsteps/_foley_6.wav" id="15_ap6bp"]
+[ext_resource type="AudioStream" uid="uid://jxy2nt6gt4c8" path="res://player/Footsteps/_foley_7.wav" id="16_vyru2"]
+[ext_resource type="AudioStream" uid="uid://dblo8mqeng6da" path="res://player/Footsteps/_foley_8.wav" id="17_letx8"]
+[ext_resource type="AudioStream" uid="uid://dtx2kj6i581po" path="res://player/Footsteps/_foley_9.wav" id="18_3cixs"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_53okd"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -66,6 +66,8 @@ stream_1/stream = ExtResource("8_8fplj")
 stream_2/stream = ExtResource("9_ac65s")
 stream_3/stream = ExtResource("10_hmn48")
 stream_4/stream = ExtResource("11_nqp7v")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ummml"]
 
 [node name="Root" type="Node3D" node_paths=PackedStringArray("LabelFPS")]
 script = ExtResource("1_35hfb")
@@ -246,199 +248,121 @@ script = ExtResource("12_gw8xm")
 
 [node name="GreyBox" type="Node3D" parent="."]
 
-[node name="CSGBox3D Floor" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.5, 64.5)
-use_collision = true
-size = Vector3(30, 1, 150)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="GreyBox/CSGBox3D Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.75, 0, -1)
-operation = 2
-size = Vector3(4.5, 1, 1)
-
-[node name="CSGBox3D6 Wall" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 9.5, 4.25, 1)
-use_collision = true
-size = Vector3(10.5, 1, 18)
-
-[node name="CSGBox3D6 Wall4" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -8.18891, 4.25, 36.0258)
-use_collision = true
-size = Vector3(10.5, 1, 4.5)
-
-[node name="CSGBox3D6 Wall3" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 19.5, 4.25, 35.5)
-use_collision = true
-size = Vector3(10.5, 1, 92)
-
-[node name="CSGBox3D6 Wall2" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1.91069e-15, -4.37114e-08, -1, -1, -4.37114e-08, 0, -4.37114e-08, 1, -4.37114e-08, 6, 4.25, 64.5)
-use_collision = true
-size = Vector3(10.5, 1, 8)
-
 [node name="CSGBox3D7 Plateau" type="CSGBox3D" parent="GreyBox"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 3, 1, -4)
 use_collision = true
 size = Vector3(4, 4, 8)
 
-[node name="CSGBox3D7 Plateau2" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 17, 1, 6.75)
-use_collision = true
-size = Vector3(4, 4, 34.5)
-
-[node name="CSGBox3D7 Ramp" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 2.08616e-07, 2.08616e-07, -8.88178e-15, 1, -4.05, 3.18805, 28.475)
-use_collision = true
-size = Vector3(7, 3.5, 10)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="GreyBox/CSGBox3D7 Ramp"]
-transform = Transform3D(0.5, -2.18557e-08, 0.866026, -2.18563e-08, 1, 3.78552e-08, -0.866026, -3.78552e-08, 0.5, -2.93301, 1.90735e-06, -1.12698)
-operation = 2
-size = Vector3(25, 4, 8)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0.5, 3.5)
-use_collision = true
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0.5, 1)
-use_collision = true
-
 [node name="CSGBox3D4" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 2.5, 9.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, -0.5, -5.5)
+snap = 0.220047
 use_collision = true
-size = Vector3(5, 5, 5)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 0.5, -0.5)
-use_collision = true
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 1.5, -1.5)
-use_collision = true
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.5, 2.5, -2.5)
-use_collision = true
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 0.5, -0.5)
-use_collision = true
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 1.5, -1.5)
-use_collision = true
-
-[node name="CSGBox3D11" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.5, 2.5, -2.5)
-use_collision = true
+size = Vector3(10, 1, 5)
 
 [node name="CSGBox3D5" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.5, 0.5, -4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, -0.5, -0.5)
+material_override = SubResource("StandardMaterial3D_ummml")
+snap = 0.220047
 use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, -0.5, 9.5)
+material_override = SubResource("StandardMaterial3D_ummml")
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, -0.5, 4.5)
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, -0.5, 14.5)
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D9" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, -0.5, 19.5)
+material_override = SubResource("StandardMaterial3D_ummml")
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D10" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, -0.5, 29.5)
+material_override = SubResource("StandardMaterial3D_ummml")
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D11" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, -0.5, 24.5)
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D12" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, -0.5)
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D13" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 4.5)
+material_override = SubResource("StandardMaterial3D_ummml")
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D28" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, -5.5)
+material_override = SubResource("StandardMaterial3D_ummml")
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D14" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 14.5)
+material_override = SubResource("StandardMaterial3D_ummml")
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D15" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 9.5)
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D16" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 19.5)
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D17" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 24.5)
+material_override = SubResource("StandardMaterial3D_ummml")
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D18" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 34.5)
+material_override = SubResource("StandardMaterial3D_ummml")
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
+
+[node name="CSGBox3D19" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, -0.5, 29.5)
+snap = 0.220047
+use_collision = true
+size = Vector3(10, 1, 5)
 
 [node name="Ruler" type="Node3D" parent="GreyBox"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, 0.5, 10.5)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="GreyBox/Ruler"]
-use_collision = true
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
-use_collision = true
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
-use_collision = true
-
-[node name="CSGBox3D9" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 6)
-use_collision = true
-
-[node name="CSGBox3D10" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 8)
-use_collision = true
-
-[node name="CSGBox3D11" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 10)
-use_collision = true
-
-[node name="CSGBox3D12" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12)
-use_collision = true
-
-[node name="CSGBox3D13" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 14)
-use_collision = true
-
-[node name="CSGBox3D14" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 16)
-use_collision = true
-
-[node name="CSGBox3D15" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 18)
-use_collision = true
-
-[node name="CSGBox3D16" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 20)
-use_collision = true
-
-[node name="CSGBox3D17" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 22)
-use_collision = true
-
-[node name="CSGBox3D18" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 24)
-use_collision = true
-
-[node name="CSGBox3D19" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 26)
-use_collision = true
-
-[node name="CSGBox3D20" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 28)
-use_collision = true
-
-[node name="CSGBox3D21" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 30)
-use_collision = true
-
-[node name="CSGBox3D22" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 32)
-use_collision = true
-
-[node name="CSGBox3D23" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 34)
-use_collision = true
-
-[node name="CSGBox3D24" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 36)
-use_collision = true
-
-[node name="CSGBox3D25" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 38)
-use_collision = true
-
-[node name="CSGBox3D26" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 40)
-use_collision = true
-
-[node name="CSGBox3D27" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 42)
-use_collision = true
-
-[node name="CSGBox3D28" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 44)
-use_collision = true
-
-[node name="CSGBox3D29" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 46)
-use_collision = true
-
-[node name="CSGBox3D30" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 48)
-use_collision = true
-
-[node name="CSGBox3D31" type="CSGBox3D" parent="GreyBox/Ruler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
-use_collision = true
