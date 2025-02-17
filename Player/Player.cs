@@ -84,6 +84,10 @@ public partial class Player : CharacterBody3D
     private float DashCooldown = 0f; //no touchy :)
     private const float DashCooldownPeriod = 5f; //time in seconds until you can use the tech again
 
+    private float DashFadeSpeed = 5.0f; //How fast it fades in/out
+    private float DashOpacity = 0.0f; //Start fully transparent
+    [Export] private Material DashMaterial; //Store shader material reference
+
     public override void _Input(InputEvent @event)
     {
         //Run Direction
@@ -292,6 +296,13 @@ public partial class Player : CharacterBody3D
         //Label
         LabelDash.Text = $"Dash: {DashCooldown:F2}";
         RectDash.Scale = new(DashCooldown / DashCooldownPeriod, 1f);
+
+        //Shader
+        // Smoothly increase or decrease opacity
+        DashOpacity = Mathf.Lerp(DashOpacity, DashCooldown >= DashCooldownPeriod - (DashCooldownPeriod/16f) ? 1.0f : 0.0f, (float)delta * DashFadeSpeed);
+
+        // Update shader material opacity
+        DashMaterial.Set("shader_parameter/opacity", DashOpacity);
     }
 
     private void Climb(float delta, Vector3 runVector)

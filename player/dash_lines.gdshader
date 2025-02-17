@@ -1,11 +1,14 @@
 shader_type canvas_item;
 
+// Uniform for controlling transparency
+uniform float opacity = 1.0;//: hint_range(0.0, 1.0); // 0 = Invisible, 1 = Fully visible
+
 void fragment()
 {
     vec2 centre = UV - vec2(0.5);
     
     float totalEffect = 0.0; // Accumulator for multiple lines
-    int numLines = 100; // Number of lines to generate
+    int numLines = 50; // Number of lines to generate
 
     for (int i = 0; i < numLines; i++)
     {
@@ -23,18 +26,18 @@ void fragment()
         float angle = atan(rotatedCentre.y, rotatedCentre.x);
         float count = 10.0; // Increase for denser lines
 
-        float speedEffect = smoothstep(0.999, 1.0, sin(angle * count));
+        float speedEffect = smoothstep(0.998, 1.0, sin(angle * count));
 
         totalEffect += speedEffect; // Accumulate the effect
     }
 
     // Normalize by number of lines
-    totalEffect /= float(numLines);
+    //totalEffect /= float(numLines);
 
     // Centre mask (Fades towards edges)
     float radius = length(centre);
     float mask = smoothstep(0.2, 0.7, radius);
 
     // Apply opacity instead of blackness
-    COLOR = vec4(1.0, 1.0, 1.0, totalEffect * mask);
+    COLOR = vec4(1.0, 1.0, 1.0, totalEffect * mask * opacity);
 }
