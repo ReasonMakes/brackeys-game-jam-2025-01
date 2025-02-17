@@ -127,7 +127,6 @@ text = "Jump fatigue on-ground: "
 
 [node name="Player Vector Test Box" type="CSGBox3D" parent="."]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.4, 4.6, -2)
-visible = false
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioFootsteps", "testBox")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.4, 3.1, -2)
@@ -166,7 +165,7 @@ volume_db = -16.0
 [node name="GreyBox" type="Node3D" parent="."]
 
 [node name="CSGBox3D Floor" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, -0.5, 64.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.5, -0.5, 64.5)
 use_collision = true
 size = Vector3(30, 1, 150)
 
@@ -181,9 +180,9 @@ use_collision = true
 size = Vector3(10.5, 1, 18)
 
 [node name="CSGBox3D6 Wall4" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, 1.06109, 4.25, 36.0258)
+transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -8.18891, 4.25, 36.0258)
 use_collision = true
-size = Vector3(10.5, 1, 18)
+size = Vector3(10.5, 1, 4.5)
 
 [node name="CSGBox3D6 Wall3" type="CSGBox3D" parent="GreyBox"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 19.5, 4.25, 35.5)
