@@ -31,10 +31,10 @@ public partial class Player : CharacterBody3D
     private bool InputRunRight = false;
     private bool InputRunBack = false;
 
-    private const float RunAcceleration = 160f; //allows for fast direction change
-    private const float RunAccelerationAirCoefficient = 0.25f; //reduces control while in-air
+    private const float RunAcceleration = 250f; //allows for fast direction change
+    private const float RunAccelerationAirCoefficient = 0.4f; //reduces control while in-air
 
-    private const float RunDragGround = 12f; //LARGER VALUES ARE HIGHER DRAG
+    private const float RunDragGround = 20f; //LARGER VALUES ARE HIGHER DRAG
     private const float RunDragAir = 0.1f; //LARGER VALUES ARE HIGHER DRAG
 
     private const float RunMaxSpeedGround = 10f; //run acceleration reduces as top speed is approached
@@ -44,10 +44,15 @@ public partial class Player : CharacterBody3D
     private const float RunAudioTimerPeriod = 0.2f; //time in seconds before another footstep sound can be played
 
     //Jerk allows running acceleration to increase slowly over a few seconds - only applies on-ground
-    private const float RunJerkMagnitude = 100f; //the maximum acceleration that jerk imparts on the player once fully developed
-    private float RunJerkDevelopment = 0f; //no touchy :)
+    private const float RunJerkMagnitude = 200f; //the maximum acceleration that jerk imparts on the player once fully developed
+    
+    private float RunJerkDevelopment = 0f; //no touchy :) develops from 0 up to the value of RunJerkDevelopmentPeriod and is used as the coefficient of RunJerkMagnitude
     private const float RunJerkDevelopmentPeriod = 2f; //time in seconds that jerk takes to fully develop
-    private const float RunJerkDevelopmentDecayRate = 0.2f; //How many times faster jerk decreases rather than increases
+    
+    private const float RunJerkDevelopmentDecayRate = 16f; //How many times faster jerk decreases rather than increases - jerk decay is exponential
+    private const float RunJerkDevelopmentDecayRateAir = 4f; //How many times faster jerk decreases rather than increases - jerk decay is exponential
+
+    private const float RunJerkMagnitudeSlideDump = 0.2f; //How much acceleration is dumped from RunJerkDevelopment the instant the player begins a slide
 
     //CLIMB/WALL-JUMPING/WALL-RUNNING
     private const float ClimbAcceleration = 6f; //Multiple of gravity. Vertical acceleration applied when climbing
@@ -58,6 +63,7 @@ public partial class Player : CharacterBody3D
 
     private const float WallJumpAcceleration = 20f; //instantaneous vertical acceleration
 
+    private bool IsWallRunning = false;
     private float WallRunAcceleration = 1000f; //additional horizontal acceleration applied when wall-running
     private const float WallRunVerticalAcceleration = 1.5f; //Multiple of gravity, proportional to climb remaining. Vertical acceleration applied when wall-running
 
@@ -77,8 +83,10 @@ public partial class Player : CharacterBody3D
 
     //CROUCH/SLIDE
     private bool InputTechCrouchOrSlide = false;
-    private const float RunAccelerationSlidingCoefficient = 0.15f; //Larger values are higher acceleration
-    private const float RunDragSlidingCoefficient = 0.3f; //LARGER VALUES ARE HIGHER DRAG
+    private bool IsSliding = false;
+    private const float RunAccelerationSlidingCoefficient = 0.075f; //Larger values are higher acceleration
+
+    private const float RunDragSlidingCoefficient = 0.05f; //LARGER VALUES ARE HIGHER DRAG - also affects slide-jump speed
 
     //DASH
     private bool InputTechDash = false;
@@ -131,16 +139,23 @@ public partial class Player : CharacterBody3D
         float delta = (float)deltaDouble;
 
         //Slide
-        bool isSliding = false;
         if (InputTechCrouchOrSlide)
         {
-            isSliding = true;
+            if (!IsSliding)
+            {
+                RunJerkDevelopment = Mathf.Max(0f, RunJerkDevelopment - RunJerkMagnitudeSlideDump);
+                IsSliding = true;
+            }
+        }
+        else
+        {
+            IsSliding = false;
         }
 
         bool isClimbingOrWallRunning = IsOnWall() && InputRunForward && ClimbRemaining > 0f && CanClimb;
 
         //Run
-        Vector3 runVector = Run(delta, isSliding, isClimbingOrWallRunning);
+        Vector3 runVector = Run(delta, IsSliding, isClimbingOrWallRunning);
         Velocity += runVector * delta;
 
         //Wall Climb
@@ -163,7 +178,7 @@ public partial class Player : CharacterBody3D
         {
             //Ground
             float slidingCoefficient = 1f;
-            if (isSliding)
+            if (IsSliding)
             {
                 slidingCoefficient = RunDragSlidingCoefficient;
             }
@@ -242,18 +257,25 @@ public partial class Player : CharacterBody3D
         if (!isSliding && runDirection.Normalized().Length() == 1)
         {
             //Increase acceleration (i.e. make this jerk rather than simply accelerate)
-            if (IsOnFloor() || isClimbingOrWallRunning)
-            {
-                RunJerkDevelopment = Mathf.Min((RunJerkDevelopment + delta) * jerkAlignment, RunJerkDevelopmentPeriod);
-            }
+            RunJerkDevelopment = Mathf.Min((RunJerkDevelopment + delta) * jerkAlignment, RunJerkDevelopmentPeriod);
         }
-        else if (IsOnFloor())
+        else
         {
-            //Decrement exponentially
+            float decayRate = RunJerkDevelopmentDecayRateAir;
+            if (IsOnFloor())
+            {
+                decayRate = RunJerkDevelopmentDecayRate;
+            }
+
+            //Decrement
             RunJerkDevelopment = Mathf.Max(
-                RunJerkDevelopment - ((delta + (RunJerkDevelopmentPeriod - RunJerkDevelopment)) * RunJerkDevelopmentDecayRate),
+                RunJerkDevelopment - (decayRate * delta),
                 0f
             );
+            //RunJerkDevelopment = Mathf.Max(
+            //    RunJerkDevelopment - ((delta + (RunJerkDevelopmentPeriod - RunJerkDevelopment)) * (decayRate * delta)),
+            //    0f
+            //);
         }
 
         //Apply development
@@ -324,10 +346,20 @@ public partial class Player : CharacterBody3D
         }
 
         //Wall jump
-        if (!IsOnFloor() && IsOnWall() && InputTechJump && !InputRunForward && CanClimb && JumpFatigueRecencyTimer >= JumpCooldown)
+        if (
+            !IsOnFloor()
+            && IsOnWall()
+            && GlobalBasis.Z.Dot(GetWallNormal()) >= 0f //looking at the wall
+            && InputTechJump
+            //&& !InputRunForward
+            && CanClimb
+            && JumpFatigueRecencyTimer >= JumpCooldown //can jump
+        )
         {
             CanClimb = false;
-            Jump(delta, (GetWallNormal() + Vector3.Up + Vector3.Up).Normalized(), WallJumpAcceleration);
+
+            //Jump up and away from the wall
+            Jump(delta, (GetWallNormal() + GetWallNormal() + Vector3.Up).Normalized(), WallJumpAcceleration);
         }
 
         
@@ -341,8 +373,10 @@ public partial class Player : CharacterBody3D
                 Velocity += -GetGravity() * (ClimbAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall * delta);
 
                 //Wall-run
-                if (!IsOnFloor())
+                if (!IsOnFloor() && dotWall < 0.75f)
                 {
+                    IsWallRunning = true;
+
                     Vector3 wallTangent = GetWallNormal().Cross(Vector3.Up); //pretty much all the way there
                     Vector3 projectedDirection = (wallTangent * runVector.Dot(wallTangent)).Normalized(); //consider which horizontal direction we're going along the wall
 
@@ -365,10 +399,48 @@ public partial class Player : CharacterBody3D
             ClimbRemaining = Mathf.Min(ClimbRemaining + delta, ClimbPeriod);
         }
 
+        if (!IsOnWall())
+        {
+            IsWallRunning = false;
+        }
+
         if (IsOnFloor())
         {
             //Replenish climb
             ClimbRemaining = Mathf.Min(ClimbRemaining + delta, ClimbPeriod);
+        }
+
+        //Camera
+        if (IsWallRunning && !IsOnWall())
+        {
+            GD.Print("Not on wall while wall running!!");
+        }
+
+        if (IsWallRunning)
+        { 
+            if (IsOnWall())
+            {
+                //Reset roll
+                Cam.Rotation = new Vector3(
+                    Cam.Rotation.X,
+                    Cam.Rotation.Y,
+                    Mathf.Tau / 16f * Mathf.Sign(GetWallNormal().Dot(-GlobalBasis.X))
+                );
+
+                //Get new roll quaternion
+                //Quaternion rotation = new(GetWallNormal(), Mathf.Tau * 0.25f);
+
+                //Apply the quaternion
+                //Cam.Rotation = (rotation * Cam.Rotation);
+            }
+        }
+        else
+        {
+            Cam.Rotation = new Vector3(
+                Cam.Rotation.X,
+                Cam.Rotation.Y,
+                0f
+            );
         }
 
         //Label

@@ -7,7 +7,7 @@ public partial class Music : AudioStreamPlayer
     {
         if (!Playing)
         {
-            Play();
+            //Play();
         }
     }
 }
