@@ -1,0 +1,34 @@
+[remap]
+
+importer="texture"
+type="CompressedTexture2D"
+uid="uid://c2ello4cxxxwq"
+path="res://.godot/imported/adjust shields icon.png-3b25a9e11495c78f575401944a2c7c56.ctex"
+metadata={
+"vram_texture": false
+}
+
+[deps]
+
+source_file="res://UI/adjust shields icon.png"
+dest_files=["res://.godot/imported/adjust shields icon.png-3b25a9e11495c78f575401944a2c7c56.ctex"]
+
+[params]
+
+compress/mode=0
+compress/high_quality=false
+compress/lossy_quality=0.7
+compress/hdr_compression=1
+compress/normal_map=0
+compress/channel_pack=0
+mipmaps/generate=false
+mipmaps/limit=-1
+roughness/mode=0
+roughness/src_normal=""
+process/fix_alpha_border=true
+process/premult_alpha=false
+process/normal_map_invert_y=false
+process/hdr_as_srgb=false
+process/hdr_clamp_exposure=false
+process/size_limit=0
+detect_3d/compress_to=1

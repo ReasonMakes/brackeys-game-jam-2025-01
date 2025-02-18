@@ -1,17 +1,20 @@
-[gd_scene load_steps=35 format=3 uid="uid://da3cc6bh5v41y"]
+[gd_scene load_steps=38 format=3 uid="uid://da3cc6bh5v41y"]
 
 [ext_resource type="Script" path="res://Control.cs" id="1_35hfb"]
 [ext_resource type="Script" path="res://player/Player.cs" id="1_apfbn"]
 [ext_resource type="Texture2D" uid="uid://c536iphygdlso" path="res://UI/health.png" id="2_ttusi"]
 [ext_resource type="Material" uid="uid://daiyptmfwsngr" path="res://player/dash_lines_material.tres" id="3_3dh8n"]
-[ext_resource type="Texture2D" uid="uid://cdhyfw7mtbr8o" path="res://UI/abilities.png" id="3_8euu3"]
 [ext_resource type="Texture2D" uid="uid://bpikbdh4qapfe" path="res://UI/task.png" id="4_qs002"]
+[ext_resource type="Texture2D" uid="uid://b5sf3u7trt2vp" path="res://UI/ability hex.png" id="5_wlafp"]
+[ext_resource type="Texture2D" uid="uid://dd6je6ov171wm" path="res://UI/dash icon.png" id="7_rbh4t"]
 [ext_resource type="AudioStream" uid="uid://bd8utytd8fqt8" path="res://music/atmospheric/atmoshpere.wav" id="7_yp1mt"]
 [ext_resource type="AudioStream" uid="uid://dga5qh6pss4lc" path="res://music/atmospheric/proper_atmoshpere.mp3" id="8_8fplj"]
+[ext_resource type="Texture2D" uid="uid://diodiiuvs1muo" path="res://UI/grapple icon.png" id="8_f0pr7"]
 [ext_resource type="AudioStream" uid="uid://bfb2hv20kdmxo" path="res://player/footsteps/_foley02.mp3" id="8_il4tn"]
 [ext_resource type="AudioStream" uid="uid://vyc6uvdg2jmd" path="res://player/footsteps/_foley03.mp3" id="9_4hg2f"]
 [ext_resource type="AudioStream" uid="uid://byf4rwa27khoc" path="res://player/footsteps/_foley12.mp3" id="9_6lgsh"]
 [ext_resource type="AudioStream" uid="uid://7joavvxmi73g" path="res://music/menu/untitled_piano_sketching.wav" id="9_ac65s"]
+[ext_resource type="Texture2D" uid="uid://bmutsl3cfv1rs" path="res://UI/water plants icon.png" id="9_f2xyf"]
 [ext_resource type="AudioStream" uid="uid://ieymvf5d7wc8" path="res://player/footsteps/_foley13.mp3" id="10_7xy85"]
 [ext_resource type="AudioStream" uid="uid://dnqj7a8ra4g23" path="res://music/in_game/fast_paced.mp3" id="10_hmn48"]
 [ext_resource type="AudioStream" uid="uid://unnwgcais14v" path="res://player/footsteps/_foley14.mp3" id="11_2jg26"]
@@ -83,6 +86,11 @@ environment = SubResource("Environment_g1wq3")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("27_qra5s")
+volume_db = -24.016
+autoplay = true
+
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioFootsteps")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.4, 3.1, -2)
 script = ExtResource("1_apfbn")
@@ -100,7 +108,7 @@ RectJumpFatigueRecency = NodePath("Camera3D/Statistics/Rect Jump Fatigue Recency
 LabelJumpFatigueOnGround = NodePath("Camera3D/Statistics/Label Jump Fatigue On-Ground")
 RectJumpFatigueOnGround = NodePath("Camera3D/Statistics/Rect Jump Fatigue On-Ground")
 AudioFootsteps = NodePath("Audio Footsteps")
-RunAudioTimerPeriod = 0.9
+RunAudioTimerPeriod = 0.3
 DashMaterial = ExtResource("3_3dh8n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
@@ -143,7 +151,7 @@ offset_left = -380.0
 offset_top = -98.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("3_8euu3")
+texture = ExtResource("5_wlafp")
 
 [node name="tasks" type="TextureRect" parent="CharacterBody3D/Camera3D"]
 offset_left = 342.0
@@ -151,6 +159,47 @@ offset_top = 23.0
 offset_right = 520.0
 offset_bottom = 170.0
 texture = ExtResource("4_qs002")
+
+[node name="dash icon" type="TextureRect" parent="CharacterBody3D/Camera3D"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -264.0
+offset_top = -77.0
+offset_right = -115.0
+offset_bottom = 44.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("7_rbh4t")
+
+[node name="grapple icon" type="TextureRect" parent="CharacterBody3D/Camera3D"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -172.0
+offset_top = -78.0
+offset_right = -24.0
+offset_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("8_f0pr7")
+
+[node name="water plants icon" type="TextureRect" parent="CharacterBody3D/Camera3D"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 23.0
+offset_top = 24.0
+offset_right = 201.0
+offset_bottom = 171.0
+grow_horizontal = 2
+texture = ExtResource("9_f2xyf")
 
 [node name="Statistics" type="Node2D" parent="CharacterBody3D/Camera3D"]
 
@@ -243,7 +292,7 @@ volume_db = -16.0
 
 [node name="Audio Music" type="AudioStreamPlayer" parent="CharacterBody3D"]
 stream = SubResource("AudioStreamRandomizer_c134s")
-volume_db = -5.0
+volume_db = -80.0
 script = ExtResource("12_gw8xm")
 
 [node name="GreyBox" type="Node3D" parent="."]
@@ -444,8 +493,3 @@ use_collision = true
 [node name="CSGBox3D31" type="CSGBox3D" parent="GreyBox/Ruler"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
 use_collision = true
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("27_qra5s")
-volume_db = -13.876
-autoplay = true
