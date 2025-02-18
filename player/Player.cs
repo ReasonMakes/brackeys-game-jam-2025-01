@@ -295,7 +295,7 @@ public partial class Player : CharacterBody3D
 		{
 			RunAudioTimer = Mathf.Max(RunAudioTimer - delta, 0f);
 		}
-		if (RunAudioTimer == 0f && IsOnFloor() && runDirection.Normalized().Length() == 1)
+		if ((RunAudioTimer == 0f || !AudioFootsteps.Playing) && IsOnFloor() && runDirection.Normalized().Length() == 1)
 		{
 			AudioFootsteps.Play();
 			RunAudioTimer = RunAudioTimerPeriod;
