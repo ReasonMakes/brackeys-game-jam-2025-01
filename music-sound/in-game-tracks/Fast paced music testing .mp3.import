@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bk10fpsomc687"
+path="res://.godot/imported/Fast paced music testing .mp3-b509e13b4d864cee8f0741a24fb9309d.mp3str"
+
+[deps]
+
+source_file="res://music-sound/in-game-tracks/Fast paced music testing .mp3"
+dest_files=["res://.godot/imported/Fast paced music testing .mp3-b509e13b4d864cee8f0741a24fb9309d.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
