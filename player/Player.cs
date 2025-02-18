@@ -20,10 +20,9 @@ public partial class Player : CharacterBody3D
 	[Export] private Label LabelJumpFatigueOnGround;
 	[Export] private ColorRect RectJumpFatigueOnGround;
 
-	[Export] private AudioStreamPlayer AudioFootsteps;
 	[Export] private AudioStreamPlayer AudioJump;
 	[Export] private AudioStreamPlayer AudioLand;
-
+	
 	private float MouseSensitivity = 0.001f;
 
 	//AUDIO
@@ -44,8 +43,9 @@ public partial class Player : CharacterBody3D
 	private const float RunMaxSpeedGround = 10f; //run acceleration reduces as top speed is approached
 	private const float RunMaxSpeedAir = 5f; //lower top speed in air to keep air movements strictly for direction change rather than to build speed
 
-	private float RunAudioTimer = 0f; //no touchy :)
-	[ExportCategory("Seconds between footsteps")]
+    [Export] private AudioStreamPlayer AudioFootsteps;
+    private float RunAudioTimer = 0f; //no touchy :)
+	//[ExportCategory("Seconds between footsteps")]
     [Export(PropertyHint.Range, "0,10,")] private float RunAudioTimerPeriod = 0.5f; //time in seconds before another footstep sound can be played
 
 	//Jerk allows running acceleration to increase slowly over a few seconds - only applies on-ground
@@ -102,7 +102,9 @@ public partial class Player : CharacterBody3D
 
 	private float DashFadeSpeed = 5.0f; //How fast it fades in/out
 	private float DashOpacity = 0.0f; //Start fully transparent
-	[Export] private Material DashMaterial; //Store shader material reference
+    [Export] private AudioStreamPlayer AudioDash;
+    [Export] private Material DashMaterial; //Store shader material reference
+
 
 	public override void _Input(InputEvent @event)
 	{
@@ -331,7 +333,10 @@ public partial class Player : CharacterBody3D
 
 			//Reset
 			DashCooldown = DashCooldownPeriod;
-		}
+
+			//Sound
+			AudioDash.Play();
+        }
 
 		//Decrement
 		DashCooldown = Mathf.Max(DashCooldown - delta, 0f);

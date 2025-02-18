@@ -16,3 +16,4 @@ mono_crash.*.json
 
 # MacOS stuff
 .DS_Store
+addons/godot-jolt/windows/~godot-jolt_windows-x64_editor.dll
