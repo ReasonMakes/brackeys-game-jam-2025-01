@@ -1,7 +1,7 @@
 # Be Fast to Last
 Indie project made for Brackeys Game Jam of 2025-01
 
-#Default Controls  
+### Default Controls  
 Basic Movement
 - Run: WASD
 - Jump: Space
@@ -12,7 +12,7 @@ Application
 - Unlock Cursor: Escape
 - Refocus Game: Left Mouse Button
 
-#Movement Tech
+### Movement Tech
 - Grapple: Not implemented yet
 - Dash: Input the dash at any time. You can get much more distance dashing mid-air.
 - Slide: Run forward until you build up enough speed and then press the crouch/slide input. Jump out of this at the right time to get the most speed/distance.
