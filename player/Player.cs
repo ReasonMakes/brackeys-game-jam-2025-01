@@ -1,6 +1,7 @@
 using Godot;
 using Godot.NativeInterop;
 using System;
+using System.Diagnostics;
 
 public partial class Player : CharacterBody3D
 {
@@ -20,10 +21,13 @@ public partial class Player : CharacterBody3D
 	[Export] private ColorRect RectJumpFatigueOnGround;
 
 	[Export] private AudioStreamPlayer AudioFootsteps;
-
-	[Export] private CsgBox3D testBox;
+	[Export] private AudioStreamPlayer AudioJump;
+	[Export] private AudioStreamPlayer AudioLand;
 
 	private float MouseSensitivity = 0.001f;
+
+	//AUDIO
+	private bool IsInAir = false;
 
 	//RUN
 	private bool InputRunForward = false;
@@ -41,9 +45,8 @@ public partial class Player : CharacterBody3D
 	private const float RunMaxSpeedAir = 5f; //lower top speed in air to keep air movements strictly for direction change rather than to build speed
 
 	private float RunAudioTimer = 0f; //no touchy :)
-
 	[ExportCategory("Seconds between footsteps")]
-	[Export] private float RunAudioTimerPeriod = 0.2f; //time in seconds before another footstep sound can be played
+    [Export(PropertyHint.Range, "0,10,")] private float RunAudioTimerPeriod = 0.5f; //time in seconds before another footstep sound can be played
 
 	//Jerk allows running acceleration to increase slowly over a few seconds - only applies on-ground
 	private const float RunJerkMagnitude = 200f; //the maximum acceleration that jerk imparts on the player once fully developed
@@ -140,8 +143,19 @@ public partial class Player : CharacterBody3D
 	{
 		float delta = (float)deltaDouble;
 
-		//Slide
-		if (InputTechCrouchOrSlide)
+		//Audio
+		//Landing
+        if (IsInAir && IsOnFloor())
+        {
+            //Play landing sound
+            AudioLand.Play();
+
+            IsInAir = false;
+        }
+        IsInAir = !IsOnFloor();
+
+        //Slide
+        if (InputTechCrouchOrSlide)
 		{
 			if (!IsSliding)
 			{
@@ -291,11 +305,8 @@ public partial class Player : CharacterBody3D
 
 		//--
 		//Audio
-		if (AudioFootsteps.Playing)
-		{
-			RunAudioTimer = Mathf.Max(RunAudioTimer - delta, 0f);
-		}
-		if ((RunAudioTimer == 0f || !AudioFootsteps.Playing) && IsOnFloor() && runDirection.Normalized().Length() == 1)
+        RunAudioTimer = Mathf.Max(RunAudioTimer - delta, 0f);
+		if (RunAudioTimer == 0f && IsOnFloor() && runDirection.Normalized().Length() == 1)
 		{
 			AudioFootsteps.Play();
 			RunAudioTimer = RunAudioTimerPeriod;
@@ -511,5 +522,8 @@ public partial class Player : CharacterBody3D
 
 		//Act
 		Velocity += direction * (magnitude * fatigue);
-	}
+
+        //Sound
+        AudioJump.Play();
+    }
 }
