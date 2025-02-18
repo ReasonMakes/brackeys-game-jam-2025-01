@@ -420,11 +420,15 @@ public partial class Player : CharacterBody3D
         { 
             if (IsOnWall())
             {
-                //Reset roll
+                //Set roll
                 Cam.Rotation = new Vector3(
                     Cam.Rotation.X,
                     Cam.Rotation.Y,
-                    Mathf.Tau / 16f * Mathf.Sign(GetWallNormal().Dot(-GlobalBasis.X))
+                    Mathf.LerpAngle(
+                        Cam.Rotation.Z,
+                        Mathf.Tau / 16f * Mathf.Sign(GetWallNormal().Dot(-GlobalBasis.X)), //roll rotation
+                        10f * delta //interpolate speed
+                    )
                 );
 
                 //Get new roll quaternion
@@ -436,10 +440,15 @@ public partial class Player : CharacterBody3D
         }
         else
         {
+            //Reset roll
             Cam.Rotation = new Vector3(
                 Cam.Rotation.X,
                 Cam.Rotation.Y,
-                0f
+                Mathf.LerpAngle(
+                    Cam.Rotation.Z,
+                    0f, //roll rotation
+                    10f * delta //interpolate speed
+                )
             );
         }
 

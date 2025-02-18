@@ -139,9 +139,6 @@ offset_right = 318.0
 offset_bottom = 230.0
 text = "Jump fatigue on-ground: "
 
-[node name="Player Vector Test Box" type="CSGBox3D" parent="."]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.4, 4.6, -2)
-
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioFootsteps", "testBox")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.4, 3.1, -2)
 script = ExtResource("1_apfbn")
@@ -159,7 +156,7 @@ RectJumpFatigueRecency = NodePath("../UI/Rect Jump Fatigue Recency")
 LabelJumpFatigueOnGround = NodePath("../UI/Label Jump Fatigue On-Ground")
 RectJumpFatigueOnGround = NodePath("../UI/Rect Jump Fatigue On-Ground")
 AudioFootsteps = NodePath("Audio Footsteps")
-testBox = NodePath("../Player Vector Test Box")
+testBox = NodePath("")
 DashMaterial = ExtResource("3_3dh8n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
