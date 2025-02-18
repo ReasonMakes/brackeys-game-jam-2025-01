@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://player/Player.cs" id="1_apfbn"]
 [ext_resource type="Texture2D" uid="uid://c536iphygdlso" path="res://UI/health.png" id="2_ttusi"]
 [ext_resource type="Material" uid="uid://daiyptmfwsngr" path="res://player/dash_lines_material.tres" id="3_3dh8n"]
-[ext_resource type="Texture2D" uid="uid://cdhyfw7mtbr8o" path="res://UI/abilities.png" id="3_8euu3"]
 [ext_resource type="Texture2D" uid="uid://bpikbdh4qapfe" path="res://UI/task.png" id="4_qs002"]
+[ext_resource type="Texture2D" uid="uid://b5sf3u7trt2vp" path="res://UI/ability hex.png" id="5_wlafp"]
 [ext_resource type="AudioStream" uid="uid://bd8utytd8fqt8" path="res://music/atmospheric/atmoshpere.wav" id="7_yp1mt"]
 [ext_resource type="AudioStream" uid="uid://dga5qh6pss4lc" path="res://music/atmospheric/proper_atmoshpere.mp3" id="8_8fplj"]
 [ext_resource type="AudioStream" uid="uid://bfb2hv20kdmxo" path="res://player/footsteps/_foley02.mp3" id="8_il4tn"]
@@ -142,7 +142,7 @@ offset_left = -380.0
 offset_top = -98.0
 grow_horizontal = 0
 grow_vertical = 0
-texture = ExtResource("3_8euu3")
+texture = ExtResource("5_wlafp")
 
 [node name="tasks" type="TextureRect" parent="CharacterBody3D/Camera3D"]
 offset_left = 342.0
