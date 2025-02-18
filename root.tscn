@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://da3cc6bh5v41y"]
+[gd_scene load_steps=21 format=3 uid="uid://da3cc6bh5v41y"]
 
 [ext_resource type="Script" path="res://Control.cs" id="1_35hfb"]
 [ext_resource type="Script" path="res://player/Player.cs" id="1_apfbn"]
@@ -28,6 +28,8 @@ glow_enabled = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf7un"]
 
+[sub_resource type="SphereShape3D" id="SphereShape3D_7sr5r"]
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3x3s7"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1xi00"]
@@ -54,7 +56,7 @@ environment = SubResource("Environment_g1wq3")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioFootsteps")]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioFootsteps", "ColliderCapsule", "ColliderSphere")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.4, 3.1, -2)
 script = ExtResource("1_apfbn")
 Cam = NodePath("Camera3D")
@@ -71,14 +73,22 @@ RectJumpFatigueRecency = NodePath("Camera3D/Statistics/Rect Jump Fatigue Recency
 LabelJumpFatigueOnGround = NodePath("Camera3D/Statistics/Label Jump Fatigue On-Ground")
 RectJumpFatigueOnGround = NodePath("Camera3D/Statistics/Rect Jump Fatigue On-Ground")
 AudioFootsteps = NodePath("Audio Footsteps")
+ColliderCapsule = NodePath("CollisionCapsule")
+ColliderSphere = NodePath("CollisionSphere")
 DashMaterial = ExtResource("3_3dh8n")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+[node name="CollisionCapsule" type="CollisionShape3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_lf7un")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+[node name="CollisionSphere" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_7sr5r")
+disabled = true
+
+[node name="MeshCapsule" type="MeshInstance3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_3x3s7")
 
 [node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
@@ -234,9 +244,14 @@ use_collision = true
 size = Vector3(10.5, 1, 18)
 
 [node name="CSGBox3D6 Wall4" type="CSGBox3D" parent="GreyBox"]
-transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -8.18891, 4.25, 36.0258)
+transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -8.18891, 5.5, 36.0258)
 use_collision = true
-size = Vector3(10.5, 1, 4.5)
+size = Vector3(8, 1, 4.5)
+
+[node name="CSGBox3D6 Wall5" type="CSGBox3D" parent="GreyBox"]
+transform = Transform3D(1.91069e-15, -4.37114e-08, 1, -1, -4.37114e-08, 0, 4.37114e-08, -1, -4.37114e-08, -8.18891, 0.25, 44.0258)
+use_collision = true
+size = Vector3(2.5, 1, 4.5)
 
 [node name="CSGBox3D6 Wall3" type="CSGBox3D" parent="GreyBox"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 19.5, 4.25, 35.5)
