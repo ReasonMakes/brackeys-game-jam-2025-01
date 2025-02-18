@@ -21,10 +21,7 @@ public partial class Player : CharacterBody3D
 
     [Export] private AudioStreamPlayer AudioFootsteps;
 
-    //[Export] private CsgBox3D testBox;
-
-    [Export] private CollisionShape3D ColliderCapsule;
-    [Export] private CollisionShape3D ColliderSphere;
+    [Export] private CsgBox3D testBox;
 
     private float MouseSensitivity = 0.001f;
 
@@ -87,13 +84,9 @@ public partial class Player : CharacterBody3D
     //CROUCH/SLIDE
     private bool InputTechCrouchOrSlide = false;
     private bool IsSliding = false;
-    private const float RunAccelerationSlidingCoefficient = 0.075f; //larger values are higher acceleration
+    private const float RunAccelerationSlidingCoefficient = 0.075f; //Larger values are higher acceleration
 
     private const float RunDragSlidingCoefficient = 0.05f; //LARGER VALUES ARE HIGHER DRAG - also affects slide-jump speed
-
-    private float CameraYTarget = 1.5f; //no touchy :) Target camera y position
-    private float CameraY = 1.5f; //no touchy :) Current camera y position
-    private const float CameraYAnimationDuration = 25f; //rate that the camera moves towards the target y position, proportional to the distance
 
     //DASH
     private bool InputTechDash = false;
@@ -102,8 +95,8 @@ public partial class Player : CharacterBody3D
     private float DashCooldown = 0f; //no touchy :)
     private const float DashCooldownPeriod = 1f; //5f; //time in seconds until you can use the tech again
 
-    private float DashFadeSpeed = 5f; //How fast it fades in/out
-    private float DashOpacity = 0f; //Start fully transparent
+    private float DashFadeSpeed = 5.0f; //How fast it fades in/out
+    private float DashOpacity = 0.0f; //Start fully transparent
     [Export] private Material DashMaterial; //Store shader material reference
 
     public override void _Input(InputEvent @event)
@@ -150,37 +143,14 @@ public partial class Player : CharacterBody3D
         {
             if (!IsSliding)
             {
-                //Sliding
                 RunJerkDevelopment = Mathf.Max(0f, RunJerkDevelopment - RunJerkMagnitudeSlideDump);
-
-                //Switch colliders
-                ColliderCapsule.Disabled = true;
-                ColliderSphere.Disabled = false;
-
-                //Set camera to new height
-                CameraYTarget = 0.5f;
-
-                //Update bool
                 IsSliding = true;
             }
         }
-        else if (IsSliding)
+        else
         {
-            //Standing
-            //Switch colliders
-            ColliderCapsule.Disabled = false;
-            ColliderSphere.Disabled = true;
-
-            //Set camera to new height
-            CameraYTarget = 1.5f;
-
-            //Update bool
             IsSliding = false;
         }
-
-        //Update camera height
-        Cam.Transform = new Transform3D(Cam.Basis, new Vector3(0f, CameraY, 0f));
-        CameraY += (CameraYTarget - CameraY) * CameraYAnimationDuration * delta;
 
         bool isClimbingOrWallRunning = IsOnWall() && InputRunForward && ClimbRemaining > 0f && CanClimb;
 
@@ -224,20 +194,6 @@ public partial class Player : CharacterBody3D
         //Apply
         MoveAndSlide();
     }
-
-    //private bool GetColliderColliding(CollisionShape3D collider)
-    //{
-    //    //Check if the collider would overlap with anything
-    //    bool isColliding = GetWorld3D().DirectSpaceState.IntersectShape(new PhysicsShapeQueryParameters3D
-    //    {
-    //        Shape = collider.Shape,
-    //        Transform = ColliderCapsule.GlobalTransform
-    //    }).Count > 0;
-    //
-    //    GD.Print($"isColliding: {isColliding}");
-    //
-    //    return isColliding;
-    //}
 
     private Vector3 Run(float delta, bool isSliding, bool isClimbingOrWallRunning)
     {
@@ -377,7 +333,7 @@ public partial class Player : CharacterBody3D
         {
             to = 1f;
         }
-        DashOpacity = Mathf.Lerp(DashOpacity, to, delta * DashFadeSpeed);
+        DashOpacity = Mathf.Lerp(DashOpacity, to, (float)delta * DashFadeSpeed);
         DashMaterial.Set("shader_parameter/opacity", DashOpacity);
 
         float startLinePosition = 0.6f;
@@ -415,8 +371,8 @@ public partial class Player : CharacterBody3D
             Jump(delta, (GetWallNormal() + GetWallNormal() + Vector3.Up).Normalized(), WallJumpAcceleration);
         }
 
-        //Climbing or wall-running
-        if (IsOnWall() && InputRunForward && !IsSliding)
+        
+        if (IsOnWall() && InputRunForward)
         {
             if (ClimbRemaining > 0f && CanClimb)
             {
@@ -452,7 +408,6 @@ public partial class Player : CharacterBody3D
             ClimbRemaining = Mathf.Min(ClimbRemaining + delta, ClimbPeriod);
         }
 
-        //Reset IsWallRunning boolean
         if (!IsOnWall())
         {
             IsWallRunning = false;
