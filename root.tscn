@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://da3cc6bh5v41y"]
+[gd_scene load_steps=40 format=3 uid="uid://da3cc6bh5v41y"]
 
 [ext_resource type="Script" path="res://Control.cs" id="1_35hfb"]
 [ext_resource type="Script" path="res://player/Player.cs" id="1_apfbn"]
@@ -30,6 +30,7 @@
 [ext_resource type="AudioStream" uid="uid://b5cn4tlnoeomv" path="res://player/footsteps/_foley10.mp3" id="19_fdeok"]
 [ext_resource type="AudioStream" uid="uid://c82l68vi5x0yp" path="res://player/footsteps/_foley11.mp3" id="20_i7i2p"]
 [ext_resource type="AudioStream" uid="uid://cqlbi2lg1hqph" path="res://level/environment_sounds/spaceship_interior.mp3" id="27_qra5s"]
+[ext_resource type="PackedScene" uid="uid://dwdrpbnwwabeo" path="res://task.tscn" id="31_smw1h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_53okd"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -45,6 +46,8 @@ tonemap_mode = 2
 glow_enabled = true
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf7un"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_enhva"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3x3s7"]
 
@@ -91,7 +94,7 @@ stream = ExtResource("27_qra5s")
 volume_db = -80.0
 autoplay = true
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioFootsteps", "AudioJump", "AudioLand", "AudioDash")]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "AudioFootsteps", "ColliderCapsule", "ColliderSphere", "AudioDash")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.4, 0, -2)
 script = ExtResource("1_apfbn")
 Cam = NodePath("Camera3D")
@@ -107,16 +110,23 @@ LabelJumpFatigueRecency = NodePath("Camera3D/Statistics/Label Jump Fatigue Recen
 RectJumpFatigueRecency = NodePath("Camera3D/Statistics/Rect Jump Fatigue Recency")
 LabelJumpFatigueOnGround = NodePath("Camera3D/Statistics/Label Jump Fatigue On-Ground")
 RectJumpFatigueOnGround = NodePath("Camera3D/Statistics/Rect Jump Fatigue On-Ground")
-AudioFootsteps = NodePath("Audio Footsteps")
 AudioJump = NodePath("Audio Footsteps")
 AudioLand = NodePath("Audio Footsteps")
+AudioFootsteps = NodePath("Audio Footsteps")
 RunAudioTimerPeriod = 0.3
+ColliderCapsule = NodePath("ColliderCapsule")
+ColliderSphere = NodePath("ColliderSphere")
 AudioDash = NodePath("Audio Footsteps")
 DashMaterial = ExtResource("3_3dh8n")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+[node name="ColliderCapsule" type="CollisionShape3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_lf7un")
+
+[node name="ColliderSphere" type="CollisionShape3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_enhva")
+disabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -301,36 +311,186 @@ script = ExtResource("12_gw8xm")
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 use_collision = true
 
-[node name="Floor" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83, -0.5, 0)
-size = Vector3(130, 1, 130)
+[node name="Cooler" type="CSGCombiner3D" parent="CSGCombiner3D"]
 
-[node name="Partition" type="CSGBox3D" parent="CSGCombiner3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.5, 3.5, 0)
+[node name="Cells" type="CSGCombiner3D" parent="CSGCombiner3D/Cooler"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, 6.25, 40)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.5, 6.25, 40)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, 20.25, 39.5)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.5, 20.25, 39.5)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -47.5, 6.25, 55.5)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -33.5, 6.25, 55.5)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -47.5, 20.25, 56)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -33.5, 20.25, 56)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D8"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="Wall" type="CSGBox3D" parent="CSGCombiner3D/Cooler"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 3.75, 48)
+size = Vector3(23.5, 7.5, 3.5)
+
+[node name="Catwalk" type="CSGBox3D" parent="CSGCombiner3D/Cooler"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 24.5, 49.75)
+size = Vector3(23.5, 1, 4.5)
+
+[node name="MeshInstance3D" parent="CSGCombiner3D/Cooler" instance=ExtResource("31_smw1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 25, 49.5)
+
+[node name="Floor" type="CSGBox3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83, -10.75, 0)
+size = Vector3(130, 21.5, 130)
+
+[node name="ReactorSubtraction" type="CSGBox3D" parent="CSGCombiner3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.7073, 4, 0)
+operation = 2
+size = Vector3(22.4146, 14, 42.5)
+
+[node name="Ramp" type="CSGBox3D" parent="CSGCombiner3D/Floor"]
+transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, -46.3595, 8.32356, 0)
+operation = 2
+size = Vector3(12, 19, 42.5)
+
+[node name="ReactorLip" type="CSGBox3D" parent="CSGCombiner3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.4146, -0.25, 0)
+size = Vector3(3, 3.5, 43.5)
+
+[node name="ReactorLip2" type="CSGBox3D" parent="CSGCombiner3D/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.9146, 4.25, 0)
+size = Vector3(3, 3.5, 43.5)
+
+[node name="Cockpit" type="CSGCombiner3D" parent="CSGCombiner3D"]
+
+[node name="Partition" type="CSGBox3D" parent="CSGCombiner3D/Cockpit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, 3.5, 0)
 size = Vector3(1, 9, 121.5)
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner3D/Partition"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner3D/Cockpit/Partition"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
 operation = 2
 radius = 4.0
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D"]
+[node name="CSGCylinder3D" type="CSGCylinder3D" parent="CSGCombiner3D/Cockpit"]
 transform = Transform3D(-4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0, 1, -22, 0, 0)
 radius = 9.0
 height = 44.0
 sides = 24
 
-[node name="Floor3" type="CSGBox3D" parent="CSGCombiner3D/CSGCylinder3D"]
+[node name="Floor3" type="CSGBox3D" parent="CSGCombiner3D/Cockpit/CSGCylinder3D"]
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 5.25, -1.5, 0)
 operation = 2
 size = Vector3(52.5, 10.5, 20.5)
 
-[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner3D"]
+[node name="CSGSphere3D" type="CSGSphere3D" parent="CSGCombiner3D/Cockpit"]
 radius = 9.0
 radial_segments = 24
 rings = 12
 
-[node name="Floor2" type="CSGBox3D" parent="CSGCombiner3D/CSGSphere3D"]
+[node name="Floor2" type="CSGBox3D" parent="CSGCombiner3D/Cockpit/CSGSphere3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 5.25, 0)
 operation = 2
 size = Vector3(28.5, 10.5, 20.5)
+
+[node name="Reactor" type="CSGCombiner3D" parent="CSGCombiner3D"]
+
+[node name="Wall" type="CSGBox3D" parent="CSGCombiner3D/Reactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107, 12.25, 0)
+size = Vector3(1, 24.5, 42.5)
+
+[node name="Catwalk" type="CSGBox3D" parent="CSGCombiner3D/Reactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.25, 10.25, 0)
+size = Vector3(17.5, 0.5, 3)
+
+[node name="Catwalk2" type="CSGBox3D" parent="CSGCombiner3D/Reactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126.5, 10.25, 0)
+size = Vector3(3, 0.5, 42.5)
+
+[node name="Catwalk3" type="CSGBox3D" parent="CSGCombiner3D/Reactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.5, 3.25, 0)
+size = Vector3(3, 0.5, 42.5)
+
+[node name="Catwalk4" type="CSGBox3D" parent="CSGCombiner3D/Reactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 6.75, 19.625)
+size = Vector3(6, 7.5, 3.25)
+
+[node name="Catwalk5" type="CSGBox3D" parent="CSGCombiner3D/Reactor/Catwalk4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 4, 0)
+operation = 2
+size = Vector3(6, 7.5, 3.25)
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D/Reactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 6, 14)
+radius = 3.0
+height = 45.0
+sides = 20
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="CSGCombiner3D/Reactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 6, -14)
+radius = 3.0
+height = 45.0
+sides = 20
+
+[node name="TaskReactor" parent="CSGCombiner3D/Reactor" instance=ExtResource("31_smw1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -125, 11.5, -14)
+skeleton = NodePath("../../..")
