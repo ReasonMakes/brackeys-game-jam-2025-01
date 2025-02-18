@@ -6,7 +6,7 @@ uniform float opacity = 1.0;//: hint_range(0.0, 1.0); // 0 = Invisible, 1 = Full
 void fragment()
 {
     vec2 centre = UV - vec2(0.5);
-    
+
     float totalEffect = 0.0; // Accumulator for multiple lines
     int numLines = 50; // Number of lines to generate
 
@@ -14,7 +14,7 @@ void fragment()
     {
 		// Distribute evenly around the circle
         //float rotation_angle = (float(i) / float(numLines)) * TAU;
-		
+
 		float rotation_random = fract(sin(dot(UV, vec2(12.9898, 78.233))) * 43758.5453);
 		float rotation_angle = 0.0 * TAU / float(numLines) ;
 
@@ -39,7 +39,8 @@ void fragment()
 
     // Centre mask (Fades towards edges)
     float radius = length(centre);
-    float mask = smoothstep(0.2, 0.7, radius);
+	float movement = 0.2;
+    float mask = smoothstep(0.2, movement, radius);
 
     // Apply opacity instead of blackness
     COLOR = vec4(1.0, 1.0, 1.0, totalEffect * mask * opacity);

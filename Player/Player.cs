@@ -40,6 +40,9 @@ public partial class Player : CharacterBody3D
     private const float RunMaxSpeedGround = 10f; //run acceleration reduces as top speed is approached
     private const float RunMaxSpeedAir = 5f; //lower top speed in air to keep air movements strictly for direction change rather than to build speed
 
+    private float RunAudioTimer = 0f; //no touchy :)
+    private const float RunAudioTimerPeriod = 0.2f; //time in seconds before another footstep sound can be played
+
     //Jerk allows running acceleration to increase slowly over a few seconds - only applies on-ground
     private const float RunJerkMagnitude = 100f; //the maximum acceleration that jerk imparts on the player once fully developed
     private float RunJerkDevelopment = 0f; //no touchy :)
@@ -264,9 +267,14 @@ public partial class Player : CharacterBody3D
 
         //--
         //Audio
-        if (IsOnFloor() && !AudioFootsteps.Playing && runDirection.Normalized().Length() == 1)
+        if (AudioFootsteps.Playing)
+        {
+            RunAudioTimer = Mathf.Max(RunAudioTimer - delta, 0f);
+        }
+        if (RunAudioTimer == 0f && IsOnFloor() && runDirection.Normalized().Length() == 1)
         {
             AudioFootsteps.Play();
+            RunAudioTimer = RunAudioTimerPeriod;
         }
         //--
         
