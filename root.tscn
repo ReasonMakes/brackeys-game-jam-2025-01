@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://da3cc6bh5v41y"]
+[gd_scene load_steps=38 format=3 uid="uid://da3cc6bh5v41y"]
 
 [ext_resource type="Script" path="res://Control.cs" id="1_35hfb"]
 [ext_resource type="Script" path="res://player/Player.cs" id="1_apfbn"]
@@ -6,12 +6,15 @@
 [ext_resource type="Material" uid="uid://daiyptmfwsngr" path="res://player/dash_lines_material.tres" id="3_3dh8n"]
 [ext_resource type="Texture2D" uid="uid://bpikbdh4qapfe" path="res://UI/task.png" id="4_qs002"]
 [ext_resource type="Texture2D" uid="uid://b5sf3u7trt2vp" path="res://UI/ability hex.png" id="5_wlafp"]
+[ext_resource type="Texture2D" uid="uid://dd6je6ov171wm" path="res://UI/dash icon.png" id="7_rbh4t"]
 [ext_resource type="AudioStream" uid="uid://bd8utytd8fqt8" path="res://music/atmospheric/atmoshpere.wav" id="7_yp1mt"]
 [ext_resource type="AudioStream" uid="uid://dga5qh6pss4lc" path="res://music/atmospheric/proper_atmoshpere.mp3" id="8_8fplj"]
+[ext_resource type="Texture2D" uid="uid://diodiiuvs1muo" path="res://UI/grapple icon.png" id="8_f0pr7"]
 [ext_resource type="AudioStream" uid="uid://bfb2hv20kdmxo" path="res://player/footsteps/_foley02.mp3" id="8_il4tn"]
 [ext_resource type="AudioStream" uid="uid://vyc6uvdg2jmd" path="res://player/footsteps/_foley03.mp3" id="9_4hg2f"]
 [ext_resource type="AudioStream" uid="uid://byf4rwa27khoc" path="res://player/footsteps/_foley12.mp3" id="9_6lgsh"]
 [ext_resource type="AudioStream" uid="uid://7joavvxmi73g" path="res://music/menu/untitled_piano_sketching.wav" id="9_ac65s"]
+[ext_resource type="Texture2D" uid="uid://bmutsl3cfv1rs" path="res://UI/water plants icon.png" id="9_f2xyf"]
 [ext_resource type="AudioStream" uid="uid://ieymvf5d7wc8" path="res://player/footsteps/_foley13.mp3" id="10_7xy85"]
 [ext_resource type="AudioStream" uid="uid://dnqj7a8ra4g23" path="res://music/in_game/fast_paced.mp3" id="10_hmn48"]
 [ext_resource type="AudioStream" uid="uid://unnwgcais14v" path="res://player/footsteps/_foley14.mp3" id="11_2jg26"]
@@ -115,6 +118,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 fov = 80.0
 
 [node name="ColorRect Dash Lines" type="ColorRect" parent="CharacterBody3D/Camera3D"]
+visible = false
 material = ExtResource("3_3dh8n")
 anchors_preset = 15
 anchor_right = 1.0
@@ -150,6 +154,47 @@ offset_top = 23.0
 offset_right = 520.0
 offset_bottom = 170.0
 texture = ExtResource("4_qs002")
+
+[node name="dash icon" type="TextureRect" parent="CharacterBody3D/Camera3D"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -264.0
+offset_top = -77.0
+offset_right = -115.0
+offset_bottom = 44.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("7_rbh4t")
+
+[node name="grapple icon" type="TextureRect" parent="CharacterBody3D/Camera3D"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -172.0
+offset_top = -78.0
+offset_right = -24.0
+offset_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("8_f0pr7")
+
+[node name="water plants icon" type="TextureRect" parent="CharacterBody3D/Camera3D"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 23.0
+offset_top = 24.0
+offset_right = 201.0
+offset_bottom = 171.0
+grow_horizontal = 2
+texture = ExtResource("9_f2xyf")
 
 [node name="Statistics" type="Node2D" parent="CharacterBody3D/Camera3D"]
 
