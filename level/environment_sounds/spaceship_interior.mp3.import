@@ -12,7 +12,7 @@ dest_files=["res://.godot/imported/spaceship_interior.mp3-1c5745020172ff22ca6503
 
 [params]
 
-loop=false
+loop=true
 loop_offset=0
 bpm=0
 beat_count=0
