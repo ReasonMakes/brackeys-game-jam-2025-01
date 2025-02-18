@@ -100,6 +100,7 @@ RectJumpFatigueRecency = NodePath("Camera3D/Statistics/Rect Jump Fatigue Recency
 LabelJumpFatigueOnGround = NodePath("Camera3D/Statistics/Label Jump Fatigue On-Ground")
 RectJumpFatigueOnGround = NodePath("Camera3D/Statistics/Rect Jump Fatigue On-Ground")
 AudioFootsteps = NodePath("Audio Footsteps")
+RunAudioTimerPeriod = 0.9
 DashMaterial = ExtResource("3_3dh8n")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
@@ -242,7 +243,7 @@ volume_db = -16.0
 
 [node name="Audio Music" type="AudioStreamPlayer" parent="CharacterBody3D"]
 stream = SubResource("AudioStreamRandomizer_c134s")
-volume_db = -80.0
+volume_db = -5.0
 script = ExtResource("12_gw8xm")
 
 [node name="GreyBox" type="Node3D" parent="."]
@@ -446,5 +447,5 @@ use_collision = true
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("27_qra5s")
-volume_db = -24.016
+volume_db = -13.876
 autoplay = true
