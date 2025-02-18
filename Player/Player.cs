@@ -41,7 +41,9 @@ public partial class Player : CharacterBody3D
     private const float RunMaxSpeedAir = 5f; //lower top speed in air to keep air movements strictly for direction change rather than to build speed
 
     private float RunAudioTimer = 0f; //no touchy :)
-    private const float RunAudioTimerPeriod = 0.2f; //time in seconds before another footstep sound can be played
+
+    [ExportCategory("Seconds between footsteps")]
+    [Export] private float RunAudioTimerPeriod = 0.2f; //time in seconds before another footstep sound can be played
 
     //Jerk allows running acceleration to increase slowly over a few seconds - only applies on-ground
     private const float RunJerkMagnitude = 200f; //the maximum acceleration that jerk imparts on the player once fully developed
