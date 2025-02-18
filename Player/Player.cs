@@ -83,7 +83,7 @@ public partial class Player : CharacterBody3D
     //DASH
     private bool InputTechDash = false;
     private const float DashAcceleration = 300f; //dash acceleration magnitude
-    private const float DashAccelerationAirCoefficient = 0.12f; //lower values are lessened acceleration while in the air
+    private const float DashAccelerationAirCoefficient = 0.1f; //lower values are lessened acceleration while in the air
     private float DashCooldown = 0f; //no touchy :)
     private const float DashCooldownPeriod = 5f; //time in seconds until you can use the tech again
 
@@ -306,10 +306,7 @@ public partial class Player : CharacterBody3D
         RectDash.Scale = new(DashCooldown / DashCooldownPeriod, 1f);
 
         //Shader
-        // Smoothly increase or decrease opacity
         DashOpacity = Mathf.Lerp(DashOpacity, DashCooldown >= DashCooldownPeriod - (DashCooldownPeriod/16f) ? 1.0f : 0.0f, (float)delta * DashFadeSpeed);
-
-        // Update shader material opacity
         DashMaterial.Set("shader_parameter/opacity", DashOpacity);
     }
 
@@ -327,7 +324,7 @@ public partial class Player : CharacterBody3D
         }
 
         //Wall jump
-        if (IsOnWall() && InputTechJump && !InputRunForward && CanClimb && JumpFatigueRecencyTimer >= JumpCooldown)
+        if (!IsOnFloor() && IsOnWall() && InputTechJump && !InputRunForward && CanClimb && JumpFatigueRecencyTimer >= JumpCooldown)
         {
             CanClimb = false;
             Jump(delta, (GetWallNormal() + Vector3.Up + Vector3.Up).Normalized(), WallJumpAcceleration);

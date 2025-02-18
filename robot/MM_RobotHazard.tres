@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://crg1ytap6icj7"]
+
+[ext_resource type="Texture2D" uid="uid://bqaqa7rnlr6he" path="res://robot/SM_RobotHazard_Combinedpix.png" id="1_c5nm1"]
+[ext_resource type="Texture2D" uid="uid://bnfxpaa7bkv8u" path="res://robot/SM_RobotHazard_Emissive.png" id="2_86640"]
+
+[resource]
+albedo_texture = ExtResource("1_c5nm1")
+emission_enabled = true
+emission_energy_multiplier = 12.0
+emission_texture = ExtResource("2_86640")
