@@ -93,7 +93,7 @@ public partial class Player : CharacterBody3D
     private const float DashAcceleration = 300f; //dash acceleration magnitude
     private const float DashAccelerationAirCoefficient = 0.1f; //lower values are lessened acceleration while in the air
     private float DashCooldown = 0f; //no touchy :)
-    private const float DashCooldownPeriod = 5f; //time in seconds until you can use the tech again
+    private const float DashCooldownPeriod = 1f; //5f; //time in seconds until you can use the tech again
 
     private float DashFadeSpeed = 5.0f; //How fast it fades in/out
     private float DashOpacity = 0.0f; //Start fully transparent
@@ -328,8 +328,17 @@ public partial class Player : CharacterBody3D
         RectDash.Scale = new(DashCooldown / DashCooldownPeriod, 1f);
 
         //Shader
-        DashOpacity = Mathf.Lerp(DashOpacity, DashCooldown >= DashCooldownPeriod - (DashCooldownPeriod/16f) ? 1.0f : 0.0f, (float)delta * DashFadeSpeed);
+        float to = 0f;
+        if (DashCooldown >= DashCooldownPeriod - (DashCooldownPeriod / 16f))
+        {
+            to = 1f;
+        }
+        DashOpacity = Mathf.Lerp(DashOpacity, to, (float)delta * DashFadeSpeed);
         DashMaterial.Set("shader_parameter/opacity", DashOpacity);
+
+        float startLinePosition = 0.6f;
+        float dashLinesMovement = startLinePosition + ((1f - startLinePosition) - ((DashCooldown / DashCooldownPeriod) * (1f - startLinePosition)));
+        DashMaterial.Set("shader_parameter/movement", dashLinesMovement);
     }
 
     private void Climb(float delta, Vector3 runVector)

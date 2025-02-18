@@ -2,6 +2,7 @@ shader_type canvas_item;
 
 // Uniform for controlling transparency
 uniform float opacity = 1.0;//: hint_range(0.0, 1.0); // 0 = Invisible, 1 = Fully visible
+uniform float movement = 0.3;
 
 void fragment()
 {
@@ -29,7 +30,7 @@ void fragment()
         float angle = atan(rotatedCentre.y, rotatedCentre.x);
         float count = 10.0; // Increase for denser lines
 
-        float speedEffect = smoothstep(0.998, 1.0, sin(angle * count));
+        float speedEffect = smoothstep(0.99, 1.0, sin(angle * count));
 
         totalEffect += speedEffect; // Accumulate the effect
     }
@@ -39,7 +40,6 @@ void fragment()
 
     // Centre mask (Fades towards edges)
     float radius = length(centre);
-	float movement = 0.2;
     float mask = smoothstep(0.2, movement, radius);
 
     // Apply opacity instead of blackness
