@@ -52,7 +52,8 @@ public partial class Player : CharacterBody3D
 	private const float RunJerkMagnitude = 200f; //the maximum acceleration that jerk imparts on the player once fully developed
 	
 	private float RunJerkDevelopment = 0f; //no touchy :) develops from 0 up to the value of RunJerkDevelopmentPeriod and is used as the coefficient of RunJerkMagnitude
-	private const float RunJerkDevelopmentPeriod = 2f; //time in seconds that jerk takes to fully develop
+	private const float RunJerkDevelopmentRate = 2f; //How quickly jerk increases; i.e. jerk amount; i.e. how quickly acceleration increases
+    private const float RunJerkDevelopmentPeriod = 2f; //time in seconds that jerk takes to fully develop
 	
 	private const float RunJerkDevelopmentDecayRate = 16f; //How many times faster jerk decreases rather than increases - jerk decay is exponential
 	private const float RunJerkDevelopmentDecayRateAir = 4f; //How many times faster jerk decreases rather than increases - jerk decay is exponential
@@ -103,9 +104,9 @@ public partial class Player : CharacterBody3D
 	//DASH
 	private bool InputTechDash = false;
 	private const float DashAcceleration = 300f; //dash acceleration magnitude
-	private const float DashAccelerationAirCoefficient = 0.1f; //lower values are lessened acceleration while in the air
-	private float DashCooldown = 0f; //no touchy :)
-	private const float DashCooldownPeriod = 1f; //5f; //time in seconds until you can use the tech again
+	private const float DashAccelerationAirCoefficient = 0.05f; //lower values cause lessened aerial acceleration
+    private float DashCooldown = 0f; //no touchy :)
+	private const float DashCooldownPeriod = 5f; //time in seconds until you can use the tech again
 
 	private float DashFadeSpeed = 5f; //How fast it fades in/out
 	private float DashOpacity = 0f; //Start fully transparent
@@ -169,12 +170,17 @@ public partial class Player : CharacterBody3D
 			if (!IsSliding)
 			{
 				//Sliding
+
+				//Instantaneous subtraction from jerk
 				RunJerkDevelopment = Mathf.Max(0f, RunJerkDevelopment - RunJerkMagnitudeSlideDump);
+
 				//Switch colliders
 				ColliderCapsule.Disabled = true;
 				ColliderSphere.Disabled = false;
+
 				//Set camera to new height
 				CameraYTarget = 0.5f;
+
 				//Update bool
 				IsSliding = true;
 			}
@@ -185,8 +191,10 @@ public partial class Player : CharacterBody3D
 			//Switch colliders
 			ColliderCapsule.Disabled = false;
 			ColliderSphere.Disabled = true;
+
 			//Set camera to new height
 			CameraYTarget = 1.5f;
+
 			//Update bool
 			IsSliding = false;
 		}
@@ -205,7 +213,7 @@ public partial class Player : CharacterBody3D
 		Climb(delta, runVector);
 
 		//Dash
-		Dash(delta);
+		Dash(delta, runVector);
 
 		//Jump
 		ProcessJump(delta, Vector3.Up, JumpAcceleration);
@@ -299,8 +307,8 @@ public partial class Player : CharacterBody3D
 		float jerkAlignment = Mathf.Clamp(runAlignment / (runDynamicMaxSpeed / 2f), 0f, 1f);
 		if (!isSliding && runDirection.Normalized().Length() == 1)
 		{
-			//Increase acceleration (i.e. make this jerk rather than simply accelerate)
-			RunJerkDevelopment = Mathf.Min((RunJerkDevelopment + delta) * jerkAlignment, RunJerkDevelopmentPeriod);
+			//Develop jerk - increase acceleration (i.e. make this jerk rather than simply accelerate)
+			RunJerkDevelopment = Mathf.Min((RunJerkDevelopment + (delta * RunJerkDevelopmentRate)) * jerkAlignment, RunJerkDevelopmentPeriod);
 		}
 		else
 		{
@@ -333,7 +341,12 @@ public partial class Player : CharacterBody3D
 		//--
 		//Audio
 		RunAudioTimer = Mathf.Max(RunAudioTimer - delta, 0f);
-		if (RunAudioTimer == 0f && IsOnFloor() && runDirection.Normalized().Length() == 1)
+		if (
+			RunAudioTimer == 0f
+			&& (
+				(IsOnFloor() && runDirection.Normalized().Length() == 1) || IsWallRunning
+			)
+		)
 		{
 			AudioFootsteps.Play();
 			RunAudioTimer = RunAudioTimerPeriod;
@@ -348,18 +361,40 @@ public partial class Player : CharacterBody3D
 		return runVector;
 	}
 
-	private void Dash(float delta)
+	private void Dash(float delta, Vector3 runVector)
 	{
 		//Act
 		if (InputTechDash && DashCooldown == 0f)
 		{
-			float dashAccelerationCombined = IsOnFloor() ? DashAcceleration : DashAcceleration * DashAccelerationAirCoefficient;
-			Velocity += -GlobalBasis.Z * dashAccelerationCombined;
+			//Direction
+			Vector3 runDirection = runVector.Normalized();
+            Vector3 dashDirection = runDirection.Length() == 0f ? -GlobalBasis.Z : runDirection;
 
-			//Reset
+			//Magnitude
+			float dashMagnitude;
+			if (IsSliding && IsOnFloor())
+			{
+				//Sliding on ground
+				dashMagnitude = DashAcceleration * DashAccelerationAirCoefficient;
+            }
+			else if (IsOnFloor())
+            {
+				//Running on ground
+				dashMagnitude = DashAcceleration;
+            }
+			else
+			{
+				//In air
+                dashMagnitude = DashAcceleration * DashAccelerationAirCoefficient;
+            }
+
+			//Add vector to velocity
+            Velocity += dashDirection * dashMagnitude;
+
+			//Reset cooldown
 			DashCooldown = DashCooldownPeriod;
 
-			//Sound
+			//Play sound
 			AudioDash.Play();
 		}
 
@@ -429,9 +464,9 @@ public partial class Player : CharacterBody3D
 				{
 					IsWallRunning = true;
 
+					//Get direction
 					Vector3 wallTangent = GetWallNormal().Cross(Vector3.Up); //pretty much all the way there
 					Vector3 projectedDirection = (wallTangent * runVector.Dot(wallTangent)).Normalized(); //consider which horizontal direction we're going along the wall
-
 					//testBox.Position = new Vector3(Position.X, Position.Y + 1f, Position.Z) + (2f * projectedDirection);
 
 					//Horizontal acceleration
