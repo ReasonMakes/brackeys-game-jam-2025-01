@@ -205,7 +205,7 @@ public partial class Player : CharacterBody3D
 		Climb(delta, runVector);
 
 		//Dash
-		Dash(delta);
+		Dash(delta, runVector);
 
 		//Jump
 		ProcessJump(delta, Vector3.Up, JumpAcceleration);
@@ -333,7 +333,12 @@ public partial class Player : CharacterBody3D
 		//--
 		//Audio
 		RunAudioTimer = Mathf.Max(RunAudioTimer - delta, 0f);
-		if (RunAudioTimer == 0f && IsOnFloor() && runDirection.Normalized().Length() == 1)
+		if (
+			RunAudioTimer == 0f
+			&& (
+				(IsOnFloor() && runDirection.Normalized().Length() == 1) || IsWallRunning
+			)
+		)
 		{
 			AudioFootsteps.Play();
 			RunAudioTimer = RunAudioTimerPeriod;
@@ -348,18 +353,40 @@ public partial class Player : CharacterBody3D
 		return runVector;
 	}
 
-	private void Dash(float delta)
+	private void Dash(float delta, Vector3 runVector)
 	{
 		//Act
 		if (InputTechDash && DashCooldown == 0f)
 		{
-			float dashAccelerationCombined = IsOnFloor() ? DashAcceleration : DashAcceleration * DashAccelerationAirCoefficient;
-			Velocity += -GlobalBasis.Z * dashAccelerationCombined;
+			//Direction
+			Vector3 runDirection = runVector.Normalized();
+            Vector3 dashDirection = runDirection.Length() == 0f ? -GlobalBasis.Z : runDirection;
 
-			//Reset
+			//Magnitude
+			float dashMagnitude;
+			if (IsSliding && IsOnFloor())
+			{
+				//Sliding on ground
+				dashMagnitude = DashAcceleration * DashAccelerationAirCoefficient;
+            }
+			else if (IsOnFloor())
+            {
+				//Running on ground
+				dashMagnitude = DashAcceleration;
+            }
+			else
+			{
+				//In air
+                dashMagnitude = DashAcceleration * DashAccelerationAirCoefficient;
+            }
+
+			//Add vector to velocity
+            Velocity += dashDirection * dashMagnitude;
+
+			//Reset cooldown
 			DashCooldown = DashCooldownPeriod;
 
-			//Sound
+			//Play sound
 			AudioDash.Play();
 		}
 
@@ -429,9 +456,9 @@ public partial class Player : CharacterBody3D
 				{
 					IsWallRunning = true;
 
+					//Get direction
 					Vector3 wallTangent = GetWallNormal().Cross(Vector3.Up); //pretty much all the way there
 					Vector3 projectedDirection = (wallTangent * runVector.Dot(wallTangent)).Normalized(); //consider which horizontal direction we're going along the wall
-
 					//testBox.Position = new Vector3(Position.X, Position.Y + 1f, Position.Z) + (2f * projectedDirection);
 
 					//Horizontal acceleration
