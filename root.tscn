@@ -507,3 +507,9 @@ sides = 20
 [node name="TaskReactor" parent="CSGCombiner3D/Reactor" instance=ExtResource("31_smw1h")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -125, 11.5, -14)
 skeleton = NodePath("../../..")
+
+[node name="Audio Atmos" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("27_qra5s")
+volume_db = -4.531
+autoplay = true
+playback_type = 1
