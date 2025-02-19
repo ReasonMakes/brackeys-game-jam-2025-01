@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://da3cc6bh5v41y"]
+[gd_scene load_steps=40 format=3 uid="uid://da3cc6bh5v41y"]
 
 [ext_resource type="Script" path="res://Control.cs" id="1_35hfb"]
 [ext_resource type="Script" path="res://player/Player.cs" id="1_apfbn"]
@@ -30,6 +30,8 @@
 [ext_resource type="AudioStream" uid="uid://b5cn4tlnoeomv" path="res://player/footsteps/_foley10.mp3" id="19_fdeok"]
 [ext_resource type="AudioStream" uid="uid://c82l68vi5x0yp" path="res://player/footsteps/_foley11.mp3" id="20_i7i2p"]
 [ext_resource type="AudioStream" uid="uid://cqlbi2lg1hqph" path="res://level/environment_sounds/spaceship_interior.mp3" id="27_qra5s"]
+[ext_resource type="AudioStream" uid="uid://dnwqoqf8uqsm3" path="res://player/movement/land.mp3" id="31_yr2lr"]
+[ext_resource type="AudioStream" uid="uid://xulnxuat88jk" path="res://player/movement/jump_breath_in1.mp3" id="32_24gy4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_53okd"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -91,7 +93,7 @@ stream = ExtResource("27_qra5s")
 volume_db = -24.016
 autoplay = true
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioFootsteps")]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioFootsteps", "AudioJump", "AudioLand")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.4, 3.1, -2)
 script = ExtResource("1_apfbn")
 Cam = NodePath("Camera3D")
@@ -108,6 +110,8 @@ RectJumpFatigueRecency = NodePath("Camera3D/Statistics/Rect Jump Fatigue Recency
 LabelJumpFatigueOnGround = NodePath("Camera3D/Statistics/Label Jump Fatigue On-Ground")
 RectJumpFatigueOnGround = NodePath("Camera3D/Statistics/Rect Jump Fatigue On-Ground")
 AudioFootsteps = NodePath("Audio Footsteps")
+AudioJump = NodePath("Audio Jumpbreath")
+AudioLand = NodePath("Audio Land")
 RunAudioTimerPeriod = 0.3
 DashMaterial = ExtResource("3_3dh8n")
 
@@ -292,8 +296,14 @@ volume_db = -16.0
 
 [node name="Audio Music" type="AudioStreamPlayer" parent="CharacterBody3D"]
 stream = SubResource("AudioStreamRandomizer_c134s")
-volume_db = -80.0
+volume_db = -27.643
 script = ExtResource("12_gw8xm")
+
+[node name="Audio Land" type="AudioStreamPlayer" parent="CharacterBody3D"]
+stream = ExtResource("31_yr2lr")
+
+[node name="Audio Jumpbreath" type="AudioStreamPlayer" parent="CharacterBody3D"]
+stream = ExtResource("32_24gy4")
 
 [node name="GreyBox" type="Node3D" parent="."]
 

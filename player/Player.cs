@@ -46,7 +46,7 @@ public partial class Player : CharacterBody3D
 
 	private float RunAudioTimer = 0f; //no touchy :)
 	[ExportCategory("Seconds between footsteps")]
-    [Export(PropertyHint.Range, "0,10,")] private float RunAudioTimerPeriod = 0.5f; //time in seconds before another footstep sound can be played
+	[Export(PropertyHint.Range, "0,10,")] private float RunAudioTimerPeriod = 0.5f; //time in seconds before another footstep sound can be played
 
 	//Jerk allows running acceleration to increase slowly over a few seconds - only applies on-ground
 	private const float RunJerkMagnitude = 200f; //the maximum acceleration that jerk imparts on the player once fully developed
@@ -145,17 +145,17 @@ public partial class Player : CharacterBody3D
 
 		//Audio
 		//Landing
-        if (IsInAir && IsOnFloor())
-        {
-            //Play landing sound
-            AudioLand.Play();
+		if (IsInAir && IsOnFloor())
+		{
+			//Play landing sound
+			AudioLand.Play();
 
-            IsInAir = false;
-        }
-        IsInAir = !IsOnFloor();
+			IsInAir = false;
+		}
+		IsInAir = !IsOnFloor();
 
-        //Slide
-        if (InputTechCrouchOrSlide)
+		//Slide
+		if (InputTechCrouchOrSlide)
 		{
 			if (!IsSliding)
 			{
@@ -305,7 +305,7 @@ public partial class Player : CharacterBody3D
 
 		//--
 		//Audio
-        RunAudioTimer = Mathf.Max(RunAudioTimer - delta, 0f);
+		RunAudioTimer = Mathf.Max(RunAudioTimer - delta, 0f);
 		if (RunAudioTimer == 0f && IsOnFloor() && runDirection.Normalized().Length() == 1)
 		{
 			AudioFootsteps.Play();
@@ -523,7 +523,7 @@ public partial class Player : CharacterBody3D
 		//Act
 		Velocity += direction * (magnitude * fatigue);
 
-        //Sound
-        AudioJump.Play();
-    }
+		//Sound
+		AudioJump.Play();
+	}
 }
