@@ -306,7 +306,7 @@ volume_db = -16.0
 
 [node name="Audio Music" type="AudioStreamPlayer" parent="CharacterBody3D"]
 stream = SubResource("AudioStreamRandomizer_c134s")
-volume_db = -80.0
+volume_db = -33.663
 script = ExtResource("12_gw8xm")
 
 [node name="Audio Jumpbreath" type="AudioStreamPlayer" parent="CharacterBody3D"]
