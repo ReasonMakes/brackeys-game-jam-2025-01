@@ -53,7 +53,7 @@ public partial class Player : CharacterBody3D
 	
 	private float RunJerkDevelopment = 0f; //no touchy :) develops from 0 up to the value of RunJerkDevelopmentPeriod and is used as the coefficient of RunJerkMagnitude
 	private const float RunJerkDevelopmentRate = 2f; //How quickly jerk increases; i.e. jerk amount; i.e. how quickly acceleration increases
-    private const float RunJerkDevelopmentPeriod = 2f; //time in seconds that jerk takes to fully develop
+	private const float RunJerkDevelopmentPeriod = 2f; //time in seconds that jerk takes to fully develop
 	
 	private const float RunJerkDevelopmentDecayRate = 16f; //How many times faster jerk decreases rather than increases - jerk decay is exponential
 	private const float RunJerkDevelopmentDecayRateAir = 4f; //How many times faster jerk decreases rather than increases - jerk decay is exponential
@@ -105,7 +105,7 @@ public partial class Player : CharacterBody3D
 	private bool InputTechDash = false;
 	private const float DashAcceleration = 300f; //dash acceleration magnitude
 	private const float DashAccelerationAirCoefficient = 0.05f; //lower values cause lessened aerial acceleration
-    private float DashCooldown = 0f; //no touchy :)
+	private float DashCooldown = 0f; //no touchy :)
 	private const float DashCooldownPeriod = 5f; //time in seconds until you can use the tech again
 
 	private float DashFadeSpeed = 5f; //How fast it fades in/out
@@ -368,7 +368,7 @@ public partial class Player : CharacterBody3D
 		{
 			//Direction
 			Vector3 runDirection = runVector.Normalized();
-            Vector3 dashDirection = runDirection.Length() == 0f ? -GlobalBasis.Z : runDirection;
+			Vector3 dashDirection = runDirection.Length() == 0f ? -GlobalBasis.Z : runDirection;
 
 			//Magnitude
 			float dashMagnitude;
@@ -376,20 +376,20 @@ public partial class Player : CharacterBody3D
 			{
 				//Sliding on ground
 				dashMagnitude = DashAcceleration * DashAccelerationAirCoefficient;
-            }
+			}
 			else if (IsOnFloor())
-            {
+			{
 				//Running on ground
 				dashMagnitude = DashAcceleration;
-            }
+			}
 			else
 			{
 				//In air
-                dashMagnitude = DashAcceleration * DashAccelerationAirCoefficient;
-            }
+				dashMagnitude = DashAcceleration * DashAccelerationAirCoefficient;
+			}
 
 			//Add vector to velocity
-            Velocity += dashDirection * dashMagnitude;
+			Velocity += dashDirection * dashMagnitude;
 
 			//Reset cooldown
 			DashCooldown = DashCooldownPeriod;

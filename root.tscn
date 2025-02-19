@@ -35,7 +35,7 @@
 [ext_resource type="AudioStream" uid="uid://dnwqoqf8uqsm3" path="res://player/movement/land.mp3" id="32_mwapu"]
 [ext_resource type="AudioStream" uid="uid://cu3tj81o8rwh8" path="res://player/movement/dash.mp3" id="33_eseje"]
 [ext_resource type="Material" uid="uid://crg1ytap6icj7" path="res://robot/MM_RobotHazard.tres" id="34_nhrql"]
-[ext_resource type="PackedScene" uid="uid://t67wqvj801yl" path="res://robot/robot.tscn" id="36_1ah0c"]
+[ext_resource type="PackedScene" path="res://robot/robot.tscn" id="36_1ah0c"]
 [ext_resource type="Material" uid="uid://cl4r8afs44bvn" path="res://level/modular_panels/MM_Floor.tres" id="37_t1xlm"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf7un"]
@@ -341,7 +341,6 @@ volume_db = -16.0
 stream = SubResource("AudioStreamRandomizer_c134s")
 volume_db = -34.259
 script = ExtResource("12_gw8xm")
-SettingMusicOn = false
 
 [node name="Audio Jumpbreath" type="AudioStreamPlayer" parent="CharacterBody3D"]
 stream = ExtResource("31_s2tka")
