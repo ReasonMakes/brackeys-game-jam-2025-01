@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://da3cc6bh5v41y"]
+[gd_scene load_steps=43 format=3 uid="uid://da3cc6bh5v41y"]
 
 [ext_resource type="Script" path="res://Control.cs" id="1_35hfb"]
 [ext_resource type="Script" path="res://player/Player.cs" id="1_apfbn"]
@@ -30,7 +30,10 @@
 [ext_resource type="AudioStream" uid="uid://b5cn4tlnoeomv" path="res://player/footsteps/_foley10.mp3" id="19_fdeok"]
 [ext_resource type="AudioStream" uid="uid://c82l68vi5x0yp" path="res://player/footsteps/_foley11.mp3" id="20_i7i2p"]
 [ext_resource type="AudioStream" uid="uid://cqlbi2lg1hqph" path="res://level/environment_sounds/spaceship_interior.mp3" id="27_qra5s"]
+[ext_resource type="AudioStream" uid="uid://d0uwfbtfvwstt" path="res://player/movement/jump_breath_in.mp3" id="31_s2tka"]
 [ext_resource type="PackedScene" uid="uid://dwdrpbnwwabeo" path="res://task.tscn" id="31_smw1h"]
+[ext_resource type="AudioStream" uid="uid://dnwqoqf8uqsm3" path="res://player/movement/land.mp3" id="32_mwapu"]
+[ext_resource type="AudioStream" uid="uid://cu3tj81o8rwh8" path="res://player/movement/dash.mp3" id="33_eseje"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_53okd"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -94,7 +97,7 @@ stream = ExtResource("27_qra5s")
 volume_db = -80.0
 autoplay = true
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "AudioFootsteps", "ColliderCapsule", "ColliderSphere", "AudioDash")]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "AudioFootsteps", "AudioDash")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 3.4, 0, -2)
 script = ExtResource("1_apfbn")
 Cam = NodePath("Camera3D")
@@ -110,13 +113,11 @@ LabelJumpFatigueRecency = NodePath("Camera3D/Statistics/Label Jump Fatigue Recen
 RectJumpFatigueRecency = NodePath("Camera3D/Statistics/Rect Jump Fatigue Recency")
 LabelJumpFatigueOnGround = NodePath("Camera3D/Statistics/Label Jump Fatigue On-Ground")
 RectJumpFatigueOnGround = NodePath("Camera3D/Statistics/Rect Jump Fatigue On-Ground")
-AudioJump = NodePath("Audio Footsteps")
-AudioLand = NodePath("Audio Footsteps")
+AudioJump = NodePath("Audio Jumpbreath")
+AudioLand = NodePath("Audio Land")
 AudioFootsteps = NodePath("Audio Footsteps")
 RunAudioTimerPeriod = 0.3
-ColliderCapsule = NodePath("ColliderCapsule")
-ColliderSphere = NodePath("ColliderSphere")
-AudioDash = NodePath("Audio Footsteps")
+AudioDash = NodePath("Audio Dash")
 DashMaterial = ExtResource("3_3dh8n")
 
 [node name="ColliderCapsule" type="CollisionShape3D" parent="CharacterBody3D"]
@@ -307,6 +308,18 @@ volume_db = -16.0
 stream = SubResource("AudioStreamRandomizer_c134s")
 volume_db = -80.0
 script = ExtResource("12_gw8xm")
+
+[node name="Audio Jumpbreath" type="AudioStreamPlayer" parent="CharacterBody3D"]
+stream = ExtResource("31_s2tka")
+volume_db = -2.059
+
+[node name="Audio Land" type="AudioStreamPlayer" parent="CharacterBody3D"]
+stream = ExtResource("32_mwapu")
+volume_db = -25.264
+
+[node name="Audio Dash" type="AudioStreamPlayer" parent="CharacterBody3D"]
+stream = ExtResource("33_eseje")
+volume_db = -5.354
 
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 use_collision = true

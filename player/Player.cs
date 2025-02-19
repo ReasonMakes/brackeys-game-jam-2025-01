@@ -43,10 +43,10 @@ public partial class Player : CharacterBody3D
 	private const float RunMaxSpeedGround = 10f; //run acceleration reduces as top speed is approached
 	private const float RunMaxSpeedAir = 5f; //lower top speed in air to keep air movements strictly for direction change rather than to build speed
 
-    [Export] private AudioStreamPlayer AudioFootsteps;
-    private float RunAudioTimer = 0f; //no touchy :)
+	[Export] private AudioStreamPlayer AudioFootsteps;
+	private float RunAudioTimer = 0f; //no touchy :)
 	//[ExportCategory("Seconds between footsteps")]
-    [Export(PropertyHint.Range, "0,10,")] private float RunAudioTimerPeriod = 0.5f; //time in seconds before another footstep sound can be played
+	[Export(PropertyHint.Range, "0,10,")] private float RunAudioTimerPeriod = 0.5f; //time in seconds before another footstep sound can be played
 
 	//Jerk allows running acceleration to increase slowly over a few seconds - only applies on-ground
 	private const float RunJerkMagnitude = 200f; //the maximum acceleration that jerk imparts on the player once fully developed
@@ -86,22 +86,22 @@ public partial class Player : CharacterBody3D
 	
 	private const float JumpFatigueMinimumCoefficient = 0.08f; //the minimum coefficient that jump acceleration can be multiplied by (applies if jump fatigue is extreme)
 
-    //CROUCH/SLIDE
-    [Export] private CollisionShape3D ColliderCapsule;
-    [Export] private CollisionShape3D ColliderSphere;
+	//CROUCH/SLIDE
+	[Export] private CollisionShape3D ColliderCapsule;
+	[Export] private CollisionShape3D ColliderSphere;
 
-    private bool InputTechCrouchOrSlide = false;
+	private bool InputTechCrouchOrSlide = false;
 	private bool IsSliding = false;
 	private const float RunAccelerationSlidingCoefficient = 0.075f; //larger values are higher acceleration
 
 	private const float RunDragSlidingCoefficient = 0.05f; //LARGER VALUES ARE HIGHER DRAG - also affects slide-jump speed
 
-    private float CameraYTarget = 1.5f; //no touchy :) Target camera y position
-    private float CameraY = 1.5f; //no touchy :) Current camera y position
-    private const float CameraYAnimationDuration = 25f; //rate that the camera moves towards the target y position, proportional to the distance
+	private float CameraYTarget = 1.5f; //no touchy :) Target camera y position
+	private float CameraY = 1.5f; //no touchy :) Current camera y position
+	private const float CameraYAnimationDuration = 25f; //rate that the camera moves towards the target y position, proportional to the distance
 
-    //DASH
-    private bool InputTechDash = false;
+	//DASH
+	private bool InputTechDash = false;
 	private const float DashAcceleration = 300f; //dash acceleration magnitude
 	private const float DashAccelerationAirCoefficient = 0.1f; //lower values are lessened acceleration while in the air
 	private float DashCooldown = 0f; //no touchy :)
@@ -109,8 +109,8 @@ public partial class Player : CharacterBody3D
 
 	private float DashFadeSpeed = 5f; //How fast it fades in/out
 	private float DashOpacity = 0f; //Start fully transparent
-    [Export] private AudioStreamPlayer AudioDash;
-    [Export] private Material DashMaterial; //Store shader material reference
+	[Export] private AudioStreamPlayer AudioDash;
+	[Export] private Material DashMaterial; //Store shader material reference
 
 
 	public override void _Input(InputEvent @event)
@@ -154,48 +154,48 @@ public partial class Player : CharacterBody3D
 
 		//Audio
 		//Landing
-        if (IsInAir && IsOnFloor())
-        {
-            //Play landing sound
-            AudioLand.Play();
+		if (IsInAir && IsOnFloor())
+		{
+			//Play landing sound
+			AudioLand.Play();
 
-            IsInAir = false;
-        }
-        IsInAir = !IsOnFloor();
+			IsInAir = false;
+		}
+		IsInAir = !IsOnFloor();
 
-        //Slide
-        if (InputTechCrouchOrSlide)
-        {
-            if (!IsSliding)
-            {
-                //Sliding
-                RunJerkDevelopment = Mathf.Max(0f, RunJerkDevelopment - RunJerkMagnitudeSlideDump);
-                //Switch colliders
-                ColliderCapsule.Disabled = true;
-                ColliderSphere.Disabled = false;
-                //Set camera to new height
-                CameraYTarget = 0.5f;
-                //Update bool
-                IsSliding = true;
-            }
-        }
-        else if (IsSliding)
-        {
-            //Standing
-            //Switch colliders
-            ColliderCapsule.Disabled = false;
-            ColliderSphere.Disabled = true;
-            //Set camera to new height
-            CameraYTarget = 1.5f;
-            //Update bool
-            IsSliding = false;
-        }
+		//Slide
+		if (InputTechCrouchOrSlide)
+		{
+			if (!IsSliding)
+			{
+				//Sliding
+				RunJerkDevelopment = Mathf.Max(0f, RunJerkDevelopment - RunJerkMagnitudeSlideDump);
+				//Switch colliders
+				ColliderCapsule.Disabled = true;
+				ColliderSphere.Disabled = false;
+				//Set camera to new height
+				CameraYTarget = 0.5f;
+				//Update bool
+				IsSliding = true;
+			}
+		}
+		else if (IsSliding)
+		{
+			//Standing
+			//Switch colliders
+			ColliderCapsule.Disabled = false;
+			ColliderSphere.Disabled = true;
+			//Set camera to new height
+			CameraYTarget = 1.5f;
+			//Update bool
+			IsSliding = false;
+		}
 
-        //Update camera height
-        Cam.Transform = new Transform3D(Cam.Basis, new Vector3(0f, CameraY, 0f));
-        CameraY += (CameraYTarget - CameraY) * CameraYAnimationDuration * delta;
+		//Update camera height
+		Cam.Transform = new Transform3D(Cam.Basis, new Vector3(0f, CameraY, 0f));
+		CameraY += (CameraYTarget - CameraY) * CameraYAnimationDuration * delta;
 
-        bool isClimbingOrWallRunning = IsOnWall() && InputRunForward && ClimbRemaining > 0f && CanClimb;
+		bool isClimbingOrWallRunning = IsOnWall() && InputRunForward && ClimbRemaining > 0f && CanClimb;
 
 		//Run
 		Vector3 runVector = Run(delta, IsSliding, isClimbingOrWallRunning);
@@ -332,7 +332,7 @@ public partial class Player : CharacterBody3D
 
 		//--
 		//Audio
-        RunAudioTimer = Mathf.Max(RunAudioTimer - delta, 0f);
+		RunAudioTimer = Mathf.Max(RunAudioTimer - delta, 0f);
 		if (RunAudioTimer == 0f && IsOnFloor() && runDirection.Normalized().Length() == 1)
 		{
 			AudioFootsteps.Play();
@@ -361,7 +361,7 @@ public partial class Player : CharacterBody3D
 
 			//Sound
 			AudioDash.Play();
-        }
+		}
 
 		//Decrement
 		DashCooldown = Mathf.Max(DashCooldown - delta, 0f);
@@ -414,9 +414,9 @@ public partial class Player : CharacterBody3D
 			Jump(delta, (GetWallNormal() + GetWallNormal() + Vector3.Up).Normalized(), WallJumpAcceleration);
 		}
 
-        //Climbing or wall-running
-        if (IsOnWall() && InputRunForward && !IsSliding)
-        {
+		//Climbing or wall-running
+		if (IsOnWall() && InputRunForward && !IsSliding)
+		{
 			if (ClimbRemaining > 0f && CanClimb)
 			{
 				float dotWall = Mathf.Max(GetWallNormal().Dot(GlobalBasis.Z), 0f); // 0 to 1, where 1 is facing the wall
@@ -451,14 +451,14 @@ public partial class Player : CharacterBody3D
 			ClimbRemaining = Mathf.Min(ClimbRemaining + delta, ClimbPeriod);
 		}
 
-        //Reset IsWallRunning boolean
-        if (!IsOnWall())
+		//Reset IsWallRunning boolean
+		if (!IsOnWall())
 		{
 			IsWallRunning = false;
 		}
 
-        //Replenish climb
-        if (IsOnFloor())
+		//Replenish climb
+		if (IsOnFloor())
 		{
 			ClimbRemaining = Mathf.Min(ClimbRemaining + delta, ClimbPeriod);
 		}
@@ -549,7 +549,7 @@ public partial class Player : CharacterBody3D
 		//Act
 		Velocity += direction * (magnitude * fatigue);
 
-        //Sound
-        AudioJump.Play();
-    }
+		//Sound
+		AudioJump.Play();
+	}
 }
