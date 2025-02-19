@@ -104,9 +104,9 @@ public partial class Player : CharacterBody3D
 	//DASH
 	private bool InputTechDash = false;
 	private const float DashAcceleration = 300f; //dash acceleration magnitude
-	private const float DashAccelerationAirCoefficient = 0.1f; //lower values are lessened acceleration while in the air
-	private float DashCooldown = 0f; //no touchy :)
-	private const float DashCooldownPeriod = 1f; //5f; //time in seconds until you can use the tech again
+	private const float DashAccelerationAirCoefficient = 0.05f; //lower values cause lessened aerial acceleration
+    private float DashCooldown = 0f; //no touchy :)
+	private const float DashCooldownPeriod = 5f; //time in seconds until you can use the tech again
 
 	private float DashFadeSpeed = 5f; //How fast it fades in/out
 	private float DashOpacity = 0f; //Start fully transparent
