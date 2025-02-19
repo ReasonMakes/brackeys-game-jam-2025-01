@@ -52,7 +52,8 @@ public partial class Player : CharacterBody3D
 	private const float RunJerkMagnitude = 200f; //the maximum acceleration that jerk imparts on the player once fully developed
 	
 	private float RunJerkDevelopment = 0f; //no touchy :) develops from 0 up to the value of RunJerkDevelopmentPeriod and is used as the coefficient of RunJerkMagnitude
-	private const float RunJerkDevelopmentPeriod = 2f; //time in seconds that jerk takes to fully develop
+	private const float RunJerkDevelopmentRate = 2f; //How quickly jerk increases; i.e. jerk amount; i.e. how quickly acceleration increases
+    private const float RunJerkDevelopmentPeriod = 2f; //time in seconds that jerk takes to fully develop
 	
 	private const float RunJerkDevelopmentDecayRate = 16f; //How many times faster jerk decreases rather than increases - jerk decay is exponential
 	private const float RunJerkDevelopmentDecayRateAir = 4f; //How many times faster jerk decreases rather than increases - jerk decay is exponential
@@ -169,12 +170,17 @@ public partial class Player : CharacterBody3D
 			if (!IsSliding)
 			{
 				//Sliding
+
+				//Instantaneous subtraction from jerk
 				RunJerkDevelopment = Mathf.Max(0f, RunJerkDevelopment - RunJerkMagnitudeSlideDump);
+
 				//Switch colliders
 				ColliderCapsule.Disabled = true;
 				ColliderSphere.Disabled = false;
+
 				//Set camera to new height
 				CameraYTarget = 0.5f;
+
 				//Update bool
 				IsSliding = true;
 			}
@@ -185,8 +191,10 @@ public partial class Player : CharacterBody3D
 			//Switch colliders
 			ColliderCapsule.Disabled = false;
 			ColliderSphere.Disabled = true;
+
 			//Set camera to new height
 			CameraYTarget = 1.5f;
+
 			//Update bool
 			IsSliding = false;
 		}
@@ -299,8 +307,8 @@ public partial class Player : CharacterBody3D
 		float jerkAlignment = Mathf.Clamp(runAlignment / (runDynamicMaxSpeed / 2f), 0f, 1f);
 		if (!isSliding && runDirection.Normalized().Length() == 1)
 		{
-			//Increase acceleration (i.e. make this jerk rather than simply accelerate)
-			RunJerkDevelopment = Mathf.Min((RunJerkDevelopment + delta) * jerkAlignment, RunJerkDevelopmentPeriod);
+			//Develop jerk - increase acceleration (i.e. make this jerk rather than simply accelerate)
+			RunJerkDevelopment = Mathf.Min((RunJerkDevelopment + (delta * RunJerkDevelopmentRate)) * jerkAlignment, RunJerkDevelopmentPeriod);
 		}
 		else
 		{

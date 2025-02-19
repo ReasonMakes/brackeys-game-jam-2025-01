@@ -326,93 +326,6 @@ volume_db = -5.354
 [node name="CSGCombiner3D" type="CSGCombiner3D" parent="."]
 use_collision = true
 
-[node name="Cooler" type="CSGCombiner3D" parent="CSGCombiner3D"]
-
-[node name="Cells" type="CSGCombiner3D" parent="CSGCombiner3D/Cooler"]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, 6.25, 40)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.5, 6.25, 40)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, 20.25, 39.5)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D3"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.5, 20.25, 39.5)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -47.5, 6.25, 55.5)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -33.5, 6.25, 55.5)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -47.5, 20.25, 56)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D7"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="CSGBox3D8" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -33.5, 20.25, 56)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D8"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="Wall" type="CSGBox3D" parent="CSGCombiner3D/Cooler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 3.75, 48)
-size = Vector3(23.5, 7.5, 3.5)
-
-[node name="Catwalk" type="CSGBox3D" parent="CSGCombiner3D/Cooler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 24.5, 49.75)
-size = Vector3(23.5, 1, 4.5)
-
-[node name="MeshInstance3D" parent="CSGCombiner3D/Cooler" instance=ExtResource("31_smw1h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 25, 49.5)
-
 [node name="Floor" type="CSGBox3D" parent="CSGCombiner3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83, -10.75, 0)
 size = Vector3(130, 21.5, 130)
@@ -436,6 +349,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.9146, 4.25, 0)
 size = Vector3(3, 3.5, 43.5)
 
 [node name="Cockpit" type="CSGCombiner3D" parent="CSGCombiner3D"]
+
+[node name="Task" parent="CSGCombiner3D/Cockpit" instance=ExtResource("31_smw1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0.5, 0)
 
 [node name="Partition" type="CSGBox3D" parent="CSGCombiner3D/Cockpit"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, 3.5, 0)
@@ -467,6 +383,172 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 5.25, 0)
 operation = 2
 size = Vector3(28.5, 10.5, 20.5)
 
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="CSGCombiner3D/Cockpit"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+radius = 7.25
+height = 1.0
+sides = 43
+
+[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="CSGCombiner3D/Cockpit/CSGCylinder3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+operation = 2
+radius = 6.5
+sides = 43
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/Cockpit/CSGCylinder3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, 0)
+operation = 2
+size = Vector3(8, 1, 15.75)
+
+[node name="Cooler" type="CSGCombiner3D" parent="CSGCombiner3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 40.5)
+
+[node name="Cells" type="CSGCombiner3D" parent="CSGCombiner3D/Cooler"]
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, 6.25, 40)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.5, 6.25, 40)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -47.5, 6.25, 55.5)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -33.5, 6.25, 55.5)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells/CSGBox3D6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="Wall" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 2.5, 48)
+size = Vector3(23.5, 6, 3.5)
+
+[node name="Partition" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -40.5, 5.5, 42.75)
+size = Vector3(1, 11, 6.5)
+
+[node name="Partition2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -40.5, 5.5, 52.75)
+size = Vector3(1, 11, 6.5)
+
+[node name="Column" type="CSGCylinder3D" parent="CSGCombiner3D/Cooler/Cells"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 14, 48)
+radius = 1.75
+height = 22.0
+
+[node name="Cells2" type="CSGCombiner3D" parent="CSGCombiner3D/Cooler"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14, 0)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, 6.25, 40)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells2/CSGBox3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.5, 6.25, 40)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells2/CSGBox3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells2"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -47.5, 6.25, 55.5)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells2/CSGBox3D5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="CSGBox3D6" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells2"]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -33.5, 6.25, 55.5)
+size = Vector3(9.5, 9.5, 6.5)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells2/CSGBox3D6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
+operation = 2
+size = Vector3(7.5, 9.5, 6.5)
+
+[node name="Wall" type="CSGBox3D" parent="CSGCombiner3D/Cooler/Cells2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 2.5, 48)
+size = Vector3(23.5, 6, 3.5)
+
+[node name="CatwalkMid" type="CSGBox3D" parent="CSGCombiner3D/Cooler"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 13.75, 47.75)
+size = Vector3(4, 0.5, 22)
+
+[node name="CatwalkTop" type="CSGBox3D" parent="CSGCombiner3D/Cooler"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -40.5, 24.5, 47.75)
+size = Vector3(22, 1, 3.5)
+
+[node name="TaskCooler" parent="CSGCombiner3D/Cooler" instance=ExtResource("31_smw1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 25.5, 37.25)
+
+[node name="Garden" type="CSGCombiner3D" parent="CSGCombiner3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.75, 0, -42.5)
+
+[node name="Wall" type="CSGBox3D" parent="CSGCombiner3D/Garden"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.625, 9.375, 0)
+size = Vector3(42.75, 6.75, 1)
+
+[node name="WallRoof" type="CSGBox3D" parent="CSGCombiner3D/Garden"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.625, 13.25, 0)
+size = Vector3(47.5, 1, 17.75)
+
+[node name="Plateau1New" type="CSGBox3D" parent="CSGCombiner3D/Garden"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.125, 3, 0)
+size = Vector3(9.75, 6, 10)
+
+[node name="Stair" type="CSGBox3D" parent="CSGCombiner3D/Garden"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.125, 1.375, 0)
+size = Vector3(9.75, 2.75, 15)
+
+[node name="Plateau" type="CSGBox3D" parent="CSGCombiner3D/Garden"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.125, 4.25, 2.25)
+size = Vector3(9.75, 3.5, 5.5)
+
+[node name="Plateau2New" type="CSGBox3D" parent="CSGCombiner3D/Garden"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.75, 5.625, 0)
+size = Vector3(10, 0.75, 10)
+
+[node name="Task" parent="CSGCombiner3D/Garden/Plateau2New" instance=ExtResource("31_smw1h")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.9, 4.5)
+skeleton = NodePath("")
+
+[node name="Column" type="CSGCylinder3D" parent="CSGCombiner3D/Garden/Plateau2New"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, -3, 0)
+radius = 1.0
+height = 5.5
+sides = 18
+
 [node name="Reactor" type="CSGCombiner3D" parent="CSGCombiner3D"]
 
 [node name="Wall" type="CSGBox3D" parent="CSGCombiner3D/Reactor"]
@@ -480,6 +562,10 @@ size = Vector3(17.5, 0.5, 3)
 [node name="Catwalk2" type="CSGBox3D" parent="CSGCombiner3D/Reactor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126.5, 10.25, 0)
 size = Vector3(3, 0.5, 42.5)
+
+[node name="Pedestal" type="CSGBox3D" parent="CSGCombiner3D/Reactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126.5, 11.375, -19.75)
+size = Vector3(1.25, 1.75, 1.25)
 
 [node name="Catwalk3" type="CSGBox3D" parent="CSGCombiner3D/Reactor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.5, 3.25, 0)
@@ -507,7 +593,7 @@ height = 45.0
 sides = 20
 
 [node name="TaskReactor" parent="CSGCombiner3D/Reactor" instance=ExtResource("31_smw1h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -125, 11.5, -14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126.5, 12.75, -19.75)
 skeleton = NodePath("../../..")
 
 [node name="Audio Atmos" type="AudioStreamPlayer" parent="."]
