@@ -32,6 +32,11 @@ size = Vector3(4, 7.75, 43.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -34.9146, 5.875, 0)
 size = Vector3(4, 7.75, 43.5)
 
+[node name="PanelSubtraction" type="CSGBox3D" parent="Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29.375, 10.75, 0)
+operation = 2
+size = Vector3(18.5, 1, 11.75)
+
 [node name="Roof" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -57, 34, 0)
 size = Vector3(78, 2, 130)
@@ -49,8 +54,8 @@ transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -62.87
 size = Vector3(1, 34.75, 64.75)
 
 [node name="Partition5" type="CSGBox3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -62.875, 16.75, 54.75)
-size = Vector3(1, 35.5, 64.75)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -62.125, 16.75, 54.75)
+size = Vector3(1, 35.5, 66.25)
 
 [node name="Partition4" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -94.75, 16.75, 0)
@@ -102,6 +107,11 @@ sides = 24
 transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 5.25, -1.5, 0)
 operation = 2
 size = Vector3(52.5, 10.5, 20.5)
+
+[node name="PanelSubtraction" type="CSGBox3D" parent="Cockpit/Floor/CSGCylinder3D2"]
+transform = Transform3D(-1.58932e-08, -1, 0, 1, -1.58932e-08, 0, 0, 0, 1, -0.374999, 8.75, 0)
+operation = 2
+size = Vector3(6.25, 1, 3)
 
 [node name="CSGSphere3D2" type="CSGSphere3D" parent="Cockpit/Floor"]
 transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 37, 0, 0)
@@ -319,16 +329,25 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.75, 0, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107, 17.5, 0)
 size = Vector3(1, 35, 42.5)
 
+[node name="Cut" type="CSGBox3D" parent="Reactor/Wall"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -5.625, -7)
+operation = 2
+size = Vector3(1, 1.75, 9.5)
+
+[node name="CatwalkLower" type="CSGBox3D" parent="Reactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.5, 3.25, 0)
+size = Vector3(3, 0.5, 42.5)
+
 [node name="Catwalk" type="CSGBox3D" parent="Reactor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.25, 10.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.25, 10.75, 0)
 size = Vector3(17.5, 0.5, 3)
 
 [node name="Catwalk2" type="CSGBox3D" parent="Reactor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126.5, 10.25, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126.5, 10.75, 0)
 size = Vector3(3, 0.5, 42.5)
 
 [node name="Catwalk5" type="CSGBox3D" parent="Reactor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -109, 10.25, -9.875)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -109, 10.75, -9.875)
 size = Vector3(3, 0.5, 22.75)
 
 [node name="Pedestal" type="CSGBox3D" parent="Reactor/Catwalk5"]
@@ -339,15 +358,11 @@ size = Vector3(1.25, 1.75, 1.25)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.375, 0)
 skeleton = NodePath("../../../../..")
 
-[node name="Catwalk3" type="CSGBox3D" parent="Reactor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.5, 3.25, 0)
-size = Vector3(3, 0.5, 42.5)
+[node name="Stairs" type="CSGBox3D" parent="Reactor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 7, 19.625)
+size = Vector3(6, 8, 3.25)
 
-[node name="Catwalk4" type="CSGBox3D" parent="Reactor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 6.75, 19.625)
-size = Vector3(6, 7.5, 3.25)
-
-[node name="Catwalk5" type="CSGBox3D" parent="Reactor/Catwalk4"]
+[node name="Catwalk5" type="CSGBox3D" parent="Reactor/Stairs"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 4, 0)
 operation = 2
 size = Vector3(6, 7.5, 3.25)
