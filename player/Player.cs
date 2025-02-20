@@ -37,14 +37,16 @@ public partial class Player : CharacterBody3D
 	private const float RunAcceleration = 250f; //allows for fast direction change
 	private const float RunAccelerationAirCoefficient = 0.4f; //reduces control while in-air
 
-	private const float RunDragGround = 20f; //LARGER VALUES ARE HIGHER DRAG
-	private const float RunDragAir = 0.1f; //LARGER VALUES ARE HIGHER DRAG
+	private const float RunDragGround = 20f; //8f; //2.890365f; //1040f; //2.890365f; //20f; //higher values are higher drag. Takes any positive value
+	private const float RunDragAirCoefficient = 0.01f; //0.05f; //72000f; //200f; //0.05f //higher values are higher drag. Takes any positive value
+    private const float RunDragMinMultiplier = 0.1f; //maximum drag the player's velocity will be multiplied by per tick. This is a failsafe for players with slow computers
 
-	private const float RunMaxSpeedGround = 10f; //run acceleration reduces as top speed is approached
+    private const float RunMaxSpeedGround = 10f; //run acceleration reduces as top speed is approached
 	private const float RunMaxSpeedAir = 5f; //lower top speed in air to keep air movements strictly for direction change rather than to build speed
 
 	[Export] private AudioStreamPlayer AudioFootsteps;
-	private float RunAudioTimer = 0f; //no touchy :)
+    [Export] private AudioStreamPlayer AudioClothes;
+    private float RunAudioTimer = 0f; //no touchy :)
 	//[ExportCategory("Seconds between footsteps")]
 	[Export(PropertyHint.Range, "0,10,")] private float RunAudioTimerPeriod = 0.5f; //time in seconds before another footstep sound can be played
 
@@ -53,7 +55,7 @@ public partial class Player : CharacterBody3D
 	
 	private float RunJerkDevelopment = 0f; //no touchy :) develops from 0 up to the value of RunJerkDevelopmentPeriod and is used as the coefficient of RunJerkMagnitude
 	private const float RunJerkDevelopmentRate = 2f; //How quickly jerk increases; i.e. jerk amount; i.e. how quickly acceleration increases
-	private const float RunJerkDevelopmentPeriod = 2f; //time in seconds that jerk takes to fully develop
+    private const float RunJerkDevelopmentPeriod = 2f; //time in seconds that jerk takes to fully develop
 	
 	private const float RunJerkDevelopmentDecayRate = 16f; //How many times faster jerk decreases rather than increases - jerk decay is exponential
 	private const float RunJerkDevelopmentDecayRateAir = 4f; //How many times faster jerk decreases rather than increases - jerk decay is exponential
@@ -61,7 +63,9 @@ public partial class Player : CharacterBody3D
 	private const float RunJerkMagnitudeSlideDump = 0.2f; //How much acceleration is dumped from RunJerkDevelopment the instant the player begins a slide
 
 	//CLIMB/WALL-JUMPING/WALL-RUNNING
-	private const float ClimbAcceleration = 6f; //Multiple of gravity. Vertical acceleration applied when climbing
+	private bool IsClimbingOrWallRunning = false;
+
+	private const float ClimbAcceleration = 20f; //6f; //Multiple of gravity. Vertical acceleration applied when climbing
 	private const float ClimbPeriod = 2f; //time in seconds you can accelerate upwards on the wall for
 	private float ClimbRemaining = 0f; //no touchy :)
 
@@ -71,10 +75,10 @@ public partial class Player : CharacterBody3D
 
 	private bool IsWallRunning = false;
 	private float WallRunAcceleration = 1000f; //additional horizontal acceleration applied when wall-running
-	private const float WallRunVerticalAcceleration = 1.5f; //Multiple of gravity, proportional to climb remaining. Vertical acceleration applied when wall-running
+	private const float ClimbCoefficientWallRunVerticalAcceleration = 0.25f; //1.5f; //Multiple of gravity, proportional to climb remaining. Vertical acceleration applied when wall-running
 
-	//JUMP
-	private bool InputTechJump = false;
+    //JUMP
+    private bool InputTechJump = false;
 	private const float JumpAcceleration = 10f; //instantaneous vertical acceleration
 
 	private const float JumpCooldown = 0.2f; //the minimum time in seconds that must pass before the player can jump again (we compare this to JumpFatigueRecencyTimer)
@@ -95,17 +99,17 @@ public partial class Player : CharacterBody3D
 	private bool IsSliding = false;
 	private const float RunAccelerationSlidingCoefficient = 0.075f; //larger values are higher acceleration
 
-	private const float RunDragSlidingCoefficient = 0.05f; //LARGER VALUES ARE HIGHER DRAG - also affects slide-jump speed
+	private const float RunDragSlidingCoefficient = 0.05f; //7200f; //20f; //0.05f; ////higher values are higher drag. Also affects slide-jump speed. Takes any positive value.
 
-	private float CameraYTarget = 1.5f; //no touchy :) Target camera y position
+    private float CameraYTarget = 1.5f; //no touchy :) Target camera y position
 	private float CameraY = 1.5f; //no touchy :) Current camera y position
 	private const float CameraYAnimationDuration = 25f; //rate that the camera moves towards the target y position, proportional to the distance
 
 	//DASH
 	private bool InputTechDash = false;
-	private const float DashAcceleration = 300f; //dash acceleration magnitude
+	private const float DashAcceleration = 15f; //300f; //dash acceleration magnitude
 	private const float DashAccelerationAirCoefficient = 0.05f; //lower values cause lessened aerial acceleration
-	private float DashCooldown = 0f; //no touchy :)
+    private float DashCooldown = 0f; //no touchy :)
 	private const float DashCooldownPeriod = 5f; //time in seconds until you can use the tech again
 
 	private float DashFadeSpeed = 5f; //How fast it fades in/out
@@ -203,14 +207,16 @@ public partial class Player : CharacterBody3D
 		Cam.Transform = new Transform3D(Cam.Basis, new Vector3(0f, CameraY, 0f));
 		CameraY += (CameraYTarget - CameraY) * CameraYAnimationDuration * delta;
 
-		bool isClimbingOrWallRunning = IsOnWall() && InputRunForward && ClimbRemaining > 0f && CanClimb;
+		//Update climbing bool
+		IsClimbingOrWallRunning = IsOnWall() && InputRunForward && ClimbRemaining > 0f && CanClimb;
 
 		//Run
-		Vector3 runVector = Run(delta, IsSliding, isClimbingOrWallRunning);
-		Velocity += runVector * delta;
+		Vector3 runVector = Run(delta, IsSliding);
+		//Velocity += runVector * delta;
+        ApplyAcceleration(runVector, delta);
 
-		//Wall Climb
-		Climb(delta, runVector);
+        //Wall Climb
+        Climb(delta, runVector);
 
 		//Dash
 		Dash(delta, runVector);
@@ -221,32 +227,118 @@ public partial class Player : CharacterBody3D
 		//Gravity
 		if (!IsOnFloor())
 		{
-			Velocity += GetGravity() * delta;
-		}
-		
-		//Drag
-		if (IsOnFloor() || isClimbingOrWallRunning)
-		{
-			//Ground
-			float slidingCoefficient = 1f;
-			if (IsSliding)
-			{
-				slidingCoefficient = RunDragSlidingCoefficient;
-			}
+            //Velocity += GetGravity() * delta;
+            ApplyAcceleration(GetGravity(), delta);
+        }
 
-			Velocity *= Mathf.Clamp(1f - (RunDragGround * slidingCoefficient * delta), 0f, 1f);
-		}
-		else
-		{
-			//Air
-			Velocity *= Mathf.Clamp(1f - (RunDragAir * delta), 0f, 1f);
-		}
-
-		//Apply
-		MoveAndSlide();
+        //Apply
+        MoveAndSlide();
 	}
 
-	private Vector3 Run(float delta, bool isSliding, bool isClimbingOrWallRunning)
+	private void ApplyAcceleration(Vector3 acceleration, float delta)
+	{
+        //DON'T MULTIPLY BY DELTA IN THE ACCELERATION ARGUMENT OF THIS METHOD!
+
+        //Correct example usage:
+        //float magnitude = 10f;
+        //Vector3 direction = -GlobalBasis.Z;
+        //ApplyAcceleration(magnitude * direction, delta);
+        
+        //This actually uses a force formula, but we assume the mass is 1, thus it ends up applying acceleration, and the vector is titled acceleration
+        //F = ma
+        //F = (1)a
+        //F = a
+
+        //Dynamic drag amount
+        float dragComponent;
+        if (IsOnFloor() || IsClimbingOrWallRunning)
+        {
+            //Ground
+            float slidingCoefficient = 1f;
+            if (IsSliding)
+            {
+                slidingCoefficient = RunDragSlidingCoefficient;
+            }
+
+            dragComponent = RunDragGround * slidingCoefficient;
+        }
+        else
+        {
+            //Air
+            dragComponent = RunDragGround * RunDragAirCoefficient;
+        }
+
+        //Apply drag friction with an exponential decay expression to account for users with throttled physics update rates
+        float decayFactor = Mathf.Exp(-dragComponent * delta);
+        Velocity = acceleration / dragComponent * (1f - decayFactor) + (Velocity * decayFactor);
+
+        //Vector3 force = new(0f, 0f, 100f * (Time.GetTicksMsec() * 0.0001f)); // Example force applied to the player
+
+        //float dragPerSecond = 20f; // Define friction effect per second
+        //float stepDrag = 1f - Mathf.Exp(-dragPerSecond * delta);
+        //Velocity *= (1f - stepDrag);
+
+        //Velocity *= Mathf.Exp(-dragComponent * delta);
+
+        //lower values are higher friction. Range: >= 0, < 1
+        //float coefficient = 0.9f;
+        //Velocity = Velocity * (coefficient * (1f - delta));
+
+
+
+        //Velocity *= Mathf.Clamp(1f - (dragComponent * delta), RunDragMinMultiplier, 1f);
+
+
+        //This does not result in the same jump height across update rates
+        //Apply drag friction with an exponential decay expression to account for users with throttled physics update rates
+        //Velocity *= Mathf.Exp(-dragComponent * delta);
+        //GD.Print(Position.Y);
+
+        //float frictionCoefficient = 2.3f; // Tune this to control friction strength
+        //Velocity *= Mathf.Exp(-frictionCoefficient * delta);
+
+
+        //Velocity *= 0.9f;
+
+        //Velocity /= 1f/delta;
+        //float x = 1800f;
+        //Velocity *= 0.99f;
+        //Velocity *= 1f - (Mathf.Pow(Mathf.E, -x) * delta);
+        //Velocity *= 1f - (Mathf.Pow(Mathf.E, -dragComponent) * delta);
+        //Velocity *= 1f - Mathf.Pow(Mathf.E, -dragComponent);
+
+
+
+        //Velocity *= Mathf.Clamp(1f - (dragComponent * delta), RunDragMaxPerTick, 1f);
+
+        //Higher values of dragComponent result in greater friction
+        //Velocity *= 1f - ((dragComponent/(dragComponent + 1f)) * delta);
+
+
+
+        //higher framerates need less drag per frame
+        //higher framerates have lower delta
+        //higher framerate: 0.0028
+        //lower framerate: 0.067
+        //higher framerate: 1 - 0.0028 = 0.9972
+        //lower framerate: 1 - 0.067 = 0.933\
+
+
+        //x/x+k
+        //10/10+10
+        //0.5
+        //30/30+10
+        //0.25
+
+
+
+        //Velocity *= Mathf.Clamp(1f - (dragComponent * (1f/360f)), RunDragMaxPerTick, 1f);
+        //Velocity *= Mathf.Exp(-dragComponent * delta);
+        //Velocity *= Mathf.Exp(dragComponent * delta);
+        //Velocity *= Mathf.Clamp(1f - (dragComponent * delta), 0f, 1f);
+    }
+
+    private Vector3 Run(float delta, bool isSliding)
 	{
 		//Run Direction
 		Vector3 runDirection = Vector3.Zero;
@@ -349,7 +441,8 @@ public partial class Player : CharacterBody3D
 		)
 		{
 			AudioFootsteps.Play();
-			RunAudioTimer = RunAudioTimerPeriod;
+			AudioClothes.Play();
+            RunAudioTimer = RunAudioTimerPeriod;
 		}
 		//--
 		
@@ -364,32 +457,34 @@ public partial class Player : CharacterBody3D
 	private void Dash(float delta, Vector3 runVector)
 	{
 		//Act
-		if (InputTechDash && DashCooldown == 0f)
+		if (InputTechDash && DashCooldown == 0f && !IsOnFloor() && ! IsOnWall())
 		{
 			//Direction
 			Vector3 runDirection = runVector.Normalized();
-			Vector3 dashDirection = runDirection.Length() == 0f ? -GlobalBasis.Z : runDirection;
+            Vector3 dashDirection = runDirection.Length() == 0f ? -GlobalBasis.Z : runDirection;
 
-			//Magnitude
-			float dashMagnitude;
-			if (IsSliding && IsOnFloor())
-			{
-				//Sliding on ground
-				dashMagnitude = DashAcceleration * DashAccelerationAirCoefficient;
-			}
-			else if (IsOnFloor())
-			{
-				//Running on ground
-				dashMagnitude = DashAcceleration;
-			}
-			else
-			{
-				//In air
-				dashMagnitude = DashAcceleration * DashAccelerationAirCoefficient;
-			}
+			////Variable magnitude
+			//float dashMagnitude;
+			//if (IsSliding && IsOnFloor())
+			//{
+			//	//Sliding on ground
+			//	dashMagnitude = DashAcceleration * DashAccelerationAirCoefficient;
+            //}
+			//else if (IsOnFloor())
+            //{
+			//	//Running on ground
+			//	dashMagnitude = DashAcceleration;
+            //}
+			//else
+			//{
+			//	//In air
+            //    dashMagnitude = DashAcceleration * DashAccelerationAirCoefficient;
+            //}
 
-			//Add vector to velocity
-			Velocity += dashDirection * dashMagnitude;
+            //Add vector to velocity
+            //ApplyAcceleration(dashDirection * dashMagnitude, delta);
+            Velocity += dashDirection * DashAcceleration;
+            //Velocity += dashDirection * dashMagnitude;
 
 			//Reset cooldown
 			DashCooldown = DashCooldownPeriod;
@@ -446,7 +541,7 @@ public partial class Player : CharacterBody3D
 			CanClimb = false;
 
 			//Jump up and away from the wall
-			Jump(delta, (GetWallNormal() + GetWallNormal() + Vector3.Up).Normalized(), WallJumpAcceleration);
+			Jump((GetWallNormal() + GetWallNormal() + Vector3.Up).Normalized(), WallJumpAcceleration);
 		}
 
 		//Climbing or wall-running
@@ -457,24 +552,30 @@ public partial class Player : CharacterBody3D
 				float dotWall = Mathf.Max(GetWallNormal().Dot(GlobalBasis.Z), 0f); // 0 to 1, where 1 is facing the wall
 
 				//Climb
-				Velocity += -GetGravity() * (ClimbAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall * delta);
+				Vector3 climbVector = -GetGravity() * (ClimbAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall);
+                ApplyAcceleration(climbVector, delta);
+                //Velocity += -GetGravity() * (ClimbAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall * delta);
 
-				//Wall-run
-				if (!IsOnFloor() && dotWall < 0.75f)
+                //Wall-run
+                if (!IsOnFloor() && dotWall < 0.75f)
 				{
 					IsWallRunning = true;
 
 					//Get direction
 					Vector3 wallTangent = GetWallNormal().Cross(Vector3.Up); //pretty much all the way there
 					Vector3 projectedDirection = (wallTangent * runVector.Dot(wallTangent)).Normalized(); //consider which horizontal direction we're going along the wall
-					//testBox.Position = new Vector3(Position.X, Position.Y + 1f, Position.Z) + (2f * projectedDirection);
+                                                                                                          //testBox.Position = new Vector3(Position.X, Position.Y + 1f, Position.Z) + (2f * projectedDirection);
 
-					//Horizontal acceleration
-					Velocity += projectedDirection * (WallRunAcceleration * (1f - dotWall) * delta);
+                    //Horizontal acceleration
+					Vector3 wallRunHorizontalVector = projectedDirection * (WallRunAcceleration * (1f - dotWall));
+                    ApplyAcceleration(wallRunHorizontalVector, delta);
+                    //Velocity += projectedDirection * (WallRunAcceleration * (1f - dotWall) * delta);
 
-					//Vertical acceleration
-					Velocity += -GetGravity() * (WallRunVerticalAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall * delta);
-				}
+                    //Vertical acceleration
+					Vector3 wallRunVerticalVector = -GetGravity() * (ClimbAcceleration * ClimbCoefficientWallRunVerticalAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall);
+                    ApplyAcceleration(wallRunVerticalVector, delta);
+                    //Velocity += -GetGravity() * (WallRunVerticalAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall * delta);
+                }
 
 				//Decrement
 				ClimbRemaining = Mathf.Max(ClimbRemaining - delta, 0f);
@@ -554,7 +655,7 @@ public partial class Player : CharacterBody3D
 			if (InputTechJump && JumpFatigueRecencyTimer >= JumpCooldown)
 			{
 				//Jump upwards
-				Jump(delta, Vector3.Up, JumpAcceleration);
+				Jump(Vector3.Up, JumpAcceleration);
 
 				//Reset timers
 				JumpFatigueOnGroundTimer = Mathf.Max(JumpFatigueOnGroundTimer/2f, JumpFatigueMinimumCoefficient);
@@ -570,7 +671,7 @@ public partial class Player : CharacterBody3D
 		RectJumpFatigueOnGround.Scale = new(JumpFatigueOnGroundTimer/JumpFatigueOnGroundTimerPeriod, 1f);
 	}
 
-	private void Jump(float delta, Vector3 direction, float magnitude)
+	private void Jump(Vector3 direction, float magnitude)
 	{
 		//Determine fatigue
 		float fatigue = Mathf.Max(
@@ -581,8 +682,8 @@ public partial class Player : CharacterBody3D
 			)
 		);
 
-		//Act
-		Velocity += direction * (magnitude * fatigue);
+        //Act
+        Velocity += direction * (magnitude * fatigue);
 
 		//Sound
 		AudioJump.Play();

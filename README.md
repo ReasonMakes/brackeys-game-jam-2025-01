@@ -14,7 +14,7 @@ Application
 
 ### Movement Tech
 - Grapple: Not implemented yet
-- Dash: Input the dash at any time. You can get much more distance dashing mid-air.
+- Dash: Input the dash while mid-air. You wil dash in whatever direction you are inputting, not just where you are looking.
 - Slide: Run forward until you build up enough speed and then press the crouch/slide input. Jump out of this at the right time to get the most speed/distance.
 - Wall Climb: Run forward whilst facing a wall
 - Wall Bounce: Whilst climbing, hold jump

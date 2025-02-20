@@ -3,12 +3,12 @@
 importer="mp3"
 type="AudioStreamMP3"
 uid="uid://dio7c84yj4k8h"
-path="res://.godot/imported/gameplay_round.mp3-0a703c34b83bcc725504e6048a0fcc2f.mp3str"
+path="res://.godot/imported/gameplay_round.mp3-4776d6aef91cb1b3fe53a4056c94e695.mp3str"
 
 [deps]
 
-source_file="res://music/in_game/gameplay_round.mp3"
-dest_files=["res://.godot/imported/gameplay_round.mp3-0a703c34b83bcc725504e6048a0fcc2f.mp3str"]
+source_file="res://music/non_combat_music/gameplay_round.mp3"
+dest_files=["res://.godot/imported/gameplay_round.mp3-4776d6aef91cb1b3fe53a4056c94e695.mp3str"]
 
 [params]
 

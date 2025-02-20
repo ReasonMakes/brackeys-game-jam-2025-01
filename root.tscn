@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=4 uid="uid://da3cc6bh5v41y"]
+[gd_scene load_steps=45 format=3 uid="uid://da3cc6bh5v41y"]
 
 [ext_resource type="Script" path="res://Control.cs" id="1_35hfb"]
 [ext_resource type="Script" path="res://player/Player.cs" id="1_apfbn"]
@@ -7,42 +7,34 @@
 [ext_resource type="Texture2D" uid="uid://bpikbdh4qapfe" path="res://UI/task.png" id="4_qs002"]
 [ext_resource type="Texture2D" uid="uid://b5sf3u7trt2vp" path="res://UI/ability hex.png" id="5_wlafp"]
 [ext_resource type="Texture2D" uid="uid://dd6je6ov171wm" path="res://UI/dash icon.png" id="7_rbh4t"]
-[ext_resource type="AudioStream" uid="uid://bd8utytd8fqt8" path="res://music/atmospheric/atmoshpere.wav" id="7_yp1mt"]
-[ext_resource type="AudioStream" uid="uid://dga5qh6pss4lc" path="res://music/atmospheric/proper_atmoshpere.mp3" id="8_8fplj"]
+[ext_resource type="AudioStream" uid="uid://bhvcytagrbbra" path="res://music/non_combat_music/player_not_in_combat_music.wav" id="7_yp1mt"]
+[ext_resource type="AudioStream" uid="uid://cvsno70drq81s" path="res://music/player_spawns_music/starting_spawn_music.mp3" id="8_8fplj"]
 [ext_resource type="Texture2D" uid="uid://diodiiuvs1muo" path="res://UI/grapple icon.png" id="8_f0pr7"]
 [ext_resource type="AudioStream" uid="uid://bfb2hv20kdmxo" path="res://player/footsteps/_foley02.mp3" id="8_il4tn"]
 [ext_resource type="AudioStream" uid="uid://vyc6uvdg2jmd" path="res://player/footsteps/_foley03.mp3" id="9_4hg2f"]
 [ext_resource type="AudioStream" uid="uid://byf4rwa27khoc" path="res://player/footsteps/_foley12.mp3" id="9_6lgsh"]
-[ext_resource type="AudioStream" uid="uid://7joavvxmi73g" path="res://music/menu/untitled_piano_sketching.wav" id="9_ac65s"]
+[ext_resource type="AudioStream" uid="uid://dtfjc76ehaurs" path="res://music/player_dies_music/piano_music_player_dies.wav" id="9_ac65s"]
 [ext_resource type="Texture2D" uid="uid://bmutsl3cfv1rs" path="res://UI/water plants icon.png" id="9_f2xyf"]
 [ext_resource type="AudioStream" uid="uid://ieymvf5d7wc8" path="res://player/footsteps/_foley13.mp3" id="10_7xy85"]
-[ext_resource type="AudioStream" uid="uid://dnqj7a8ra4g23" path="res://music/in_game/fast_paced.mp3" id="10_hmn48"]
+[ext_resource type="AudioStream" uid="uid://dnqj7a8ra4g23" path="res://music/combat_music/fast_paced.mp3" id="10_hmn48"]
 [ext_resource type="AudioStream" uid="uid://unnwgcais14v" path="res://player/footsteps/_foley14.mp3" id="11_2jg26"]
-[ext_resource type="AudioStream" uid="uid://dio7c84yj4k8h" path="res://music/in_game/gameplay_round.mp3" id="11_nqp7v"]
+[ext_resource type="AudioStream" uid="uid://dio7c84yj4k8h" path="res://music/non_combat_music/gameplay_round.mp3" id="11_nqp7v"]
 [ext_resource type="AudioStream" uid="uid://c4jhhki2sqd4p" path="res://player/footsteps/_foley15.mp3" id="12_ahy2d"]
 [ext_resource type="Script" path="res://music/Music.cs" id="12_gw8xm"]
 [ext_resource type="AudioStream" uid="uid://bhumxrepuatpk" path="res://player/footsteps/_foley04.mp3" id="13_l2e3c"]
 [ext_resource type="AudioStream" uid="uid://c4tcsckrie76h" path="res://player/footsteps/_foley05.mp3" id="14_jkodi"]
 [ext_resource type="AudioStream" uid="uid://bjp633qlxa64o" path="res://player/footsteps/_foley06.mp3" id="15_gwarx"]
 [ext_resource type="AudioStream" uid="uid://dd7qnidh2t67r" path="res://player/footsteps/_foley07.mp3" id="16_0krlh"]
+[ext_resource type="AudioStream" uid="uid://vi5yywl7pw54" path="res://player/clothes/clothes_brush_0.mp3" id="16_ivbk7"]
 [ext_resource type="AudioStream" uid="uid://bch5sep3qncm7" path="res://player/footsteps/_foley08.mp3" id="17_cyxxx"]
 [ext_resource type="AudioStream" uid="uid://cpkb0npbuif0v" path="res://player/footsteps/_foley09.mp3" id="18_82y8s"]
 [ext_resource type="AudioStream" uid="uid://b5cn4tlnoeomv" path="res://player/footsteps/_foley10.mp3" id="19_fdeok"]
 [ext_resource type="AudioStream" uid="uid://c82l68vi5x0yp" path="res://player/footsteps/_foley11.mp3" id="20_i7i2p"]
 [ext_resource type="AudioStream" uid="uid://cqlbi2lg1hqph" path="res://level/environment_sounds/spaceship_interior.mp3" id="27_qra5s"]
 [ext_resource type="AudioStream" uid="uid://d0uwfbtfvwstt" path="res://player/movement/jump_breath_in.mp3" id="31_s2tka"]
-[ext_resource type="PackedScene" uid="uid://dwdrpbnwwabeo" path="res://task.tscn" id="31_smw1h"]
 [ext_resource type="AudioStream" uid="uid://dnwqoqf8uqsm3" path="res://player/movement/land.mp3" id="32_mwapu"]
 [ext_resource type="AudioStream" uid="uid://cu3tj81o8rwh8" path="res://player/movement/dash.mp3" id="33_eseje"]
-[ext_resource type="Material" uid="uid://crg1ytap6icj7" path="res://robot/MM_RobotHazard.tres" id="34_nhrql"]
-[ext_resource type="PackedScene" path="res://robot/robot.tscn" id="36_1ah0c"]
-[ext_resource type="Material" uid="uid://cl4r8afs44bvn" path="res://level/modular_panels/MM_Floor.tres" id="37_t1xlm"]
-
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf7un"]
-
-[sub_resource type="SphereShape3D" id="SphereShape3D_enhva"]
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_3x3s7"]
+[ext_resource type="PackedScene" uid="uid://bmrvxd4l4satu" path="res://level/level.tscn" id="34_oikqa"]
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1xi00"]
 random_pitch = 1.02
@@ -63,6 +55,12 @@ stream_11/stream = ExtResource("10_7xy85")
 stream_12/stream = ExtResource("11_2jg26")
 stream_13/stream = ExtResource("12_ahy2d")
 
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5s85l"]
+random_pitch = 1.02
+random_volume_offset_db = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("16_ivbk7")
+
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_c134s"]
 streams_count = 5
 stream_0/stream = ExtResource("7_yp1mt")
@@ -70,6 +68,12 @@ stream_1/stream = ExtResource("8_8fplj")
 stream_2/stream = ExtResource("9_ac65s")
 stream_3/stream = ExtResource("10_hmn48")
 stream_4/stream = ExtResource("11_nqp7v")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf7un"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_enhva"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3x3s7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_53okd"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -87,48 +91,44 @@ ambient_light_energy = 0.04
 tonemap_mode = 2
 glow_enabled = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i23bb"]
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_7lnnw"]
-_surfaces = [{
-"aabb": AABB(0, -0.0540968, -3, 6, 0.0540968, 3),
-"format": 34896613377,
-"index_count": 264,
-"index_data": PackedByteArray("JgAAABsAJgAvAAAAIgAGABAAIgAdAAYAHgAFAAwAHgAcAAUAKAAHABUAKAAnAAcAGgANAAEAGgAhAA0ALwAUAAAALwAtABQAGwARAAMAGwAlABEAGAAIAAIAGAAZAAgAKAAOAAwAKAArAA4AKwAPAA4AKwAsAA8ALAANAA8ALAAtAA0ALgASABAALgAwABIAMAATABIAMAApABMAKQARABMAKQAZABEAHgALAAkAHgAfAAsAHwAKAAsAHwAgAAoAIAAIAAoAIAAhAAgAIgAXABUAIgAjABcAIwAWABcAIwAkABYAJAAUABYAJAAlABQALgAEAAkALgAqAAQAEwAlACQAEwARACUAEgAkACMAEgATACQAEAAjACIAEAASACMADwAhACAADwANACEADgAgAB8ADgAPACAADAAfAB4ADAAOAB8AAAAlABsAAAAUACUAAgAhABoAAgAIACEACQAcAB4ACQAEABwAFQAdACIAFQAHAB0AGAAbAAMAGAAmABsAAgAmABgAAgAaACYAGgAvACYAGgABAC8ADAAnACgADAAFACcAAQAtAC8AAQANAC0ACQAwAC4ACQALADAACwApADAACwAKACkACgAZACkACgAIABkAAwAZABgAAwARABkAFQArACgAFQAXACsAFwAsACsAFwAWACwAFgAtACwAFgAUAC0AEAAqAC4AEAAGACoA"),
-"lods": [0.00556222, PackedByteArray("FQAGABAAFQAdAAYAFQAHAB0AEAAWABUAFQAWABcAEAASABYAEgAkABYAEgATACQACQAFAAwACQAcAAUACQAEABwADAAgAAkACQAgAAsAIAAKAAsADAAOACAADgAPACAADAAHABUADAAnAAcADAAFACcAFQAOAAwAFQAXAA4AFwAsAA4ADgAsAA8AFwAWACwAAgANAAEAAQANABQAAgABAAAAAQAUAAAAAgAAAAMAAwAIAAIAAAARAAMAAwARAAgAAAAlABEAAAAUACUAEwARACUAKQARABMAKQAIABEAEwAlACQAJAAlABQACgAIACkAJAAUABYAFgAUACwALAAUAA0AIAAIAAoALAANAA8AIAAhAAgADwAhACAADwANACEAAgAIACEAAgAhAA0ACQASABAAEAAqAAkAEAAGACoACQAqAAQACQAwABIAMAATABIACQALADAAMAApABMACwApADAACwAKACkA"), 0.070187, PackedByteArray("FwAGABIAFwAdAAYAFwAHAB0AEgAWABcAEgAkABYAEgATACQACQAFAA4ACQAcAAUACQAEABwADgAgAAkAIAAKAAkADgAPACAADgAHABcADgAnAAcADgAFACcAFwAsAA4ADgAsAA8AFwAWACwALAAgAA8ALAAWACAACgAgABYACgAWACQAKQAKACQAKQAkABMAEgApABMACQApABIACQAKACkAEgAqAAkACQAqAAQAEgAGACoA")],
-"primitive": 3,
-"uv_scale": Vector4(0, 0, 0, 0),
-"vertex_count": 49,
-"vertex_data": PackedByteArray("MPz//5wHAADOA///nAcAAM4D//9i+AAAMPz//2L4AAAAAAAA//8AAAAAAAAAAAAA//8AAP//AAD//wAAAAAAAEsB//9n/QAAAAA6cP//AAClALzss/4AACwAHLim/wAAAAA6cAAAAABLAf//lwIAACwAHLhYAAAApQC87EsBAAD//zpw//8AALP+//9n/QAA0v8cuKb/AABZ/7zss/4AALP+//+XAgAA//86cAAAAABZ/7zsSwEAANL/HLhYAAAA/3///2L4AAD/f///Z/0AAM4D////fwAAMPz///9/AAAAAAAA/38AAP//AAD/fwAAAAA6cP9/AAAsABy4/38AAKUAvOz/fwAASwH///9/AAD//zpw/38AANL/HLj/fwAAWf+87P9/AACz/v///38AAP9/////fwAA/38AAAAAAAD/fzpwAAAAAP9/vOyz/gAA/38AAP//AAD/fxy4WAAAAP9/vOxLAQAA/3///5cCAAD/fzpw//8AAP9///+cBwAA/38cuKb/AAA=")
-}]
-blend_shape_mode = 0
-
-[sub_resource type="ArrayMesh" id="ArrayMesh_qul87"]
-resource_name = "SM_Floor_Plane_002"
-_surfaces = [{
-"aabb": AABB(0, -0.0540968, -3, 6, 0.0540968, 3),
-"attribute_data": PackedByteArray("svRq/rL0OYL7gjmC+4Jq/ur9/7/C+f//6v3//9b7/3/C+f9//////9b7//////+/nID4gPj8/7/P+P//1vtSwP9/pYCu96z/V/wVwC746P8u+Oj/+Pz//+T6/38R9/iAV/zo/0P6FYBD+hWA1vus/673pYDC+VKAz/j/fwz///+cgKz/LvgVgC74FYBr/uj/a/7o//9///+u91KA6v2s/xH3rP/k+v//DP//v673///C+az/6v1SwEP66P9D+uj/a/4VwPuCUsCcgFLA1rs5gta7av7q/f/f////3/j8/99X/P/f1vv/39a7pYDWu/iADP//32v+/9/Wu///6v3/39a7rP/Wu1LA1vv/v+T6/7//f1LArvf/v8L5/79D+v+/Q/r/v673UsDC+f+/EfdSwM/4/7+y9FLALvj/vy74/7//f6WArvelgC74FYD/f///rvf//0P66P/Wu////39SwK73UsAu+Oj/Q/oVgEP66P8u+P+/"),
-"format": 34896613399,
-"index_count": 264,
-"index_data": PackedByteArray("QQAAADQAQQBNAAAAPAAJAB8APAA2AAkANwAGABUANwA1AAYAQwAKACkAQwBCAAoAMwAXAAEAMwA7ABcATQAoAAAATQBLACgANAAgAAMANABAACAAMQAMAAIAMQAyAAwAQwAZABYAQwBHABkASAAdABoASABKAB0ASQAXABwASQBLABcATAAhAB4ATABOACEATwAmACIATwBFACYARAAgACUARAAyACAANwASAA0ANwA4ABIAOAAPABIAOAA5AA8AOgAMABAAOgA7AAwAPAAwACoAPAA9ADAAPQAtADAAPQA/AC0APgAoACsAPgBAACgATAAFAA4ATABGAAUAJQBAAD4AJQAgAEAAIwA/AD0AIwAnAD8AHwA9ADwAHwAkAD0AHAA7ADoAHAAXADsAGAA5ADgAGAAbADkAFQA4ADcAFQAYADgAAABAADQAAAAoAEAAAgA7ADMAAgAMADsADQA1ADcADQAEADUAKgA2ADwAKgALADYAMQA0AAMAMQBBADQAAgBBADEAAgAzAEEAMwBNAEEAMwABAE0AFgBCAEMAFgAHAEIAAQBLAE0AAQAXAEsADgBOAEwADgATAE4AFABFAE8AFAARAEUAEAAyAEQAEAAMADIAAwAyADEAAwAgADIAKQBHAEMAKQAuAEcALwBKAEgALwAsAEoAKwBLAEkAKwAoAEsAHgBGAEwAHgAIAEYA"),
-"lods": [0.00556222, PackedByteArray("KgAJAB8AKgA2AAkAKgALADYAHwAtACoAKgAtADAAHwAjAC0AIwA/AC0AIwAnAD8ADQAGABUADQA1AAYADQAEADUAFQA5AA0ADQA5ABIAOQAPABIAFQAYADkAGAAbADkAFgAKACkAFgBCAAoAFgAHAEIAKQBaABYAKQBbAFoAWwBKAFoAWgBKAB0AWwAsAEoAAgAXAAEAAQAXACgAAgABAAAAAQAoAAAAAgAAAAMAAwAMAAIAAAAgAAMAAwAgAAwAAABAACAAAAAoAEAAJQAgAEAARAAgACUARAAMACAAJQBAAD4APgBAACgAEAAMAEQAPgAoACsAKwAoAEkASQAoABcAOgAMABAASQAXABwAOgA7AAwAHAA7ADoAHAAXADsAAgAMADsAAgA7ABcADgAhAB4AHgBGAA4AHgAIAEYADgBGAAUADgBcACEAXAAmACEADgBZAFwAXABFACYAWQBFAFwAWQARAEUA"), 0.070187, PackedByteArray("MAAJACMAMAA2AAkAMAALADYAIwAtADAAIwA/AC0AIwAnAD8ADQAGABgADQA1AAYADQAEADUAGAA5AA0AOQAPAA0AGAAbADkAGQAKAFUAGQBCAAoAGQAHAEIAVQBKABkAGQBKAB0AVQAsAEoAWAA6AFEAWABUADoAUAA6AFQAUABUAFYAVwBQAFYAVwBWAFMAUgBFACYADgBFAFIADgARAEUAUgBGAA4ADgBGAAUAUgAIAEYA")],
-"material": SubResource("StandardMaterial3D_i23bb"),
-"primitive": 3,
-"uv_scale": Vector4(1.05865, 2, 0, 0),
-"vertex_count": 93,
-"vertex_data": PackedByteArray("MPz//5wHVNXOA///nAdU1c4D//9i+FTVMPz//2L4VNUAAAAA//9U1QAAAAD///+/AAAAAAAAVNUAAAAAAAD/////AAD///+///8AAP//VNX//wAAAAD/////AAAAAFTVSwH//2f9UtUAADpw//8x2AAAOnD//yTApQC87LP+qumlALzss/5MzKUAvOyz/ubJLAAcuKb/VuAsABy4pv+xwCwAHLim//zFAAA6cAAAMdgAADpwAACO/EsB//+XAh7aLAAcuFgAVuAsABy4WAB3+CwAHLhYAKrppQC87EsBqumlALzsSwF/46UAvOxLASbk//86cP//JMD//zpw//+U0rP+//9n/djQ0v8cuKb/sMDS/xy4pv/8xdL/HLim//zF0v8cuKb/d89Z/7zss/4sxVn/vOyz/l3QWf+87LP+x7Wz/v//lwJX1f//OnAAAI78//86cAAAlNJZ/7zsSwEk4Vn/vOxLAYrgWf+87EsB/MXS/xy4WAB3+NL/HLhYAKrp0v8cuFgA28v/f///YvhU1f9///9n/VLSzgP///9/VNUw/P///39U1QAAAAD/f1TV//8AAP9/VNUAADpw/3952CwAHLj/f4zipQC87P9/qumlALzs/3+720sB////f3nY//86cP9/UtLS/xy4/39Kyln/vOz/f0rKWf+87P9/usKz/v///39S0v9/////f1TV/38AAAAA////fzpwAAA6/P9/vOyz/krK/3+87LP+Ssr/fwAA////v/9/HLhYAHf4/38cuFgAqun/f7zsSwGM4v9/vOxLAYzi/3///5cCedj/fzpw//8rwP9///+cB1TV/38cuKb/sMD/fxy4pv/8xaUAvOyz/ubVpQC87EsBxNTS/xy4pv8Dwln/vOyz/m7TWf+87EsB6dXS/xy4WAAv7Vn/vOz/f1PV/3+87LP+PNX/f7zsSwF21SwAHLim/2LELAAcuFgAkfDS/xy4WAAN7f9/HLim/x/EVNWqKlTVqipU1aoqVNWqKlRVqqr/f/9/VFWqqv8//7//f/9/qqpUVf8//7+qqlRVntnLKqpYVKzUhtSGCWoEtUffTCOSoJekLGGVsFaNVo3+nP6cqlhUrNrBJD6d1kEtLGGVsPPDCzz6ygQ1CWoEtUzQjTKDz1sx1IbUhiKuEFfR054nVo1Wjf6c/pwAxgBjf7I/WbrPvx/lry2YWNe2di7RzyrawSQ+Ia4QV5HMhTBTzcUxAMYAY/PDCzz6ygQ1abg0XFTVqio818IoVNWqKlTVqipUVaqqqqpUVfpYfKxTY6mxCWoEtYHcQC762H0sea48V2e7s12XxEsiVdOqaYTRwihU1aoq/z//vwfC9z2z3UsiS6JLov9//3/zwws8+soENVXOqTFVzqkxgdN9LGqHaodU1aoqVo1Wjf6c/pyS3lQlsNGoNimWyInq20Apj9DtNA3bR1ZU1aoqCd8BJh7RFzaqm+qLh9cKUinbalaXnPSJ")
-}]
-blend_shape_mode = 0
-shadow_mesh = SubResource("ArrayMesh_7lnnw")
-
-[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_4qrlt"]
-data = PackedVector3Array(3, 0, -1.5, 5.91079, 0, -2.91079, 5.91079, 0, -1.5, 3, 0, -1.5, 3, 0, -2.91079, 5.91079, 0, -2.91079, 6, -0.0303805, -1.5, 6, -0.0540968, 0, 6, -0.0303805, 0, 6, -0.0303805, -1.5, 6, -0.0540968, -1.5, 6, -0.0540968, 0, 0, -0.0303805, -1.5, 0, -0.0540968, -3, 0, -0.0303805, -3, 0, -0.0303805, -1.5, 0, -0.0540968, -1.5, 0, -0.0540968, -3, 3, -0.0303805, -3, 6, -0.0540968, -3, 6, -0.0303805, -3, 3, -0.0303805, -3, 3, -0.0540968, -3, 6, -0.0540968, -3, 0.089211, 0, -1.5, 0.0303807, 0, -2.96962, 0.089211, 0, -2.91079, 0.089211, 0, -1.5, 0.0303807, 0, -1.5, 0.0303807, 0, -2.96962, 3, 0, -2.91079, 5.96962, 0, -2.96962, 5.91079, 0, -2.91079, 3, 0, -2.91079, 3, 0, -2.96962, 5.96962, 0, -2.96962, 5.91079, 0, -1.5, 5.96962, 0, -0.0303805, 5.91079, 0, -0.0892107, 5.91079, 0, -1.5, 5.96962, 0, -1.5, 5.96962, 0, -0.0303805, 3, 0, -0.0892107, 0.0303807, 0, -0.0303805, 0.089211, 0, -0.0892107, 3, 0, -0.0892107, 3, 0, -0.0303805, 0.0303807, 0, -0.0303805, 3, -0.0303805, -3, 0.00407028, -0.0151903, -2.99593, 0, -0.0303805, -3, 3, -0.0303805, -3, 3, -0.0151903, -2.99593, 0.00407028, -0.0151903, -2.99593, 3, -0.0151903, -2.99593, 0.0151901, -0.00407022, -2.98481, 0.00407028, -0.0151903, -2.99593, 3, -0.0151903, -2.99593, 3, -0.00407022, -2.98481, 0.0151901, -0.00407022, -2.98481, 3, -0.00407022, -2.98481, 0.0303807, 0, -2.96962, 0.0151901, -0.00407022, -2.98481, 3, -0.00407022, -2.98481, 3, 0, -2.96962, 0.0303807, 0, -2.96962, 3, -0.0303805, 0, 5.99593, -0.0151903, -0.00407004, 6, -0.0303805, 0, 3, -0.0303805, 0, 3, -0.0151903, -0.00406992, 5.99593, -0.0151903, -0.00407004, 3, -0.0151903, -0.00406992, 5.98481, -0.00407022, -0.0151901, 5.99593, -0.0151903, -0.00407004, 3, -0.0151903, -0.00406992, 3, -0.00407022, -0.0151901, 5.98481, -0.00407022, -0.0151901, 3, -0.00407022, -0.0151901, 5.96962, 0, -0.0303805, 5.98481, -0.00407022, -0.0151901, 3, -0.00407022, -0.0151901, 3, 0, -0.0303805, 5.96962, 0, -0.0303805, 0, -0.0303805, -1.5, 0.00407028, -0.0151903, -0.00406981, 0, -0.0303805, 0, 0, -0.0303805, -1.5, 0.00407028, -0.0151903, -1.5, 0.00407028, -0.0151903, -0.00406981, 0.00407028, -0.0151903, -1.5, 0.0151901, -0.00407022, -0.0151901, 0.00407028, -0.0151903, -0.00406981, 0.00407028, -0.0151903, -1.5, 0.0151901, -0.00407022, -1.5, 0.0151901, -0.00407022, -0.0151901, 0.0151901, -0.00407022, -1.5, 0.0303807, 0, -0.0303805, 0.0151901, -0.00407022, -0.0151901, 0.0151901, -0.00407022, -1.5, 0.0303807, 0, -1.5, 0.0303807, 0, -0.0303805, 6, -0.0303805, -1.5, 5.99593, -0.0151903, -2.99593, 6, -0.0303805, -3, 6, -0.0303805, -1.5, 5.99593, -0.0151903, -1.5, 5.99593, -0.0151903, -2.99593, 5.99593, -0.0151903, -1.5, 5.98481, -0.00407022, -2.98481, 5.99593, -0.0151903, -2.99593, 5.99593, -0.0151903, -1.5, 5.98481, -0.00407022, -1.5, 5.98481, -0.00407022, -2.98481, 5.98481, -0.00407022, -1.5, 5.96962, 0, -2.96962, 5.98481, -0.00407022, -2.98481, 5.98481, -0.00407022, -1.5, 5.96962, 0, -1.5, 5.96962, 0, -2.96962, 3, -0.0303805, 0, 0, -0.0540968, 0, 0, -0.0303805, 0, 3, -0.0303805, 0, 3, -0.0540968, 0, 0, -0.0540968, 0, 5.98481, -0.00407022, -0.0151901, 5.96962, 0, -1.5, 5.98481, -0.00407022, -1.5, 5.98481, -0.00407022, -0.0151901, 5.96962, 0, -0.0303805, 5.96962, 0, -1.5, 5.99593, -0.0151903, -0.00407004, 5.98481, -0.00407022, -1.5, 5.99593, -0.0151903, -1.5, 5.99593, -0.0151903, -0.00407004, 5.98481, -0.00407022, -0.0151901, 5.98481, -0.00407022, -1.5, 6, -0.0303805, 0, 5.99593, -0.0151903, -1.5, 6, -0.0303805, -1.5, 6, -0.0303805, 0, 5.99593, -0.0151903, -0.00407004, 5.99593, -0.0151903, -1.5, 0.0151901, -0.00407022, -2.98481, 0.0303807, 0, -1.5, 0.0151901, -0.00407022, -1.5, 0.0151901, -0.00407022, -2.98481, 0.0303807, 0, -2.96962, 0.0303807, 0, -1.5, 0.00407028, -0.0151903, -2.99593, 0.0151901, -0.00407022, -1.5, 0.00407028, -0.0151903, -1.5, 0.00407028, -0.0151903, -2.99593, 0.0151901, -0.00407022, -2.98481, 0.0151901, -0.00407022, -1.5, 0, -0.0303805, -3, 0.00407028, -0.0151903, -1.5, 0, -0.0303805, -1.5, 0, -0.0303805, -3, 0.00407028, -0.0151903, -2.99593, 0.00407028, -0.0151903, -1.5, 5.91079, 0, -2.91079, 5.96962, 0, -1.5, 5.91079, 0, -1.5, 5.91079, 0, -2.91079, 5.96962, 0, -2.96962, 5.96962, 0, -1.5, 0.089211, 0, -0.0892107, 0.0303807, 0, -1.5, 0.089211, 0, -1.5, 0.089211, 0, -0.0892107, 0.0303807, 0, -0.0303805, 0.0303807, 0, -1.5, 0, -0.0303805, 0, 0, -0.0540968, -1.5, 0, -0.0303805, -1.5, 0, -0.0303805, 0, 0, -0.0540968, 0, 0, -0.0540968, -1.5, 6, -0.0303805, -3, 6, -0.0540968, -1.5, 6, -0.0303805, -1.5, 6, -0.0303805, -3, 6, -0.0540968, -3, 6, -0.0540968, -1.5, 3, 0, -0.0892107, 5.91079, 0, -1.5, 5.91079, 0, -0.0892107, 3, 0, -0.0892107, 3, 0, -1.5, 5.91079, 0, -1.5, 0.089211, 0, -0.0892107, 3, 0, -1.5, 3, 0, -0.0892107, 0.089211, 0, -0.0892107, 0.089211, 0, -1.5, 3, 0, -1.5, 0.089211, 0, -1.5, 3, 0, -2.91079, 3, 0, -1.5, 0.089211, 0, -1.5, 0.089211, 0, -2.91079, 3, 0, -2.91079, 0, -0.0303805, -3, 3, -0.0540968, -3, 3, -0.0303805, -3, 0, -0.0303805, -3, 0, -0.0540968, -3, 3, -0.0540968, -3, 0.089211, 0, -2.91079, 3, 0, -2.96962, 3, 0, -2.91079, 0.089211, 0, -2.91079, 0.0303807, 0, -2.96962, 3, 0, -2.96962, 0, -0.0303805, 0, 3, -0.0151903, -0.00406992, 3, -0.0303805, 0, 0, -0.0303805, 0, 0.00407028, -0.0151903, -0.00406981, 3, -0.0151903, -0.00406992, 0.00407028, -0.0151903, -0.00406981, 3, -0.00407022, -0.0151901, 3, -0.0151903, -0.00406992, 0.00407028, -0.0151903, -0.00406981, 0.0151901, -0.00407022, -0.0151901, 3, -0.00407022, -0.0151901, 0.0151901, -0.00407022, -0.0151901, 3, 0, -0.0303805, 3, -0.00407022, -0.0151901, 0.0151901, -0.00407022, -0.0151901, 0.0303807, 0, -0.0303805, 3, 0, -0.0303805, 5.91079, 0, -0.0892107, 3, 0, -0.0303805, 3, 0, -0.0892107, 5.91079, 0, -0.0892107, 5.96962, 0, -0.0303805, 3, 0, -0.0303805, 6, -0.0303805, -3, 3, -0.0151903, -2.99593, 3, -0.0303805, -3, 6, -0.0303805, -3, 5.99593, -0.0151903, -2.99593, 3, -0.0151903, -2.99593, 5.99593, -0.0151903, -2.99593, 3, -0.00407022, -2.98481, 3, -0.0151903, -2.99593, 5.99593, -0.0151903, -2.99593, 5.98481, -0.00407022, -2.98481, 3, -0.00407022, -2.98481, 5.98481, -0.00407022, -2.98481, 3, 0, -2.96962, 3, -0.00407022, -2.98481, 5.98481, -0.00407022, -2.98481, 5.96962, 0, -2.96962, 3, 0, -2.96962, 6, -0.0303805, 0, 3, -0.0540968, 0, 3, -0.0303805, 0, 6, -0.0303805, 0, 6, -0.0540968, 0, 3, -0.0540968, 0)
-
 [node name="Root" type="Node3D" node_paths=PackedStringArray("LabelFPS")]
 script = ExtResource("1_35hfb")
-LabelFPS = NodePath("CharacterBody3D/Camera3D/Statistics/Label FPS")
+LabelFPS = NodePath("Player/Camera3D/Statistics/Label FPS")
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "AudioFootsteps", "ColliderCapsule", "ColliderSphere", "AudioDash")]
+[node name="AudioNonSpacial" type="Node3D" parent="."]
+
+[node name="Footsteps" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = SubResource("AudioStreamRandomizer_1xi00")
+volume_db = -16.0
+
+[node name="Clothes" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = SubResource("AudioStreamRandomizer_5s85l")
+volume_db = -11.0
+
+[node name="Music" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = SubResource("AudioStreamRandomizer_c134s")
+volume_db = -34.259
+script = ExtResource("12_gw8xm")
+
+[node name="JumpBreath" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = ExtResource("31_s2tka")
+volume_db = -2.059
+
+[node name="Land" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = ExtResource("32_mwapu")
+volume_db = -25.264
+
+[node name="Dash" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = ExtResource("33_eseje")
+volume_db = -5.354
+
+[node name="AtmosSpaceship" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = ExtResource("27_qra5s")
+volume_db = -41.908
+autoplay = true
+playback_type = 1
+
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "AudioFootsteps", "AudioClothes", "ColliderCapsule", "ColliderSphere", "AudioDash")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -31.1, 0, -2)
 script = ExtResource("1_apfbn")
 Cam = NodePath("Camera3D")
@@ -144,33 +144,34 @@ LabelJumpFatigueRecency = NodePath("Camera3D/Statistics/Label Jump Fatigue Recen
 RectJumpFatigueRecency = NodePath("Camera3D/Statistics/Rect Jump Fatigue Recency")
 LabelJumpFatigueOnGround = NodePath("Camera3D/Statistics/Label Jump Fatigue On-Ground")
 RectJumpFatigueOnGround = NodePath("Camera3D/Statistics/Rect Jump Fatigue On-Ground")
-AudioJump = NodePath("Audio Jumpbreath")
-AudioLand = NodePath("Audio Land")
-AudioFootsteps = NodePath("Audio Footsteps")
+AudioJump = NodePath("../AudioNonSpacial/JumpBreath")
+AudioLand = NodePath("../AudioNonSpacial/Land")
+AudioFootsteps = NodePath("../AudioNonSpacial/Footsteps")
+AudioClothes = NodePath("../AudioNonSpacial/Clothes")
 RunAudioTimerPeriod = 0.3
 ColliderCapsule = NodePath("ColliderCapsule")
 ColliderSphere = NodePath("ColliderSphere")
-AudioDash = NodePath("Audio Dash")
+AudioDash = NodePath("../AudioNonSpacial/Dash")
 DashMaterial = ExtResource("3_3dh8n")
 
-[node name="ColliderCapsule" type="CollisionShape3D" parent="CharacterBody3D"]
+[node name="ColliderCapsule" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_lf7un")
 
-[node name="ColliderSphere" type="CollisionShape3D" parent="CharacterBody3D"]
+[node name="ColliderSphere" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_enhva")
 disabled = true
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_3x3s7")
 
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+[node name="Camera3D" type="Camera3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 fov = 80.0
 
-[node name="ColorRect Dash Lines" type="ColorRect" parent="CharacterBody3D/Camera3D"]
+[node name="ColorRect Dash Lines" type="ColorRect" parent="Player/Camera3D"]
 material = ExtResource("3_3dh8n")
 anchors_preset = 15
 anchor_right = 1.0
@@ -179,7 +180,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
-[node name="health" type="TextureRect" parent="CharacterBody3D/Camera3D"]
+[node name="health" type="TextureRect" parent="Player/Camera3D"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
@@ -188,7 +189,7 @@ offset_right = 676.0
 grow_vertical = 0
 texture = ExtResource("2_ttusi")
 
-[node name="abilities" type="TextureRect" parent="CharacterBody3D/Camera3D"]
+[node name="abilities" type="TextureRect" parent="Player/Camera3D"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -200,14 +201,14 @@ grow_horizontal = 0
 grow_vertical = 0
 texture = ExtResource("5_wlafp")
 
-[node name="tasks" type="TextureRect" parent="CharacterBody3D/Camera3D"]
+[node name="tasks" type="TextureRect" parent="Player/Camera3D"]
 offset_left = 342.0
 offset_top = 23.0
 offset_right = 520.0
 offset_bottom = 170.0
 texture = ExtResource("4_qs002")
 
-[node name="dash icon" type="TextureRect" parent="CharacterBody3D/Camera3D"]
+[node name="dash icon" type="TextureRect" parent="Player/Camera3D"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -222,7 +223,7 @@ grow_vertical = 0
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("7_rbh4t")
 
-[node name="grapple icon" type="TextureRect" parent="CharacterBody3D/Camera3D"]
+[node name="grapple icon" type="TextureRect" parent="Player/Camera3D"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -237,7 +238,7 @@ grow_vertical = 0
 scale = Vector2(0.42, 0.42)
 texture = ExtResource("8_f0pr7")
 
-[node name="water plants icon" type="TextureRect" parent="CharacterBody3D/Camera3D"]
+[node name="water plants icon" type="TextureRect" parent="Player/Camera3D"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
@@ -248,122 +249,90 @@ offset_bottom = 171.0
 grow_horizontal = 2
 texture = ExtResource("9_f2xyf")
 
-[node name="Statistics" type="Node2D" parent="CharacterBody3D/Camera3D"]
+[node name="Statistics" type="Node2D" parent="Player/Camera3D"]
 
-[node name="Label FPS" type="Label" parent="CharacterBody3D/Camera3D/Statistics"]
+[node name="Label FPS" type="Label" parent="Player/Camera3D/Statistics"]
 offset_right = 318.0
 offset_bottom = 99.0
 text = "FPS: "
 
-[node name="ColorRect HSpeed" type="ColorRect" parent="CharacterBody3D/Camera3D/Statistics"]
+[node name="ColorRect HSpeed" type="ColorRect" parent="Player/Camera3D/Statistics"]
 offset_left = 64.0
 offset_top = 25.0
 offset_right = 172.0
 offset_bottom = 41.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
-[node name="Label HSpeed" type="Label" parent="CharacterBody3D/Camera3D/Statistics"]
+[node name="Label HSpeed" type="Label" parent="Player/Camera3D/Statistics"]
 offset_top = 21.0
 offset_right = 318.0
 offset_bottom = 120.0
 text = "HSpeed: "
 
-[node name="ColorRect Jerk" type="ColorRect" parent="CharacterBody3D/Camera3D/Statistics"]
+[node name="ColorRect Jerk" type="ColorRect" parent="Player/Camera3D/Statistics"]
 offset_left = 35.0
 offset_top = 47.0
 offset_right = 143.0
 offset_bottom = 63.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
-[node name="Label Jerk" type="Label" parent="CharacterBody3D/Camera3D/Statistics"]
+[node name="Label Jerk" type="Label" parent="Player/Camera3D/Statistics"]
 offset_top = 43.0
 offset_right = 318.0
 offset_bottom = 142.0
 text = "Jerk: "
 
-[node name="ColorRect Dash" type="ColorRect" parent="CharacterBody3D/Camera3D/Statistics"]
+[node name="ColorRect Dash" type="ColorRect" parent="Player/Camera3D/Statistics"]
 offset_left = 44.0
 offset_top = 70.0
 offset_right = 152.0
 offset_bottom = 86.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
-[node name="Label Dash" type="Label" parent="CharacterBody3D/Camera3D/Statistics"]
+[node name="Label Dash" type="Label" parent="Player/Camera3D/Statistics"]
 offset_top = 66.0
 offset_right = 318.0
 offset_bottom = 165.0
 text = "Dash: "
 
-[node name="ColorRect Climb" type="ColorRect" parent="CharacterBody3D/Camera3D/Statistics"]
+[node name="ColorRect Climb" type="ColorRect" parent="Player/Camera3D/Statistics"]
 offset_left = 50.0
 offset_top = 92.0
 offset_right = 158.0
 offset_bottom = 108.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
-[node name="Label Climb" type="Label" parent="CharacterBody3D/Camera3D/Statistics"]
+[node name="Label Climb" type="Label" parent="Player/Camera3D/Statistics"]
 offset_top = 88.0
 offset_right = 318.0
 offset_bottom = 187.0
 text = "Climb: "
 
-[node name="Rect Jump Fatigue Recency" type="ColorRect" parent="CharacterBody3D/Camera3D/Statistics"]
+[node name="Rect Jump Fatigue Recency" type="ColorRect" parent="Player/Camera3D/Statistics"]
 offset_left = 168.0
 offset_top = 113.0
 offset_right = 276.0
 offset_bottom = 129.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
-[node name="Label Jump Fatigue Recency" type="Label" parent="CharacterBody3D/Camera3D/Statistics"]
+[node name="Label Jump Fatigue Recency" type="Label" parent="Player/Camera3D/Statistics"]
 offset_top = 109.0
 offset_right = 318.0
 offset_bottom = 208.0
 text = "Jump fatigue recency: "
 
-[node name="Rect Jump Fatigue On-Ground" type="ColorRect" parent="CharacterBody3D/Camera3D/Statistics"]
+[node name="Rect Jump Fatigue On-Ground" type="ColorRect" parent="Player/Camera3D/Statistics"]
 offset_left = 190.0
 offset_top = 135.0
 offset_right = 298.0
 offset_bottom = 151.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
-[node name="Label Jump Fatigue On-Ground" type="Label" parent="CharacterBody3D/Camera3D/Statistics"]
+[node name="Label Jump Fatigue On-Ground" type="Label" parent="Player/Camera3D/Statistics"]
 offset_top = 131.0
 offset_right = 318.0
 offset_bottom = 230.0
 text = "Jump fatigue on-ground: "
-
-[node name="Audio Footsteps" type="AudioStreamPlayer" parent="CharacterBody3D"]
-stream = SubResource("AudioStreamRandomizer_1xi00")
-volume_db = -16.0
-
-[node name="Audio Music" type="AudioStreamPlayer" parent="CharacterBody3D"]
-stream = SubResource("AudioStreamRandomizer_c134s")
-volume_db = -34.259
-script = ExtResource("12_gw8xm")
-
-[node name="Audio Jumpbreath" type="AudioStreamPlayer" parent="CharacterBody3D"]
-stream = ExtResource("31_s2tka")
-volume_db = -2.059
-
-[node name="Audio Land" type="AudioStreamPlayer" parent="CharacterBody3D"]
-stream = ExtResource("32_mwapu")
-volume_db = -25.264
-
-[node name="Audio Dash" type="AudioStreamPlayer" parent="CharacterBody3D"]
-stream = ExtResource("33_eseje")
-volume_db = -5.354
-
-[node name="Audio Atmos" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("27_qra5s")
-volume_db = -41.908
-autoplay = true
-playback_type = 1
-
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("27_qra5s")
-volume_db = -80.0
-autoplay = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_g1wq3")
@@ -372,381 +341,4 @@ environment = SubResource("Environment_g1wq3")
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="Greybox" type="CSGCombiner3D" parent="."]
-use_collision = true
-
-[node name="Floor" type="CSGBox3D" parent="Greybox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83, -10.75, 0)
-size = Vector3(130, 21.5, 130)
-
-[node name="ReactorSubtraction" type="CSGBox3D" parent="Greybox/Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -35.7073, 4, 0)
-operation = 2
-size = Vector3(22.4146, 14, 42.5)
-
-[node name="Ramp" type="CSGBox3D" parent="Greybox/Floor"]
-transform = Transform3D(0.866025, -0.5, 0, 0.5, 0.866025, 0, 0, 0, 1, -46.3595, 8.32356, 0)
-operation = 2
-size = Vector3(12, 19, 42.5)
-
-[node name="ReactorLip" type="CSGBox3D" parent="Greybox/Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -50.4146, -0.25, 0)
-size = Vector3(3, 3.5, 43.5)
-
-[node name="ReactorLip2" type="CSGBox3D" parent="Greybox/Floor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -52.9146, 4.25, 0)
-size = Vector3(3, 3.5, 43.5)
-
-[node name="Cockpit" type="CSGCombiner3D" parent="Greybox"]
-
-[node name="Partition" type="CSGBox3D" parent="Greybox/Cockpit"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.5, 3.5, 0)
-size = Vector3(1, 9, 121.5)
-
-[node name="CSGSphere3D" type="CSGSphere3D" parent="Greybox/Cockpit/Partition"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)
-operation = 2
-radius = 4.0
-
-[node name="CentreWall" type="CSGBox3D" parent="Greybox/Cockpit"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, 9.5, 0)
-size = Vector3(32, 19, 1)
-
-[node name="Box" type="CSGBox3D" parent="Greybox/Cockpit/CentreWall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.25, 4.5, 0)
-operation = 2
-size = Vector3(16.5, 12, 7)
-
-[node name="Box3" type="CSGBox3D" parent="Greybox/Cockpit/CentreWall"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.25, 10.5, 0)
-operation = 2
-size = Vector3(16.5, 12, 7)
-
-[node name="Box2" type="CSGBox3D" parent="Greybox/Cockpit/CentreWall"]
-transform = Transform3D(0.965926, -0.258819, 0, 0.258819, 0.965926, 0, 0, 0, 1, 1.61951, 8.938, 0)
-operation = 2
-size = Vector3(34, 12.5, 7)
-
-[node name="Floor" type="CSGCombiner3D" parent="Greybox/Cockpit"]
-
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Greybox/Cockpit/Floor"]
-transform = Transform3D(-8.74228e-08, -2, 0, 2, -8.74228e-08, 0, 0, 0, 2, -7, 0, 0)
-radius = 9.0
-height = 44.0
-sides = 24
-
-[node name="Floor3" type="CSGBox3D" parent="Greybox/Cockpit/Floor/CSGCylinder3D2"]
-transform = Transform3D(-4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0, 1, 5.25, -1.5, 0)
-operation = 2
-size = Vector3(52.5, 10.5, 20.5)
-
-[node name="CSGSphere3D2" type="CSGSphere3D" parent="Greybox/Cockpit/Floor"]
-transform = Transform3D(2, 0, 0, 0, 2, 0, 0, 0, 2, 37, 0, 0)
-radius = 9.0
-radial_segments = 24
-rings = 12
-
-[node name="Floor2" type="CSGBox3D" parent="Greybox/Cockpit/Floor/CSGSphere3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.75, 5.25, 0)
-operation = 2
-size = Vector3(28.5, 10.5, 20.5)
-
-[node name="Top" type="CSGCombiner3D" parent="Greybox/Cockpit"]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Greybox/Cockpit/Top"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.5, 2.75, 0)
-size = Vector3(53, 6.5, 18)
-
-[node name="BoxFront" type="CSGBox3D" parent="Greybox/Cockpit/Top/CSGBox3D"]
-transform = Transform3D(0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 0, 0, 1, 26.0555, -1.94454, 0)
-operation = 2
-size = Vector3(6.5, 19, 18)
-
-[node name="BoxBack" type="CSGBox3D" parent="Greybox/Cockpit/Top/CSGBox3D"]
-transform = Transform3D(0.258819, 0.965926, 0, -0.965926, 0.258819, 0, 0, 0, 1, -16.0642, 2.94963, 0)
-material_override = ExtResource("34_nhrql")
-operation = 2
-size = Vector3(6.5, 53.5, 18.5)
-
-[node name="Console" type="CSGCylinder3D" parent="Greybox/Cockpit/Top"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 37, 6.5, 0)
-radius = 7.25
-height = 1.0
-sides = 43
-
-[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Greybox/Cockpit/Top/Console"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
-operation = 2
-radius = 6.5
-sides = 43
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Greybox/Cockpit/Top/Console"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, 0)
-operation = 2
-size = Vector3(8, 1, 15.75)
-
-[node name="Task" parent="Greybox/Cockpit/Top/Console" instance=ExtResource("31_smw1h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
-skeleton = NodePath("../../..")
-
-[node name="Cooler" type="CSGCombiner3D" parent="Greybox"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 40.5)
-
-[node name="Cells" type="CSGCombiner3D" parent="Greybox/Cooler"]
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Greybox/Cooler/Cells"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, 6.25, 40)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Greybox/Cooler/Cells/CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Greybox/Cooler/Cells"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.5, 6.25, 40)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Greybox/Cooler/Cells/CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="Greybox/Cooler/Cells"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -47.5, 6.25, 55.5)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Greybox/Cooler/Cells/CSGBox3D5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="Greybox/Cooler/Cells"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -33.5, 6.25, 55.5)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Greybox/Cooler/Cells/CSGBox3D6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="Wall" type="CSGBox3D" parent="Greybox/Cooler/Cells"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 2.5, 48)
-size = Vector3(23.5, 6, 3.5)
-
-[node name="Partition" type="CSGBox3D" parent="Greybox/Cooler/Cells"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -40.5, 5.5, 42.75)
-size = Vector3(1, 11, 6.5)
-
-[node name="Partition2" type="CSGBox3D" parent="Greybox/Cooler/Cells"]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -40.5, 5.5, 52.75)
-size = Vector3(1, 11, 6.5)
-
-[node name="Column" type="CSGCylinder3D" parent="Greybox/Cooler/Cells"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 14, 48)
-radius = 1.75
-height = 22.0
-sides = 32
-
-[node name="Cells2" type="CSGCombiner3D" parent="Greybox/Cooler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 14, 0)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Greybox/Cooler/Cells2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.5, 6.25, 40)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Greybox/Cooler/Cells2/CSGBox3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Greybox/Cooler/Cells2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.5, 6.25, 40)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Greybox/Cooler/Cells2/CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="Greybox/Cooler/Cells2"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -47.5, 6.25, 55.5)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Greybox/Cooler/Cells2/CSGBox3D5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="Greybox/Cooler/Cells2"]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -33.5, 6.25, 55.5)
-size = Vector3(9.5, 9.5, 6.5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Greybox/Cooler/Cells2/CSGBox3D6"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 1)
-operation = 2
-size = Vector3(7.5, 9.5, 6.5)
-
-[node name="Wall" type="CSGBox3D" parent="Greybox/Cooler/Cells2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 2.5, 48)
-size = Vector3(23.5, 6, 3.5)
-
-[node name="CatwalkMid" type="CSGBox3D" parent="Greybox/Cooler"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 13.75, 47.75)
-size = Vector3(4, 0.5, 22)
-
-[node name="CatwalkTop" type="CSGBox3D" parent="Greybox/Cooler"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -40.5, 24.5, 47.75)
-size = Vector3(22, 1, 3.5)
-
-[node name="TaskCooler" parent="Greybox/Cooler" instance=ExtResource("31_smw1h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 25.5, 37.25)
-
-[node name="Garden" type="CSGCombiner3D" parent="Greybox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.75, 0, -42.5)
-
-[node name="Wall" type="CSGBox3D" parent="Greybox/Garden"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.625, 11.5, 0)
-size = Vector3(42.75, 11, 1)
-
-[node name="WallRoof" type="CSGBox3D" parent="Greybox/Garden"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.625, 17.25, 0)
-size = Vector3(47.5, 1, 17.75)
-
-[node name="Plateau1New" type="CSGBox3D" parent="Greybox/Garden"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.125, 3, 0)
-size = Vector3(9.75, 6, 10)
-
-[node name="Stair" type="CSGBox3D" parent="Greybox/Garden"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.125, 1.375, 0)
-size = Vector3(9.75, 2.75, 15)
-
-[node name="Plateau" type="CSGBox3D" parent="Greybox/Garden"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.125, 4.25, 2.25)
-size = Vector3(9.75, 3.5, 5.5)
-
-[node name="Plateau2New" type="CSGBox3D" parent="Greybox/Garden"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.75, 5.625, 0)
-size = Vector3(10, 0.75, 10)
-
-[node name="Task" parent="Greybox/Garden/Plateau2New" instance=ExtResource("31_smw1h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.9, 4.5)
-skeleton = NodePath("")
-
-[node name="Column" type="CSGCylinder3D" parent="Greybox/Garden/Plateau2New"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, -3, 0)
-radius = 1.0
-height = 5.5
-sides = 18
-
-[node name="Reactor" type="CSGCombiner3D" parent="Greybox"]
-
-[node name="Wall" type="CSGBox3D" parent="Greybox/Reactor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -107, 12.25, 0)
-size = Vector3(1, 24.5, 42.5)
-
-[node name="Catwalk" type="CSGBox3D" parent="Greybox/Reactor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -116.25, 10.25, 0)
-size = Vector3(17.5, 0.5, 3)
-
-[node name="Catwalk2" type="CSGBox3D" parent="Greybox/Reactor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -126.5, 10.25, 0)
-size = Vector3(3, 0.5, 42.5)
-
-[node name="Catwalk5" type="CSGBox3D" parent="Greybox/Reactor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -109, 10.25, -9.875)
-size = Vector3(3, 0.5, 22.75)
-
-[node name="Pedestal" type="CSGBox3D" parent="Greybox/Reactor/Catwalk5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, -10)
-size = Vector3(1.25, 1.75, 1.25)
-
-[node name="TaskReactor" parent="Greybox/Reactor/Catwalk5/Pedestal" instance=ExtResource("31_smw1h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.375, 0)
-skeleton = NodePath("../../../../..")
-
-[node name="Catwalk3" type="CSGBox3D" parent="Greybox/Reactor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -117.5, 3.25, 0)
-size = Vector3(3, 0.5, 42.5)
-
-[node name="Catwalk4" type="CSGBox3D" parent="Greybox/Reactor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 6.75, 19.625)
-size = Vector3(6, 7.5, 3.25)
-
-[node name="Catwalk5" type="CSGBox3D" parent="Greybox/Reactor/Catwalk4"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 4, 0)
-operation = 2
-size = Vector3(6, 7.5, 3.25)
-
-[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="Greybox/Reactor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 6, 14)
-radius = 3.0
-height = 45.0
-sides = 20
-
-[node name="CSGCylinder3D3" type="CSGCylinder3D" parent="Greybox/Reactor"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 6, -14)
-radius = 3.0
-height = 45.0
-sides = 20
-
-[node name="Electrical" type="CSGCombiner3D" parent="Greybox"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -98.5, 0, 0)
-
-[node name="Partition Group" type="CSGCombiner3D" parent="Greybox/Electrical"]
-
-[node name="Partition5" type="CSGBox3D" parent="Greybox/Electrical/Partition Group"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 1.75)
-size = Vector3(1, 8, 5)
-
-[node name="Partition2" type="CSGBox3D" parent="Greybox/Electrical/Partition Group"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 4, -1.75)
-size = Vector3(1, 8, 5)
-
-[node name="Partition8" type="CSGBox3D" parent="Greybox/Electrical/Partition Group"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 4, -1.75)
-size = Vector3(1, 8, 5)
-
-[node name="Partition Group2" type="CSGCombiner3D" parent="Greybox/Electrical"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
-
-[node name="Partition5" type="CSGBox3D" parent="Greybox/Electrical/Partition Group2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 4, 1.75)
-size = Vector3(1, 8, 5)
-
-[node name="Partition8" type="CSGBox3D" parent="Greybox/Electrical/Partition Group2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7, 4, -1.75)
-size = Vector3(1, 8, 5)
-
-[node name="CSGBox3D2" type="CSGBox3D" parent="Greybox/Electrical"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 3.75, 0)
-size = Vector3(22, 9, 10)
-
-[node name="CSGBox3D" type="CSGBox3D" parent="Greybox/Electrical/CSGBox3D2"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
-operation = 2
-size = Vector3(22, 7, 8)
-
-[node name="HorizonBoolean" type="CSGBox3D" parent="Greybox/Electrical"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2, 0)
-operation = 2
-size = Vector3(24, 1, 22)
-
-[node name="Task" parent="Greybox/Electrical" instance=ExtResource("31_smw1h")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 2, 0)
-
-[node name="Cube_003" parent="." instance=ExtResource("36_1ah0c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -27, 0.326, -6.5)
-
-[node name="SM_Floor" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -22.5, 16.5, 19)
-
-[node name="Plane_050" type="MeshInstance3D" parent="SM_Floor"]
-material_override = ExtResource("37_t1xlm")
-mesh = SubResource("ArrayMesh_qul87")
-skeleton = NodePath("")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="SM_Floor/Plane_050"]
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Floor/Plane_050/StaticBody3D"]
-shape = SubResource("ConcavePolygonShape3D_4qrlt")
+[node name="Level" parent="." instance=ExtResource("34_oikqa")]
