@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=4 uid="uid://bmrvxd4l4satu"]
+[gd_scene load_steps=10 format=4 uid="uid://bmrvxd4l4satu"]
 
 [ext_resource type="PackedScene" uid="uid://df360ha3c80kh" path="res://level/greybox.tscn" id="1_2lpfq"]
 [ext_resource type="AudioStream" uid="uid://cqlbi2lg1hqph" path="res://level/environment_sounds/spaceship_interior.mp3" id="1_6dgoj"]
-[ext_resource type="PackedScene" uid="uid://t67wqvj801yl" path="res://robot/robot.tscn" id="2_pj1a1"]
+[ext_resource type="PackedScene" path="res://robot/robot.tscn" id="2_pj1a1"]
 [ext_resource type="Material" uid="uid://cl4r8afs44bvn" path="res://level/modular_panels/MM_Floor.tres" id="3_5cht2"]
+[ext_resource type="AudioStream" uid="uid://bkk8pv1kf7quw" path="res://robot/sounds/robot_ambience.mp3" id="4_4b4qo"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i23bb"]
 
@@ -56,6 +57,12 @@ transform = Transform3D(-0.866025, 1.49012e-08, -0.5, -0.433013, 0.5, 0.75, 0.25
 
 [node name="Cube_003" parent="." instance=ExtResource("2_pj1a1")]
 transform = Transform3D(-0.866025, 1.49012e-08, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433013, 26.6327, 6.97935, -3.6531)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Cube_003"]
+stream = ExtResource("4_4b4qo")
+autoplay = true
+playback_type = 1
+parameters/looping = true
 
 [node name="SM_Floor" type="Node3D" parent="."]
 transform = Transform3D(-0.866025, 1.49012e-08, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433013, 9.98556, 32.2428, 0.43718)
