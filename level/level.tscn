@@ -1,10 +1,10 @@
 [gd_scene load_steps=10 format=4 uid="uid://bmrvxd4l4satu"]
 
 [ext_resource type="PackedScene" uid="uid://df360ha3c80kh" path="res://level/greybox.tscn" id="1_2lpfq"]
-[ext_resource type="AudioStream" uid="uid://cqlbi2lg1hqph" path="res://level/environment_sounds/spaceship_interior.mp3" id="1_6dgoj"]
-[ext_resource type="PackedScene" path="res://robot/robot.tscn" id="2_pj1a1"]
+[ext_resource type="PackedScene" uid="uid://t67wqvj801yl" path="res://robot/robot.tscn" id="2_pj1a1"]
 [ext_resource type="Material" uid="uid://cl4r8afs44bvn" path="res://level/modular_panels/MM_Floor.tres" id="3_5cht2"]
 [ext_resource type="AudioStream" uid="uid://bkk8pv1kf7quw" path="res://robot/sounds/robot_ambience.mp3" id="4_4b4qo"]
+[ext_resource type="AudioStream" uid="uid://dxbpoaqhuxkd8" path="res://level/environment_sounds/creaking_noise.mp3" id="5_b6fot"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_i23bb"]
 
@@ -46,20 +46,17 @@ data = PackedVector3Array(3, 0, -1.5, 5.91079, 0, -2.91079, 5.91079, 0, -1.5, 3,
 [node name="Level" type="Node3D"]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(1, -2.98023e-08, -2.83122e-07, 0, 1, 5.36442e-07, 1.49012e-08, 0, 1, 0, 0, 0)
-stream = ExtResource("1_6dgoj")
-volume_db = -80.0
-autoplay = true
-
 [node name="Greybox" parent="." instance=ExtResource("1_2lpfq")]
 transform = Transform3D(-0.866025, 1.49012e-08, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433013, 0, 0, 0)
 
 [node name="Cube_003" parent="." instance=ExtResource("2_pj1a1")]
 transform = Transform3D(-0.866025, 1.49012e-08, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433013, 26.6327, 6.97935, -3.6531)
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="Cube_003"]
+[node name="Ambience" type="AudioStreamPlayer3D" parent="Cube_003"]
 stream = ExtResource("4_4b4qo")
+volume_db = -20.571
+unit_size = 5.71
+max_db = 0.0
 autoplay = true
 playback_type = 1
 parameters/looping = true
@@ -76,3 +73,69 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="SM_Floor/Plane_050/StaticBody3D"]
 shape = SubResource("ConcavePolygonShape3D_4qrlt")
+
+[node name="Creaking" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(-0.866025, -2.19381e-07, -0.500001, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433012, 9.00351, 25.4148, -6.79124)
+stream = ExtResource("5_b6fot")
+attenuation_model = 2
+volume_db = -20.571
+max_db = 0.0
+autoplay = true
+playback_type = 1
+parameters/looping = true
+
+[node name="Creaking2" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(-0.866025, -2.19381e-07, -0.500001, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433012, 61.4125, 12.6193, 0.596256)
+stream = ExtResource("5_b6fot")
+attenuation_model = 2
+volume_db = -20.571
+max_db = 0.0
+autoplay = true
+playback_type = 1
+parameters/looping = true
+
+[node name="Creaking3" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(-0.866025, -2.19381e-07, -0.500001, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433012, 67.9243, 60.8752, -27.2643)
+stream = ExtResource("5_b6fot")
+attenuation_model = 2
+volume_db = -20.571
+max_db = 0.0
+autoplay = true
+playback_type = 1
+parameters/looping = true
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, -2.98023e-08, -2.68221e-07, 0, 1, 4.76837e-07, 2.98023e-08, 5.96046e-08, 1, 28.5167, 9.25833, 10.8205)
+shadow_enabled = true
+omni_range = 34.822
+omni_attenuation = 0.333
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+transform = Transform3D(1, -2.98023e-08, -2.5332e-07, 0, 1, 4.47035e-07, 2.98023e-08, 5.96046e-08, 1, 91.0093, 28.2546, 6.20383)
+shadow_enabled = true
+omni_range = 34.822
+omni_attenuation = 0.333
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="."]
+transform = Transform3D(1, -2.98023e-08, -2.5332e-07, 0, 1, 4.47035e-07, 2.98023e-08, 5.96046e-08, 1, 66.7593, 64.6296, -14.7973)
+shadow_enabled = true
+omni_range = 34.822
+omni_attenuation = 0.333
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="."]
+transform = Transform3D(1, -2.98023e-08, -2.68221e-07, 0, 1, 4.76837e-07, 2.98023e-08, 5.96046e-08, 1, 30.6134, 66.5567, -6.67228)
+shadow_enabled = true
+omni_range = 34.822
+omni_attenuation = 0.333
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="."]
+transform = Transform3D(1, -2.98023e-08, -2.5332e-07, 0, 1, 4.47035e-07, 2.98023e-08, 5.96046e-08, 1, 76.6086, 4.80432, 15.7014)
+shadow_enabled = true
+omni_range = 34.822
+omni_attenuation = 0.333
+
+[node name="OmniLight3D6" type="OmniLight3D" parent="."]
+transform = Transform3D(1, -2.98023e-08, -2.68221e-07, 0, 1, 4.76837e-07, 2.98023e-08, 5.96046e-08, 1, 78.3586, 2.17932, 17.217)
+shadow_enabled = true
+omni_range = 34.822
+omni_attenuation = 0.333

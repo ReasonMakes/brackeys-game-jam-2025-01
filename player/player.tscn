@@ -1,0 +1,230 @@
+[gd_scene load_steps=12 format=3 uid="uid://b1cc7jehhov"]
+
+[ext_resource type="Script" path="res://player/Player.cs" id="1_n2wtf"]
+[ext_resource type="Material" uid="uid://daiyptmfwsngr" path="res://player/dash_lines_material.tres" id="2_y11ih"]
+[ext_resource type="Texture2D" uid="uid://c536iphygdlso" path="res://UI/health.png" id="3_c18dq"]
+[ext_resource type="Texture2D" uid="uid://b5sf3u7trt2vp" path="res://UI/ability hex.png" id="4_5hopm"]
+[ext_resource type="Texture2D" uid="uid://bpikbdh4qapfe" path="res://UI/task.png" id="5_4y014"]
+[ext_resource type="Texture2D" uid="uid://dd6je6ov171wm" path="res://UI/dash icon.png" id="6_na62b"]
+[ext_resource type="Texture2D" uid="uid://diodiiuvs1muo" path="res://UI/grapple icon.png" id="7_0m3ji"]
+[ext_resource type="Texture2D" uid="uid://bmutsl3cfv1rs" path="res://UI/water plants icon.png" id="8_3w5je"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf7un"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_enhva"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_3x3s7"]
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "Control", "LabelPhysicsTickRate", "AudioFootsteps", "AudioClothes", "ColliderCapsule", "ColliderSphere", "AudioDash")]
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -31.1, 0, -2)
+script = ExtResource("1_n2wtf")
+Cam = NodePath("Camera3D")
+LabelHSpeed = NodePath("Camera3D/Statistics/Label HSpeed")
+RectHSpeed = NodePath("Camera3D/Statistics/ColorRect HSpeed")
+LabelJerk = NodePath("Camera3D/Statistics/Label Jerk")
+RectJerk = NodePath("Camera3D/Statistics/ColorRect Jerk")
+LabelDash = NodePath("Camera3D/Statistics/Label Dash")
+RectDash = NodePath("Camera3D/Statistics/ColorRect Dash")
+LabelClimb = NodePath("Camera3D/Statistics/Label Climb")
+RectClimb = NodePath("Camera3D/Statistics/ColorRect Climb")
+LabelJumpFatigueRecency = NodePath("Camera3D/Statistics/Label Jump Fatigue Recency")
+RectJumpFatigueRecency = NodePath("Camera3D/Statistics/Rect Jump Fatigue Recency")
+LabelJumpFatigueOnGround = NodePath("Camera3D/Statistics/Label Jump Fatigue On-Ground")
+RectJumpFatigueOnGround = NodePath("Camera3D/Statistics/Rect Jump Fatigue On-Ground")
+AudioJump = NodePath("")
+AudioLand = NodePath("")
+Control = NodePath("")
+LabelPhysicsTickRate = NodePath("Camera3D/Statistics/Label Physics Rate")
+AudioFootsteps = NodePath("")
+AudioClothes = NodePath("")
+RunAudioTimerPeriod = 0.3
+ColliderCapsule = NodePath("ColliderCapsule")
+ColliderSphere = NodePath("ColliderSphere")
+AudioDash = NodePath("")
+DashMaterial = ExtResource("2_y11ih")
+
+[node name="ColliderCapsule" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_lf7un")
+
+[node name="ColliderSphere" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("SphereShape3D_enhva")
+disabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CapsuleMesh_3x3s7")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+fov = 80.0
+
+[node name="ColorRect Dash Lines" type="ColorRect" parent="Camera3D"]
+material = ExtResource("2_y11ih")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="health" type="TextureRect" parent="Camera3D"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -98.0
+offset_right = 676.0
+grow_vertical = 0
+texture = ExtResource("3_c18dq")
+
+[node name="abilities" type="TextureRect" parent="Camera3D"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -380.0
+offset_top = -98.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("4_5hopm")
+
+[node name="tasks" type="TextureRect" parent="Camera3D"]
+offset_left = 342.0
+offset_top = 23.0
+offset_right = 520.0
+offset_bottom = 170.0
+texture = ExtResource("5_4y014")
+
+[node name="dash icon" type="TextureRect" parent="Camera3D"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -264.0
+offset_top = -77.0
+offset_right = -115.0
+offset_bottom = 44.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("6_na62b")
+
+[node name="grapple icon" type="TextureRect" parent="Camera3D"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -172.0
+offset_top = -78.0
+offset_right = -24.0
+offset_bottom = 60.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("7_0m3ji")
+
+[node name="water plants icon" type="TextureRect" parent="Camera3D"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 23.0
+offset_top = 24.0
+offset_right = 201.0
+offset_bottom = 171.0
+grow_horizontal = 2
+texture = ExtResource("8_3w5je")
+
+[node name="Statistics" type="Node2D" parent="Camera3D"]
+
+[node name="Label FPS" type="Label" parent="Camera3D/Statistics"]
+offset_right = 318.0
+offset_bottom = 99.0
+text = "FPS: "
+
+[node name="Label Physics Rate" type="Label" parent="Camera3D/Statistics"]
+offset_top = 20.0
+offset_right = 318.0
+offset_bottom = 119.0
+text = "Physics rate: "
+
+[node name="ColorRect HSpeed" type="ColorRect" parent="Camera3D/Statistics"]
+offset_left = 64.0
+offset_top = 45.0
+offset_right = 172.0
+offset_bottom = 61.0
+color = Color(0.0383972, 0.0383972, 0.0383971, 1)
+
+[node name="Label HSpeed" type="Label" parent="Camera3D/Statistics"]
+offset_top = 41.0
+offset_right = 318.0
+offset_bottom = 140.0
+text = "HSpeed: "
+
+[node name="ColorRect Jerk" type="ColorRect" parent="Camera3D/Statistics"]
+offset_left = 35.0
+offset_top = 67.0
+offset_right = 143.0
+offset_bottom = 83.0
+color = Color(0.0383972, 0.0383972, 0.0383971, 1)
+
+[node name="Label Jerk" type="Label" parent="Camera3D/Statistics"]
+offset_top = 63.0
+offset_right = 318.0
+offset_bottom = 162.0
+text = "Jerk: "
+
+[node name="ColorRect Dash" type="ColorRect" parent="Camera3D/Statistics"]
+offset_left = 44.0
+offset_top = 90.0
+offset_right = 152.0
+offset_bottom = 106.0
+color = Color(0.0383972, 0.0383972, 0.0383971, 1)
+
+[node name="Label Dash" type="Label" parent="Camera3D/Statistics"]
+offset_top = 86.0
+offset_right = 318.0
+offset_bottom = 185.0
+text = "Dash: "
+
+[node name="ColorRect Climb" type="ColorRect" parent="Camera3D/Statistics"]
+offset_left = 50.0
+offset_top = 112.0
+offset_right = 158.0
+offset_bottom = 128.0
+color = Color(0.0383972, 0.0383972, 0.0383971, 1)
+
+[node name="Label Climb" type="Label" parent="Camera3D/Statistics"]
+offset_top = 108.0
+offset_right = 318.0
+offset_bottom = 207.0
+text = "Climb: "
+
+[node name="Rect Jump Fatigue Recency" type="ColorRect" parent="Camera3D/Statistics"]
+offset_left = 168.0
+offset_top = 133.0
+offset_right = 276.0
+offset_bottom = 149.0
+color = Color(0.0383972, 0.0383972, 0.0383971, 1)
+
+[node name="Label Jump Fatigue Recency" type="Label" parent="Camera3D/Statistics"]
+offset_top = 129.0
+offset_right = 318.0
+offset_bottom = 228.0
+text = "Jump fatigue recency: "
+
+[node name="Rect Jump Fatigue On-Ground" type="ColorRect" parent="Camera3D/Statistics"]
+offset_left = 190.0
+offset_top = 155.0
+offset_right = 298.0
+offset_bottom = 171.0
+color = Color(0.0383972, 0.0383972, 0.0383971, 1)
+
+[node name="Label Jump Fatigue On-Ground" type="Label" parent="Camera3D/Statistics"]
+offset_top = 151.0
+offset_right = 318.0
+offset_bottom = 250.0
+text = "Jump fatigue on-ground: "

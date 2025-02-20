@@ -31,11 +31,18 @@
 [ext_resource type="AudioStream" uid="uid://dxbpoaqhuxkd8" path="res://level/environment_sounds/creaking_noise.mp3" id="25_tkjcn"]
 [ext_resource type="AudioStream" uid="uid://dfgv3pl2v8dq" path="res://level/environment_sounds/task_sounds/adjust_course.mp3" id="26_2b14e"]
 [ext_resource type="AudioStream" uid="uid://bengsh4olwvjw" path="res://level/environment_sounds/task_sounds/button_click.wav" id="27_jys3q"]
-[ext_resource type="AudioStream" uid="uid://cqlbi2lg1hqph" path="res://level/environment_sounds/spaceship_interior.mp3" id="27_qra5s"]
+[ext_resource type="AudioStream" uid="uid://csmrejgg2eacs" path="res://level/environment_sounds/task_sounds/button_click_2.wav" id="28_1dh0l"]
 [ext_resource type="AudioStream" uid="uid://d0uwfbtfvwstt" path="res://player/movement/jump_breath_in.mp3" id="31_s2tka"]
 [ext_resource type="AudioStream" uid="uid://dnwqoqf8uqsm3" path="res://player/movement/land.mp3" id="32_mwapu"]
 [ext_resource type="AudioStream" uid="uid://cu3tj81o8rwh8" path="res://player/movement/dash.mp3" id="33_eseje"]
 [ext_resource type="PackedScene" uid="uid://bmrvxd4l4satu" path="res://level/level.tscn" id="34_oikqa"]
+
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_2irtr"]
+fade_time = 1.0
+stream_count = 4
+stream_0 = ExtResource("8_8fplj")
+stream_1 = ExtResource("11_nqp7v")
+stream_2 = ExtResource("7_yp1mt")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1xi00"]
 random_pitch = 1.02
@@ -61,13 +68,6 @@ random_pitch = 1.02
 random_volume_offset_db = 3.0
 streams_count = 1
 stream_0/stream = ExtResource("16_ivbk7")
-
-[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_2irtr"]
-fade_time = 1.0
-stream_count = 4
-stream_0 = ExtResource("8_8fplj")
-stream_1 = ExtResource("11_nqp7v")
-stream_2 = ExtResource("7_yp1mt")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf7un"]
 
@@ -97,6 +97,12 @@ LabelFPS = NodePath("Player/Camera3D/Statistics/Label FPS")
 
 [node name="AudioNonSpacial" type="Node3D" parent="."]
 
+[node name="Music" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = SubResource("AudioStreamPlaylist_2irtr")
+volume_db = -12.412
+script = ExtResource("12_gw8xm")
+SettingMusicOn = false
+
 [node name="Footsteps" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = SubResource("AudioStreamRandomizer_1xi00")
 volume_db = -23.449
@@ -104,12 +110,6 @@ volume_db = -23.449
 [node name="Clothes" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = SubResource("AudioStreamRandomizer_5s85l")
 volume_db = -11.0
-
-[node name="Music" type="AudioStreamPlayer" parent="AudioNonSpacial"]
-stream = SubResource("AudioStreamPlaylist_2irtr")
-volume_db = -12.412
-autoplay = true
-script = ExtResource("12_gw8xm")
 
 [node name="JumpBreath" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = ExtResource("31_s2tka")
@@ -122,13 +122,6 @@ volume_db = -11.798
 [node name="Dash" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = ExtResource("33_eseje")
 volume_db = 2.955
-
-[node name="AtmosSpaceship" type="AudioStreamPlayer" parent="AudioNonSpacial"]
-stream = ExtResource("27_qra5s")
-volume_db = -35.06
-autoplay = true
-playback_type = 1
-parameters/looping = true
 
 [node name="shipcreaking" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = ExtResource("25_tkjcn")
@@ -144,9 +137,10 @@ stream = ExtResource("26_2b14e")
 stream = ExtResource("27_jys3q")
 
 [node name="Simplebutton_click2" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = ExtResource("28_1dh0l")
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "AudioFootsteps", "AudioClothes", "ColliderCapsule", "ColliderSphere", "AudioDash")]
-transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -31.1, 0, -2)
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "Control", "LabelPhysicsTickRate", "AudioFootsteps", "AudioClothes", "ColliderCapsule", "ColliderSphere", "AudioDash")]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 62.9, -24.5, -9)
 script = ExtResource("1_apfbn")
 Cam = NodePath("Camera3D")
 LabelHSpeed = NodePath("Camera3D/Statistics/Label HSpeed")
@@ -163,6 +157,8 @@ LabelJumpFatigueOnGround = NodePath("Camera3D/Statistics/Label Jump Fatigue On-G
 RectJumpFatigueOnGround = NodePath("Camera3D/Statistics/Rect Jump Fatigue On-Ground")
 AudioJump = NodePath("../AudioNonSpacial/JumpBreath")
 AudioLand = NodePath("../AudioNonSpacial/Land")
+Control = NodePath("..")
+LabelPhysicsTickRate = NodePath("Camera3D/Statistics/Label Physics Rate")
 AudioFootsteps = NodePath("../AudioNonSpacial/Footsteps")
 AudioClothes = NodePath("../AudioNonSpacial/Clothes")
 RunAudioTimerPeriod = 0.3
@@ -176,7 +172,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 shape = SubResource("CapsuleShape3D_lf7un")
 
 [node name="ColliderSphere" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 494.674, 0.5, -4.3273e-05)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 shape = SubResource("SphereShape3D_enhva")
 disabled = true
 
@@ -273,82 +269,88 @@ offset_right = 318.0
 offset_bottom = 99.0
 text = "FPS: "
 
+[node name="Label Physics Rate" type="Label" parent="Player/Camera3D/Statistics"]
+offset_top = 17.0
+offset_right = 318.0
+offset_bottom = 116.0
+text = "Physics rate: "
+
 [node name="ColorRect HSpeed" type="ColorRect" parent="Player/Camera3D/Statistics"]
 offset_left = 64.0
-offset_top = 25.0
+offset_top = 42.0
 offset_right = 172.0
-offset_bottom = 41.0
+offset_bottom = 58.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
 [node name="Label HSpeed" type="Label" parent="Player/Camera3D/Statistics"]
-offset_top = 21.0
+offset_top = 38.0
 offset_right = 318.0
-offset_bottom = 120.0
+offset_bottom = 137.0
 text = "HSpeed: "
 
 [node name="ColorRect Jerk" type="ColorRect" parent="Player/Camera3D/Statistics"]
 offset_left = 35.0
-offset_top = 47.0
+offset_top = 64.0
 offset_right = 143.0
-offset_bottom = 63.0
+offset_bottom = 80.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
 [node name="Label Jerk" type="Label" parent="Player/Camera3D/Statistics"]
-offset_top = 43.0
+offset_top = 60.0
 offset_right = 318.0
-offset_bottom = 142.0
+offset_bottom = 159.0
 text = "Jerk: "
 
 [node name="ColorRect Dash" type="ColorRect" parent="Player/Camera3D/Statistics"]
 offset_left = 44.0
-offset_top = 70.0
+offset_top = 87.0
 offset_right = 152.0
-offset_bottom = 86.0
+offset_bottom = 103.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
 [node name="Label Dash" type="Label" parent="Player/Camera3D/Statistics"]
-offset_top = 66.0
+offset_top = 83.0
 offset_right = 318.0
-offset_bottom = 165.0
+offset_bottom = 182.0
 text = "Dash: "
 
 [node name="ColorRect Climb" type="ColorRect" parent="Player/Camera3D/Statistics"]
 offset_left = 50.0
-offset_top = 92.0
+offset_top = 109.0
 offset_right = 158.0
-offset_bottom = 108.0
+offset_bottom = 125.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
 [node name="Label Climb" type="Label" parent="Player/Camera3D/Statistics"]
-offset_top = 88.0
+offset_top = 105.0
 offset_right = 318.0
-offset_bottom = 187.0
+offset_bottom = 204.0
 text = "Climb: "
 
 [node name="Rect Jump Fatigue Recency" type="ColorRect" parent="Player/Camera3D/Statistics"]
 offset_left = 168.0
-offset_top = 113.0
+offset_top = 130.0
 offset_right = 276.0
-offset_bottom = 129.0
+offset_bottom = 146.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
 [node name="Label Jump Fatigue Recency" type="Label" parent="Player/Camera3D/Statistics"]
-offset_top = 109.0
+offset_top = 126.0
 offset_right = 318.0
-offset_bottom = 208.0
+offset_bottom = 225.0
 text = "Jump fatigue recency: "
 
 [node name="Rect Jump Fatigue On-Ground" type="ColorRect" parent="Player/Camera3D/Statistics"]
 offset_left = 190.0
-offset_top = 135.0
+offset_top = 152.0
 offset_right = 298.0
-offset_bottom = 151.0
+offset_bottom = 168.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
 [node name="Label Jump Fatigue On-Ground" type="Label" parent="Player/Camera3D/Statistics"]
-offset_top = 131.0
+offset_top = 148.0
 offset_right = 318.0
-offset_bottom = 230.0
+offset_bottom = 247.0
 text = "Jump fatigue on-ground: "
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]

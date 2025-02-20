@@ -5,7 +5,12 @@ public partial class Control : Node
 {
 	[Export] private Label LabelFPS;
 
-	public override void _Ready()
+    //HARDWARE
+    private double FPSAverageSlowPrevious = 60.0; //assume 60 fps
+    public double FPSAverageSlow = 60.0; //assume 60 fps
+    private ulong FPSAverageSlowUpdateRate = 100; //how many physics updates must pass before we reconsider the average fps
+
+    public override void _Ready()
 	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;
 	}
@@ -27,4 +32,28 @@ public partial class Control : Node
 	{
 		LabelFPS.Text = $"FPS: {Engine.GetFramesPerSecond()}";
 	}
+
+    public override void _PhysicsProcess(double deltaDouble)
+    {
+        float delta = (float)deltaDouble;
+
+        SetPhysicsUpdateRate();
+    }
+
+    private void SetPhysicsUpdateRate()
+    {
+        //Hardware
+        if (Engine.GetPhysicsFrames() % FPSAverageSlowUpdateRate == 0)
+        {
+            //Get average fps in slow update
+            FPSAverageSlow = (FPSAverageSlowPrevious + Engine.GetFramesPerSecond()) / 2.0;
+            FPSAverageSlowPrevious = Engine.GetFramesPerSecond();
+
+            //Set physics to be <= fps
+            Engine.PhysicsTicksPerSecond = Mathf.Min((int)FPSAverageSlow, (int)DisplayServer.ScreenGetRefreshRate());
+
+            //GD.Print($"FPSAverageSlow: {FPSAverageSlow}");
+            //GD.Print($"DisplayServer.ScreenGetRefreshRate(): {DisplayServer.ScreenGetRefreshRate()}");
+        }
+    }
 }

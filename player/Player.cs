@@ -22,11 +22,14 @@ public partial class Player : CharacterBody3D
 
 	[Export] private AudioStreamPlayer AudioJump;
 	[Export] private AudioStreamPlayer AudioLand;
-	
-	private float MouseSensitivity = 0.001f;
 
-	//AUDIO
-	private bool IsInAir = false;
+	[Export] private Control Control;
+    [Export] private Label LabelPhysicsTickRate;
+
+    private float MouseSensitivity = 0.001f;
+
+    //AUDIO
+    private bool IsInAir = false;
 
 	//RUN
 	private bool InputRunForward = false;
@@ -74,7 +77,7 @@ public partial class Player : CharacterBody3D
 	private const float WallJumpAcceleration = 20f; //instantaneous vertical acceleration
 
 	private bool IsWallRunning = false;
-	private float WallRunAcceleration = 1000f; //additional horizontal acceleration applied when wall-running
+	private float WallRunAcceleration = 6000f; //additional horizontal acceleration applied when wall-running
 	private const float ClimbCoefficientWallRunVerticalAcceleration = 0.25f; //1.5f; //Multiple of gravity, proportional to climb remaining. Vertical acceleration applied when wall-running
 
 	//JUMP
@@ -107,7 +110,7 @@ public partial class Player : CharacterBody3D
 
 	//DASH
 	private bool InputTechDash = false;
-	private const float DashAcceleration = 15f; //300f; //dash acceleration magnitude
+	private const float DashAcceleration = 20f; //300f; //dash acceleration magnitude
 	private const float DashAccelerationAirCoefficient = 0.05f; //lower values cause lessened aerial acceleration
 	private float DashCooldown = 0f; //no touchy :)
 	private const float DashCooldownPeriod = 5f; //time in seconds until you can use the tech again
@@ -157,9 +160,12 @@ public partial class Player : CharacterBody3D
 	{
 		float delta = (float)deltaDouble;
 
-		//Audio
-		//Landing
-		if (IsInAir && IsOnFloor())
+		//Hardware
+		LabelPhysicsTickRate.Text = $"Physics rate: {Engine.PhysicsTicksPerSecond}";
+
+        //Audio
+        //Landing
+        if (IsInAir && IsOnFloor())
 		{
 			//Play landing sound
 			AudioLand.Play();
