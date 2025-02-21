@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://da3cc6bh5v41y"]
+[gd_scene load_steps=8 format=3 uid="uid://da3cc6bh5v41y"]
 
 [ext_resource type="Script" path="res://Control.cs" id="1_35hfb"]
+[ext_resource type="PackedScene" uid="uid://t67wqvj801yl" path="res://robot/robot.tscn" id="4_xnik5"]
 [ext_resource type="PackedScene" uid="uid://b1cc7jehhov" path="res://player/player.tscn" id="29_0dube"]
 [ext_resource type="PackedScene" uid="uid://bmrvxd4l4satu" path="res://level/level.tscn" id="34_oikqa"]
 
@@ -35,3 +36,6 @@ shadow_enabled = true
 
 [node name="Player" parent="." instance=ExtResource("29_0dube")]
 transform = Transform3D(1, 0, -2.13163e-14, 0, 1, 0, 2.13163e-14, 0, 1, 25.4, 0, -10.5)
+
+[node name="Robot" parent="." instance=ExtResource("4_xnik5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14.9754, 0.330002, -13.2887)

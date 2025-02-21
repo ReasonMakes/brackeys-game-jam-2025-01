@@ -120,7 +120,6 @@ mesh = SubResource("CapsuleMesh_3x3s7")
 stream = SubResource("AudioStreamPlaylist_2vrce")
 volume_db = -12.412
 script = ExtResource("6_db354")
-SettingMusicOn = false
 
 [node name="Footsteps" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = SubResource("AudioStreamRandomizer_pqvfr")

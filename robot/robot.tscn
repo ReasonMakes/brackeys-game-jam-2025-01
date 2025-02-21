@@ -5,7 +5,7 @@
 [ext_resource type="AudioStream" uid="uid://bkk8pv1kf7quw" path="res://robot/sounds/robot_ambience.mp3" id="2_qtke8"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_fvlch"]
-size = Vector3(0.828125, 0.532806, 1.06348)
+size = Vector3(0.828125, 0.503857, 1.06348)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dxdtb"]
 
@@ -39,15 +39,16 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_nxtak")
 
-[node name="Robot" type="RigidBody3D"]
+[node name="Robot" type="CharacterBody3D" node_paths=PackedStringArray("NavAgent")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33, 0)
 script = ExtResource("1_1ymba")
+NavAgent = NodePath("NavigationAgent3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.266767, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0684338, 0)
 shape = SubResource("BoxShape3D_fvlch")
 
 [node name="Mesh" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.326, 0)
 mesh = SubResource("ArrayMesh_jncsn")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("1_ermbn")
@@ -62,3 +63,6 @@ max_db = 0.0
 autoplay = true
 playback_type = 1
 parameters/looping = true
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+path_height_offset = 0.5
