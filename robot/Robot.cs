@@ -1,11 +1,14 @@
 using Godot;
 using System;
+using static Godot.TextServer;
 
 public partial class Robot : CharacterBody3D
 {
     [Export] private NavigationAgent3D NavAgent;
-    private float Speed = 2000f;
-    private float StopDistance = 5f;
+    private float Acceleration = 100f;
+    private float Drag = 10f;
+    private float StopDistance = 2f;
+    private float RotationRate = 5f;
 
     public override void _PhysicsProcess(double deltaDouble)
     {
@@ -14,6 +17,7 @@ public partial class Robot : CharacterBody3D
         //Navigation needs to use the 1st frame to sync, so we only begin on the 2nd frame
         if (Engine.GetPhysicsFrames() >= 2)
         {
+            //Navigate
             Control control = GetNode<Control>(GetTree().Root.GetChild(0).GetPath());
 
             Vector3 distanceDirect = (control.Player.GlobalPosition - GlobalPosition);
@@ -29,10 +33,48 @@ public partial class Robot : CharacterBody3D
 
             Vector3 direction = (NavAgent.GetNextPathPosition() - GlobalPosition).Normalized();
 
-            float magnitude = Speed * delta;
-            Velocity = direction * magnitude;
+            ApplyAccelerationOverTime(direction * Acceleration, delta);
 
             MoveAndSlide();
+
+            //Rotate
+            UpdateLookDirection(direction, distanceDirect, control.Player.GlobalPosition, delta);
         }
+
+        
+    }
+
+    private void UpdateLookDirection(Vector3 direction, Vector3 distanceDirect, Vector3 playerPosition, float delta)
+    {
+        Vector3 lookPosition = direction;
+        if (distanceDirect.Length() <= StopDistance)
+        {
+            lookPosition = (playerPosition - GlobalPosition).Normalized();
+        }
+
+        //Rotate
+        Quaternion currentRotation = GlobalTransform.Basis.GetRotationQuaternion();
+        Quaternion targetRotation = new(Vector3.Up, Mathf.Atan2(lookPosition.X, lookPosition.Z));
+        Quaternion newRotation = currentRotation.Slerp(targetRotation, delta * RotationRate);
+        GlobalTransform = new Transform3D(new Basis(newRotation), GlobalTransform.Origin);
+    }
+
+    private void ApplyAccelerationOverTime(Vector3 acceleration, float delta)
+    {
+        //DON'T MULTIPLY BY DELTA IN THE ACCELERATION ARGUMENT OF THIS METHOD!
+
+        //Correct example usage:
+        //float magnitude = 10f;
+        //Vector3 direction = -GlobalBasis.Z;
+        //ApplyAcceleration(magnitude * direction, delta);
+
+        //This actually uses a force formula, but we assume the mass is 1, thus it ends up applying acceleration, and the vector is titled acceleration
+        //F = ma
+        //F = (1)a
+        //F = a
+
+        //Apply drag friction with an exponential decay expression to account for users with throttled physics update rates
+        float decayFactor = Mathf.Exp(-Drag * delta);
+        Velocity = acceleration / Drag * (1f - decayFactor) + (Velocity * decayFactor);
     }
 }

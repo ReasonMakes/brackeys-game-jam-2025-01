@@ -219,7 +219,7 @@ public partial class Player : CharacterBody3D
 		//Run
 		Vector3 runVector = Run(delta, IsSliding);
 		//Velocity += runVector * delta;
-		ApplyAcceleration(runVector, delta);
+		ApplyAccelerationOverTime(runVector, delta);
 
 		//Wall Climb
 		Climb(delta, runVector);
@@ -234,14 +234,14 @@ public partial class Player : CharacterBody3D
 		if (!IsOnFloor())
 		{
 			//Velocity += GetGravity() * delta;
-			ApplyAcceleration(GetGravity(), delta);
+			ApplyAccelerationOverTime(GetGravity(), delta);
 		}
 
 		//Apply
 		MoveAndSlide();
 	}
 
-	private void ApplyAcceleration(Vector3 acceleration, float delta)
+	private void ApplyAccelerationOverTime(Vector3 acceleration, float delta)
 	{
 		//DON'T MULTIPLY BY DELTA IN THE ACCELERATION ARGUMENT OF THIS METHOD!
 
@@ -559,7 +559,7 @@ public partial class Player : CharacterBody3D
 
 				//Climb
 				Vector3 climbVector = -GetGravity() * (ClimbAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall);
-				ApplyAcceleration(climbVector, delta);
+				ApplyAccelerationOverTime(climbVector, delta);
 				//Velocity += -GetGravity() * (ClimbAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall * delta);
 
 				//Wall-run
@@ -574,12 +574,12 @@ public partial class Player : CharacterBody3D
 
 					//Horizontal acceleration
 					Vector3 wallRunHorizontalVector = projectedDirection * (WallRunAcceleration * (1f - dotWall));
-					ApplyAcceleration(wallRunHorizontalVector, delta);
+					ApplyAccelerationOverTime(wallRunHorizontalVector, delta);
 					//Velocity += projectedDirection * (WallRunAcceleration * (1f - dotWall) * delta);
 
 					//Vertical acceleration
 					Vector3 wallRunVerticalVector = -GetGravity() * (ClimbAcceleration * ClimbCoefficientWallRunVerticalAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall);
-					ApplyAcceleration(wallRunVerticalVector, delta);
+					ApplyAccelerationOverTime(wallRunVerticalVector, delta);
 					//Velocity += -GetGravity() * (WallRunVerticalAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall * delta);
 				}
 
