@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://mwmurykmhf71"]
+[gd_scene load_steps=10 format=3 uid="uid://mwmurykmhf71"]
 
 [ext_resource type="Script" path="res://robot/Missile.cs" id="1_ampv4"]
 [ext_resource type="AudioStream" uid="uid://de04o8a3exbxc" path="res://robot/sounds/robot_dying.mp3" id="2_cp5gs"]
 [ext_resource type="AudioStream" uid="uid://egrlb3lmcw7f" path="res://robot/sounds/robot_spawn_sound.mp3" id="3_4n7hf"]
+[ext_resource type="PackedScene" uid="uid://bd18tdt4jhcml" path="res://robot/particles_destroyed.tscn" id="4_yi0k8"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_eb0kl"]
 
@@ -11,31 +12,47 @@
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_na4tx"]
 albedo_color = Color(1, 0, 0, 1)
 
-[node name="CharacterBody3D" type="CharacterBody3D" node_paths=PackedStringArray("AudioDestroyed", "AudioAlive", "Collider")]
+[sub_resource type="SphereMesh" id="SphereMesh_aytif"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gpqeq"]
+transparency = 1
+albedo_color = Color(1, 0, 0, 0.188235)
+
+[node name="Missile" type="CharacterBody3D" node_paths=PackedStringArray("MeshInstance", "AudioDestroyed", "AudioAlive", "Collider", "ParticlesDestroyed")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 script = ExtResource("1_ampv4")
-AudioDestroyed = NodePath("Destroyed")
-AudioAlive = NodePath("Alive")
-Collider = NodePath("CollisionShape3D")
+MeshInstance = NodePath("Collider/Mesh")
+AudioDestroyed = NodePath("AudioDestroyed")
+AudioAlive = NodePath("AudioAlive")
+Collider = NodePath("Collider")
+ParticlesDestroyed = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="Collider" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
 shape = SubResource("CapsuleShape3D_eb0kl")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CollisionShape3D"]
+[node name="Mesh" type="MeshInstance3D" parent="Collider"]
 transform = Transform3D(1, 0, 0, 0, 2, 0, 0, 0, 1, 0, 0, 0)
 mesh = SubResource("CapsuleMesh_y3yym")
 skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_na4tx")
 
-[node name="Destroyed" type="AudioStreamPlayer3D" parent="."]
+[node name="AudioDestroyed" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_cp5gs")
 attenuation_model = 2
 volume_db = -37.581
 unit_size = 56.52
 max_db = 0.0
 
-[node name="Alive" type="AudioStreamPlayer3D" parent="."]
+[node name="AudioAlive" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_4n7hf")
 attenuation_model = 2
 max_db = 0.0
+
+[node name="ParticlesDestroyed" parent="." instance=ExtResource("4_yi0k8")]
+
+[node name="MeshTest" type="MeshInstance3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_aytif")
+surface_material_override/0 = SubResource("StandardMaterial3D_gpqeq")

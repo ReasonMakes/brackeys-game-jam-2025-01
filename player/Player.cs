@@ -5,7 +5,7 @@ using System.Diagnostics;
 
 public partial class Player : CharacterBody3D
 {
-	[Export] private Camera3D Cam;
+    [Export] private Camera3D Cam;
 
 	[Export] private Label LabelHSpeed;
 	[Export] private ColorRect RectHSpeed;
@@ -677,8 +677,8 @@ private void ApplyAccelerationOverTime(Vector3 acceleration, float delta)
 			//Act
 			if (InputTechJump && JumpFatigueRecencyTimer >= JumpCooldown)
 			{
-				//Jump upwards
-				Jump(Vector3.Up, JumpAcceleration);
+                //Jump upwards
+                Jump(Vector3.Up, JumpAcceleration);
 
 				//Reset timers
 				JumpFatigueOnGroundTimer = Mathf.Max(JumpFatigueOnGroundTimer/2f, JumpFatigueMinimumCoefficient);

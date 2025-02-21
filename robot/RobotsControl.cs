@@ -20,7 +20,7 @@ public partial class RobotsControl : Node3D
             int robotsAliveCount = 0;
             for (int i = 0; i < Pool.GetChildCount(); i++)
             {
-                Robot robot = Pool.GetChild<Robot>(i);
+                Robot robot = Pool.GetChild(i).GetChild<Robot>(0);
 
                 if (robot.IsAlive)
                 {
@@ -33,7 +33,7 @@ public partial class RobotsControl : Node3D
             {
                 for (int i = 0; i < Pool.GetChildCount(); i++)
                 {
-                    Robot robot = Pool.GetChild<Robot>(i);
+                    Robot robot = Pool.GetChild(i).GetChild<Robot>(0);
 
                     if (!robot.IsAlive)
                     {

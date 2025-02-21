@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=4 uid="uid://t67wqvj801yl"]
+[gd_scene load_steps=12 format=4 uid="uid://t67wqvj801yl"]
 
 [ext_resource type="Script" path="res://robot/Robot.cs" id="1_1ymba"]
 [ext_resource type="Material" uid="uid://denw4cgalf6td" path="res://robot/robot_material.tres" id="1_ermbn"]
 [ext_resource type="AudioStream" uid="uid://bkk8pv1kf7quw" path="res://robot/sounds/robot_ambience.mp3" id="2_qtke8"]
+[ext_resource type="PackedScene" uid="uid://bd18tdt4jhcml" path="res://robot/particles_destroyed.tscn" id="3_bf5wu"]
 [ext_resource type="AudioStream" uid="uid://egrlb3lmcw7f" path="res://robot/sounds/robot_spawn_sound.mp3" id="3_uq1cp"]
 [ext_resource type="AudioStream" uid="uid://de04o8a3exbxc" path="res://robot/sounds/robot_dying.mp3" id="4_d3ove"]
 [ext_resource type="PackedScene" uid="uid://mwmurykmhf71" path="res://robot/missile.tscn" id="4_ljxr6"]
@@ -43,30 +44,41 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_nxtak")
 
-[node name="Robot" type="CharacterBody3D" node_paths=PackedStringArray("Collider", "NavAgent", "AudioSpawn", "AudioAmbience", "AudioDestroyed", "Pool")]
+[node name="Robot" type="Node3D"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("MeshInstance", "ParticlesDestroyed", "Collider", "NavAgent", "AudioSpawn", "AudioAmbience", "AudioDestroyed", "Pool")]
 script = ExtResource("1_1ymba")
+MeshInstance = NodePath("Mesh")
+ParticlesDestroyed = NodePath("ParticlesDestroyed")
 Collider = NodePath("ColliderCylinder")
 NavAgent = NodePath("NavigationAgent3D")
 AudioSpawn = NodePath("Spawn")
 AudioAmbience = NodePath("Ambience")
 AudioDestroyed = NodePath("Destroyed")
-Pool = NodePath("Pool")
+Pool = NodePath("../Pool")
 
-[node name="ColliderCylinder" type="CollisionShape3D" parent="."]
+[node name="ColliderCylinder" type="CollisionShape3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.262, 0)
 shape = SubResource("CylinderShape3D_ddnvt")
 
-[node name="Mesh" type="MeshInstance3D" parent="."]
+[node name="Mesh" type="MeshInstance3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.33, 0)
 mesh = SubResource("ArrayMesh_jncsn")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("1_ermbn")
 
-[node name="Spawn" type="AudioStreamPlayer3D" parent="."]
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="CharacterBody3D"]
+path_height_offset = 0.5
+avoidance_enabled = true
+radius = 2.0
+
+[node name="ParticlesDestroyed" parent="CharacterBody3D" instance=ExtResource("3_bf5wu")]
+
+[node name="Spawn" type="AudioStreamPlayer3D" parent="CharacterBody3D"]
 stream = ExtResource("3_uq1cp")
 attenuation_model = 2
 
-[node name="Ambience" type="AudioStreamPlayer3D" parent="."]
+[node name="Ambience" type="AudioStreamPlayer3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.656, 0)
 stream = ExtResource("2_qtke8")
 attenuation_model = 1
@@ -77,16 +89,11 @@ autoplay = true
 playback_type = 1
 parameters/looping = true
 
-[node name="Destroyed" type="AudioStreamPlayer3D" parent="."]
+[node name="Destroyed" type="AudioStreamPlayer3D" parent="CharacterBody3D"]
 stream = ExtResource("4_d3ove")
 attenuation_model = 1
 unit_size = 3.33
 max_db = 0.0
-
-[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
-path_height_offset = 0.5
-avoidance_enabled = true
-radius = 2.0
 
 [node name="Pool" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.275196, 0)

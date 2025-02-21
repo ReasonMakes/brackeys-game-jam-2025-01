@@ -2,6 +2,7 @@ using Godot;
 
 public partial class Missile : CharacterBody3D
 {
+    [Export] private MeshInstance3D MeshInstance;
     public bool IsAlive = false;
     private const float ExplosionDistance = 5f;
     private float Acceleration = 1f;
@@ -16,7 +17,7 @@ public partial class Missile : CharacterBody3D
     [Export] private CollisionShape3D Collider;
     public float DeadTime = 0f; //time the missile's been dead for
     public const float DeadPeriod = 3f; //time the missile needs to be dead for before being possible to spawn again. This is necessary to let the death sound play
-
+    [Export] private GpuParticles3D ParticlesDestroyed;
     public override void _PhysicsProcess(double deltaDouble)
     {
         float delta = (float)deltaDouble;
@@ -140,14 +141,15 @@ public partial class Missile : CharacterBody3D
         if (IsAlive)
         {
             AudioDestroyed.Play();
+            ParticlesDestroyed.Emitting = true;
 
             Acceleration = 1f;
             Velocity = Vector3.Zero;
 
             Collider.Disabled = true;
-            Visible = false;
+            MeshInstance.Visible = false;
 
-            //Node robotsControlPath = GetParent().GetParent().GetParent().GetParent();
+            //Node robotsControlPath = GetParent().GetParent().GetParent().GetParent().GetParent();
             //RobotsControl robotsControlScript = GetNode<RobotsControl>(robotsControlPath.GetPath());
             //GlobalPosition = robotsControlScript.GlobalPosition;
 
@@ -157,11 +159,18 @@ public partial class Missile : CharacterBody3D
 
     public void Spawn(Vector3 SpawnPosition)
     {
-        Collider.Disabled = false;
+        ParticlesDestroyed.Emitting = false;
+
         LifeStart = Time.GetTicksMsec();
+
         Velocity = Vector3.Up * VerticalLaunchSpeed;
-        IsAlive = true;
+        
         GlobalPosition = SpawnPosition;
+
+        Collider.Disabled = false;
         Visible = true;
+        MeshInstance.Visible = true;
+
+        IsAlive = true;
     }
 }

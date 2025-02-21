@@ -4,6 +4,8 @@ using static Godot.TextServer;
 
 public partial class Robot : CharacterBody3D
 {
+    [Export] private MeshInstance3D MeshInstance;
+    [Export] private GpuParticles3D ParticlesDestroyed;
     [Export] private CollisionShape3D Collider;
 
     [Export] private NavigationAgent3D NavAgent;
@@ -132,10 +134,13 @@ public partial class Robot : CharacterBody3D
         if (IsAlive)
         {
             AudioDestroyed.Play();
+            ParticlesDestroyed.Emitting = true;
 
             Velocity = Vector3.Zero;
+
             Collider.Disabled = true;
-            Visible = false;
+            //Visible = false;
+            MeshInstance.Visible = false;
             //Position = Vector3.Zero;
 
             IsAlive = false;
@@ -147,9 +152,11 @@ public partial class Robot : CharacterBody3D
         AudioSpawn.Play();
 
         IsAlive = true;
-        Collider.Disabled = false;
         GlobalPosition = SpawnPosition;
+
+        Collider.Disabled = false;
         Visible = true;
+        MeshInstance.Visible = true;
 
         //Initialize missile spawn timer
         MissileSpawnTimer = 0f;
