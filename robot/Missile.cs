@@ -18,6 +18,7 @@ public partial class Missile : CharacterBody3D
     public float DeadTime = 0f; //time the missile's been dead for
     public const float DeadPeriod = 3f; //time the missile needs to be dead for before being possible to spawn again. This is necessary to let the death sound play
     [Export] private GpuParticles3D ParticlesDestroyed;
+    [Export] private GpuParticles3D ParticlesThrust;
     public override void _PhysicsProcess(double deltaDouble)
     {
         float delta = (float)deltaDouble;
@@ -142,6 +143,7 @@ public partial class Missile : CharacterBody3D
         {
             AudioDestroyed.Play();
             ParticlesDestroyed.Emitting = true;
+            ParticlesThrust.Emitting = false;
 
             Acceleration = 1f;
             Velocity = Vector3.Zero;
@@ -160,6 +162,7 @@ public partial class Missile : CharacterBody3D
     public void Spawn(Vector3 SpawnPosition)
     {
         ParticlesDestroyed.Emitting = false;
+        ParticlesThrust.Emitting = true;
 
         LifeStart = Time.GetTicksMsec();
 
