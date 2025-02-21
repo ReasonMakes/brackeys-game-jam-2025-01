@@ -43,8 +43,9 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_nxtak")
 
-[node name="Robot" type="CharacterBody3D" node_paths=PackedStringArray("NavAgent", "Ambience")]
+[node name="Robot" type="CharacterBody3D" node_paths=PackedStringArray("Collider", "NavAgent", "Ambience")]
 script = ExtResource("1_1ymba")
+Collider = NodePath("ColliderCylinder")
 NavAgent = NodePath("NavigationAgent3D")
 Ambience = NodePath("Ambience")
 

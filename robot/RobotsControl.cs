@@ -20,9 +20,7 @@ public partial class RobotsControl : Node
 
                 if (!robot.IsAlive)
                 {
-                    robot.GlobalPosition = GetSpawnPoint();
-
-                    robot.IsAlive = true;
+                    robot.Spawn(GetSpawnPoint());
 
                     break;
                 }

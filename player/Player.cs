@@ -239,9 +239,26 @@ public partial class Player : CharacterBody3D
 
 		//Apply
 		MoveAndSlide();
-	}
 
-	private void ApplyAccelerationOverTime(Vector3 acceleration, float delta)
+        //Goomba stomping
+        for (int i = 0; i < GetSlideCollisionCount(); i++)
+        {
+            KinematicCollision3D collision = GetSlideCollision(i);
+
+            //Check for robot collision
+            if (collision.GetCollider() is Robot robot)
+            {
+                //Check if colliding with the top of the robot
+                if (collision.GetNormal().Dot(Vector3.Up) > 0.7f)
+                {
+					//GD.Print("Player landed on top of the robot!");
+					robot.Kill();
+                }
+            }
+        }
+    }
+
+private void ApplyAccelerationOverTime(Vector3 acceleration, float delta)
 	{
 		//DON'T MULTIPLY BY DELTA IN THE ACCELERATION ARGUMENT OF THIS METHOD!
 

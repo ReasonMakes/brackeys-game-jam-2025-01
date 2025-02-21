@@ -4,6 +4,8 @@ using static Godot.TextServer;
 
 public partial class Robot : CharacterBody3D
 {
+    [Export] private CollisionShape3D Collider;
+
     [Export] private NavigationAgent3D NavAgent;
     private float Acceleration = 100f;
     private float Drag = 10f;
@@ -93,5 +95,19 @@ public partial class Robot : CharacterBody3D
         //Apply drag friction with an exponential decay expression to account for users with throttled physics update rates
         float decayFactor = Mathf.Exp(-Drag * delta);
         Velocity = acceleration / Drag * (1f - decayFactor) + (Velocity * decayFactor);
+    }
+
+    public void Kill()
+    {
+        IsAlive = false;
+        Collider.Disabled = true;
+        Position = Vector3.Zero;
+    }
+
+    public void Spawn(Vector3 SpawnPosition)
+    {
+        IsAlive = true;
+        Collider.Disabled = false;
+        GlobalPosition = SpawnPosition;
     }
 }
