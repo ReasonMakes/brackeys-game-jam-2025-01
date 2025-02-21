@@ -41,8 +41,8 @@
 fade_time = 1.0
 stream_count = 4
 stream_0 = ExtResource("8_8fplj")
-stream_1 = ExtResource("11_nqp7v")
-stream_2 = ExtResource("7_yp1mt")
+stream_1 = ExtResource("7_yp1mt")
+stream_2 = ExtResource("11_nqp7v")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_1xi00"]
 random_pitch = 1.02
@@ -101,7 +101,6 @@ LabelFPS = NodePath("Player/Camera3D/Statistics/Label FPS")
 stream = SubResource("AudioStreamPlaylist_2irtr")
 volume_db = -12.412
 script = ExtResource("12_gw8xm")
-SettingMusicOn = false
 
 [node name="Footsteps" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = SubResource("AudioStreamRandomizer_1xi00")
@@ -139,7 +138,7 @@ stream = ExtResource("27_jys3q")
 [node name="Simplebutton_click2" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = ExtResource("28_1dh0l")
 
-[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "Control", "LabelPhysicsTickRate", "AudioFootsteps", "AudioClothes", "ColliderCapsule", "ColliderSphere", "AudioDash")]
+[node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "LabelPhysicsTickRate", "AudioFootsteps", "AudioClothes", "ColliderCapsule", "ColliderSphere", "AudioDash")]
 transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 4.75187, -24.5, 5.0677)
 script = ExtResource("1_apfbn")
 Cam = NodePath("Camera3D")
@@ -157,7 +156,6 @@ LabelJumpFatigueOnGround = NodePath("Camera3D/Statistics/Label Jump Fatigue On-G
 RectJumpFatigueOnGround = NodePath("Camera3D/Statistics/Rect Jump Fatigue On-Ground")
 AudioJump = NodePath("../AudioNonSpacial/JumpBreath")
 AudioLand = NodePath("../AudioNonSpacial/Land")
-Control = NodePath(".")
 LabelPhysicsTickRate = NodePath("Camera3D/Statistics/Label Physics Rate")
 AudioFootsteps = NodePath("../AudioNonSpacial/Footsteps")
 AudioClothes = NodePath("../AudioNonSpacial/Clothes")

@@ -24,12 +24,12 @@ public partial class Player : CharacterBody3D
 	[Export] private AudioStreamPlayer AudioLand;
 
 	[Export] private Control Control;
-    [Export] private Label LabelPhysicsTickRate;
+	[Export] private Label LabelPhysicsTickRate;
 
-    private float MouseSensitivity = 0.001f;
+	private float MouseSensitivity = 0.001f;
 
-    //AUDIO
-    private bool IsInAir = false;
+	//AUDIO
+	private bool IsInAir = false;
 
 	//RUN
 	private bool InputRunForward = false;
@@ -163,9 +163,9 @@ public partial class Player : CharacterBody3D
 		//Hardware
 		LabelPhysicsTickRate.Text = $"Physics rate: {Engine.PhysicsTicksPerSecond}";
 
-        //Audio
-        //Landing
-        if (IsInAir && IsOnFloor())
+		//Audio
+		//Landing
+		if (IsInAir && IsOnFloor())
 		{
 			//Play landing sound
 			AudioLand.Play();

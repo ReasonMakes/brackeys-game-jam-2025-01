@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://bmrvxd4l4satu"]
 
-[ext_resource type="PackedScene" uid="uid://t67wqvj801yl" path="res://robot/robot.tscn" id="2_pj1a1"]
+[ext_resource type="PackedScene" path="res://robot/robot.tscn" id="2_pj1a1"]
 [ext_resource type="AudioStream" uid="uid://bkk8pv1kf7quw" path="res://robot/sounds/robot_ambience.mp3" id="4_4b4qo"]
 [ext_resource type="PackedScene" uid="uid://4vvfowplbgkr" path="res://level/modular_panels/SM_Floor.glb" id="4_7fnw2"]
 [ext_resource type="AudioStream" uid="uid://2a55c4quhs0g" path="res://level/environment_sounds/3dbridge_sound.mp3" id="4_xcta4"]
@@ -19,7 +19,7 @@ transform = Transform3D(-0.866025, 1.49012e-08, -0.5, -0.433013, 0.5, 0.75, 0.25
 
 [node name="Ambience" type="AudioStreamPlayer3D" parent="Cube_003"]
 stream = ExtResource("4_4b4qo")
-volume_db = -20.571
+volume_db = 7.386
 unit_size = 5.71
 max_db = 0.0
 autoplay = true
@@ -32,7 +32,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 2.98023e-08, 1.49012e-08, -2.98023e-08, 1
 [node name="Cockpit" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(-0.866025, -2.19381e-07, -0.500001, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433012, -37.2391, -15.4565, 16.2285)
 stream = ExtResource("4_xcta4")
-volume_db = -28.952
+volume_db = -1.855
 unit_size = 7.14
 max_db = 0.0
 autoplay = true
@@ -43,7 +43,7 @@ parameters/looping = true
 transform = Transform3D(-0.866025, -2.19381e-07, -0.500001, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433012, 9.00351, 25.4148, -6.79124)
 stream = ExtResource("5_b6fot")
 attenuation_model = 2
-volume_db = -20.571
+volume_db = 3.085
 max_db = 0.0
 autoplay = true
 playback_type = 1
@@ -53,7 +53,7 @@ parameters/looping = true
 transform = Transform3D(-0.866025, -2.19381e-07, -0.500001, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433012, 61.4125, 12.6193, 0.596256)
 stream = ExtResource("5_b6fot")
 attenuation_model = 2
-volume_db = -20.571
+volume_db = 0.504
 max_db = 0.0
 autoplay = true
 playback_type = 1
@@ -63,7 +63,7 @@ parameters/looping = true
 transform = Transform3D(-0.866025, -2.19381e-07, -0.500001, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433012, 67.9243, 60.8752, -27.2643)
 stream = ExtResource("5_b6fot")
 attenuation_model = 2
-volume_db = -20.571
+volume_db = 4.375
 max_db = 0.0
 autoplay = true
 playback_type = 1
