@@ -1,17 +1,18 @@
-[gd_scene load_steps=7 format=3 uid="uid://bmrvxd4l4satu"]
+[gd_scene load_steps=11 format=3 uid="uid://bmrvxd4l4satu"]
 
-[ext_resource type="PackedScene" uid="uid://df360ha3c80kh" path="res://level/greybox.tscn" id="1_2lpfq"]
 [ext_resource type="PackedScene" uid="uid://t67wqvj801yl" path="res://robot/robot.tscn" id="2_pj1a1"]
 [ext_resource type="AudioStream" uid="uid://bkk8pv1kf7quw" path="res://robot/sounds/robot_ambience.mp3" id="4_4b4qo"]
 [ext_resource type="PackedScene" uid="uid://4vvfowplbgkr" path="res://level/modular_panels/SM_Floor.glb" id="4_7fnw2"]
 [ext_resource type="AudioStream" uid="uid://2a55c4quhs0g" path="res://level/environment_sounds/3dbridge_sound.mp3" id="4_xcta4"]
 [ext_resource type="AudioStream" uid="uid://dxbpoaqhuxkd8" path="res://level/environment_sounds/creaking_noise.mp3" id="5_b6fot"]
+[ext_resource type="PackedScene" uid="uid://clxxyxv4f5qeh" path="res://level/Cooler/SM_cooler.tscn" id="7_atqr1"]
+[ext_resource type="PackedScene" uid="uid://cnsogb83jy6r" path="res://level/Garden/SM_Garden.tscn" id="8_0pqh2"]
+[ext_resource type="PackedScene" uid="uid://xc02plm0s8bm" path="res://level/Electric_room/SM_ElectricRoom.tscn" id="9_noq31"]
+[ext_resource type="PackedScene" uid="uid://c8me4ohfgfa6b" path="res://level/Reactor/SM_Reactor.tscn" id="10_x846s"]
+[ext_resource type="PackedScene" uid="uid://dxp7ndjlm1xcm" path="res://level/Wallsandfloors/SM_wallsandfloors.tscn" id="11_1fjyj"]
 
 [node name="Level" type="Node3D"]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
-
-[node name="Greybox" parent="." instance=ExtResource("1_2lpfq")]
-transform = Transform3D(-0.866025, 1.49012e-08, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433013, 0, 0, 0)
 
 [node name="Cube_003" parent="." instance=ExtResource("2_pj1a1")]
 transform = Transform3D(-0.866025, 1.49012e-08, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433013, 26.6327, 6.97935, -3.6531)
@@ -115,3 +116,18 @@ transform = Transform3D(-0.866026, -2.5332e-07, -0.5, -0.433013, 0.5, 0.75, 0.25
 
 [node name="SM_Floor4" parent="." instance=ExtResource("4_7fnw2")]
 transform = Transform3D(-0.866026, -2.5332e-07, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433013, 26.4138, 13.2069, -7.625)
+
+[node name="SM_Cooler" parent="." instance=ExtResource("7_atqr1")]
+transform = Transform3D(-0.5, -1.97851e-07, 0.866025, 0.75, 0.500001, 0.433013, -0.433013, 0.866025, -0.25, 56.7929, 16.5737, -9.56886)
+
+[node name="SM_Garden" parent="." instance=ExtResource("8_0pqh2")]
+transform = Transform3D(0.5, 2.11396e-07, -0.866025, -0.75, 0.5, -0.433013, 0.433013, 0.866026, 0.25, 50.9092, -7.68509, 4.437)
+
+[node name="SM_Electricroom" parent="." instance=ExtResource("9_noq31")]
+transform = Transform3D(-0.866026, -2.5332e-07, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433013, 10.5023, 62.4855, -23.9392)
+
+[node name="SM_Reactor" parent="." instance=ExtResource("10_x846s")]
+transform = Transform3D(-0.866026, -2.5332e-07, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433013, 61.6765, 45.7853, -40.1139)
+
+[node name="StaticBody3D" parent="." instance=ExtResource("11_1fjyj")]
+transform = Transform3D(-0.866026, -2.5332e-07, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433013, -0.302021, 0.750392, -0.413317)

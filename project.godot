@@ -13,6 +13,7 @@ config_version=5
 config/name="Be Fast to Last"
 run/main_scene="res://root.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
+run/max_fps=60
 boot_splash/image="res://UI/icon_title.png"
 config/icon="res://icon.svg"
 

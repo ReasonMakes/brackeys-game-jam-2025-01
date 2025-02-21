@@ -140,7 +140,7 @@ stream = ExtResource("27_jys3q")
 stream = ExtResource("28_1dh0l")
 
 [node name="Player" type="CharacterBody3D" parent="." node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "Control", "LabelPhysicsTickRate", "AudioFootsteps", "AudioClothes", "ColliderCapsule", "ColliderSphere", "AudioDash")]
-transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 62.9, -24.5, -9)
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 4.75187, -24.5, 5.0677)
 script = ExtResource("1_apfbn")
 Cam = NodePath("Camera3D")
 LabelHSpeed = NodePath("Camera3D/Statistics/Label HSpeed")
@@ -157,11 +157,10 @@ LabelJumpFatigueOnGround = NodePath("Camera3D/Statistics/Label Jump Fatigue On-G
 RectJumpFatigueOnGround = NodePath("Camera3D/Statistics/Rect Jump Fatigue On-Ground")
 AudioJump = NodePath("../AudioNonSpacial/JumpBreath")
 AudioLand = NodePath("../AudioNonSpacial/Land")
-Control = NodePath("..")
+Control = NodePath(".")
 LabelPhysicsTickRate = NodePath("Camera3D/Statistics/Label Physics Rate")
 AudioFootsteps = NodePath("../AudioNonSpacial/Footsteps")
 AudioClothes = NodePath("../AudioNonSpacial/Clothes")
-RunAudioTimerPeriod = 0.3
 ColliderCapsule = NodePath("ColliderCapsule")
 ColliderSphere = NodePath("ColliderSphere")
 AudioDash = NodePath("../AudioNonSpacial/Dash")
