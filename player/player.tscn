@@ -124,7 +124,7 @@ mesh = SubResource("CapsuleMesh_3x3s7")
 script = ExtResource("6_db354")
 StreamNonCombat = NodePath("MusicNonCombat")
 StreamCombat = NodePath("MusicCombat")
-VolumeAll = -80.0
+VolumeAll = -60.0
 VolumeMultiplierCombat = 0.7
 
 [node name="MusicNonCombat" type="AudioStreamPlayer" parent="AudioNonSpacial"]

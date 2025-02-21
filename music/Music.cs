@@ -22,10 +22,13 @@ public partial class Music : Node3D
         StreamCombat.VolumeDb = VolumeAll * VolumeMultiplierCombat;
 
         //Start with non-combat music
-        ActiveStream = StreamCombat;
+        ActiveStream = StreamNonCombat;
 
         //Force first song to be element 0
-
+        AudioStreamRandomizer randomizer = (AudioStreamRandomizer)ActiveStream.Stream;
+        AudioStream streamElement0 = randomizer.GetStream(0);
+        ActiveStream.Stream = streamElement0;
+        ActiveStream.Play();
     }
 
     public override void _Process(double delta)
