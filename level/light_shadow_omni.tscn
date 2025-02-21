@@ -1,6 +1,0 @@
-[gd_scene format=3 uid="uid://cl86ycrtt125u"]
-
-[node name="LightShadowOmni" type="OmniLight3D"]
-shadow_enabled = true
-omni_range = 34.822
-omni_attenuation = 0.333

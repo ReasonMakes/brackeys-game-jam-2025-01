@@ -3,7 +3,7 @@ using System;
 
 public partial class Control : Node
 {
-	[Export] private Player Player;
+	[Export] private Label LabelFPS;
 
 	//HARDWARE
 	private double FPSAverageSlowPrevious = 60.0; //assume 60 fps
@@ -30,7 +30,7 @@ public partial class Control : Node
 
 	public override void _Process(double delta)
 	{
-		Player.LabelFPS.Text = $"FPS: {Engine.GetFramesPerSecond()}";
+		LabelFPS.Text = $"FPS: {Engine.GetFramesPerSecond()}";
 	}
 
 	public override void _PhysicsProcess(double deltaDouble)
