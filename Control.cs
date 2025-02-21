@@ -3,7 +3,7 @@ using System;
 
 public partial class Control : Node
 {
-	[Export] private Player Player;
+	[Export] public Player Player;
 
 	//HARDWARE
 	private double FPSAverageSlowPrevious = 60.0; //assume 60 fps
