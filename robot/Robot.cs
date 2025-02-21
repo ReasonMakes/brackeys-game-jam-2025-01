@@ -7,22 +7,30 @@ public partial class Robot : CharacterBody3D
     [Export] private CollisionShape3D Collider;
 
     [Export] private NavigationAgent3D NavAgent;
-    private float Acceleration = 100f;
+    private float Acceleration = 50f; //75f; //100f;
     private float Drag = 10f;
     private float StopDistance = 2f;
     private float RotationRate = 5f;
 
     public bool IsAlive = false;
 
-    [Export] private AudioStreamPlayer3D Ambience;
+    [Export] private AudioStreamPlayer3D AudioSpawn;
+    [Export] private AudioStreamPlayer3D AudioAmbience;
+    [Export] private AudioStreamPlayer3D AudioDestroyed;
+    
+    [Export] private Node3D Pool;
+    private const float MissileSpawnPeriod = 5f; //Time period in seconds between missile spawns.
+                                          //This can be overridden by the missile's minimum time spent being dead
+                                          //(which is necessary for the missile's death sound to play correctly.)
+    private float MissileSpawnTimer = 0f; //no touchy :) Time in seconds remaining until spawning a missile. Counts up from 0f to SpawnPeriod
 
     public override void _Ready()
     {
         //Set a random ambience start position
-        if (Ambience.Stream is AudioStreamMP3 MP3Stream)
+        if (AudioAmbience.Stream is AudioStreamMP3 MP3Stream)
         {
             RandomNumberGenerator rng = new();
-            Ambience.Play(rng.Randf() * (float)MP3Stream.GetLength());
+            AudioAmbience.Play(rng.Randf() * (float)MP3Stream.GetLength());
         }
         else
         {
@@ -60,6 +68,28 @@ public partial class Robot : CharacterBody3D
 
             //Rotate
             UpdateLookDirection(direction, distanceDirect, control.Player.GlobalPosition, delta);
+
+            //Fire a missile
+            MissileSpawnTimer += delta;
+            if (MissileSpawnTimer >= MissileSpawnPeriod)
+            {
+                //Find a missile that isn't alive, or don't spawn at all
+                for (int i = 0; i < Pool.GetChildCount(); i++)
+                {
+                    Missile missile = Pool.GetChild<Missile>(i);
+                    
+                    if (!missile.IsAlive && missile.DeadTime >= Missile.DeadPeriod)
+                    {
+                        //Spawn missile
+                        missile.Spawn(GlobalPosition + (Vector3.Up * 1f));
+
+                        //Reset missile spawn timer
+                        MissileSpawnTimer = 0f;
+
+                        break;
+                    }
+                }
+            }
         }
     }
 
@@ -99,15 +129,29 @@ public partial class Robot : CharacterBody3D
 
     public void Kill()
     {
-        IsAlive = false;
-        Collider.Disabled = true;
-        Position = Vector3.Zero;
+        if (IsAlive)
+        {
+            AudioDestroyed.Play();
+
+            Velocity = Vector3.Zero;
+            Collider.Disabled = true;
+            Visible = false;
+            //Position = Vector3.Zero;
+
+            IsAlive = false;
+        }
     }
 
     public void Spawn(Vector3 SpawnPosition)
     {
+        AudioSpawn.Play();
+
         IsAlive = true;
         Collider.Disabled = false;
         GlobalPosition = SpawnPosition;
+        Visible = true;
+
+        //Initialize missile spawn timer
+        MissileSpawnTimer = 0f;
     }
 }

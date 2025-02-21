@@ -47,7 +47,7 @@ SpawnPoints = NodePath("SpawnPoints")
 
 [node name="Pool" type="Node3D" parent="RobotsControl"]
 
-[node name="Robot" parent="RobotsControl/Pool" instance=ExtResource("4_xnik5")]
+[node name="Robot1" parent="RobotsControl/Pool" instance=ExtResource("4_xnik5")]
 
 [node name="Robot2" parent="RobotsControl/Pool" instance=ExtResource("4_xnik5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.49904, 0.330002, 0)
