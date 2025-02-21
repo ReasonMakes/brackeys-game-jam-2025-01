@@ -23,8 +23,8 @@ public partial class Player : CharacterBody3D
 	[Export] private AudioStreamPlayer AudioJump;
 	[Export] private AudioStreamPlayer AudioLand;
 
-	[Export] private Control Control;
-	[Export] private Label LabelPhysicsTickRate;
+    [Export] public Label LabelFPS;
+    [Export] private Label LabelPhysicsTickRate;
 
 	private float MouseSensitivity = 0.001f;
 
