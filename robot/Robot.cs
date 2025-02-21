@@ -10,12 +10,31 @@ public partial class Robot : CharacterBody3D
     private float StopDistance = 2f;
     private float RotationRate = 5f;
 
+    public bool IsAlive = false;
+
+    [Export] private AudioStreamPlayer3D Ambience;
+
+    public override void _Ready()
+    {
+        //Set a random ambience start position
+        if (Ambience.Stream is AudioStreamMP3 MP3Stream)
+        {
+            RandomNumberGenerator rng = new();
+            Ambience.Play(rng.Randf() * (float)MP3Stream.GetLength());
+        }
+        else
+        {
+            GD.PrintErr($"[{GetType().Name}] Error: Stream is not an MP3! Did you use a WAV or AIF by mistake? I see you, Yetty!! -Scale");
+        }
+    }
+
     public override void _PhysicsProcess(double deltaDouble)
     {
         float delta = (float)deltaDouble;
 
+        //We use IsAlive for object pooling
         //Navigation needs to use the 1st frame to sync, so we only begin on the 2nd frame
-        if (Engine.GetPhysicsFrames() >= 2)
+        if (IsAlive && Engine.GetPhysicsFrames() >= 2)
         {
             //Navigate
             Control control = GetNode<Control>(GetTree().Root.GetChild(0).GetPath());
@@ -40,8 +59,6 @@ public partial class Robot : CharacterBody3D
             //Rotate
             UpdateLookDirection(direction, distanceDirect, control.Player.GlobalPosition, delta);
         }
-
-        
     }
 
     private void UpdateLookDirection(Vector3 direction, Vector3 distanceDirect, Vector3 playerPosition, float delta)
