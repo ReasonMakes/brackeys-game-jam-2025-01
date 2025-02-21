@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://gc0tdpynoghx"]
+
+[ext_resource type="PackedScene" uid="uid://4vvfowplbgkr" path="res://level/modular_panels/SM_Floor.glb" id="1_4dd8g"]
+
+[node name="PanelArray" type="Node3D"]
+
+[node name="SM_Floor" parent="." instance=ExtResource("1_4dd8g")]
+transform = Transform3D(-0.866026, -2.53176e-07, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433013, 19.7176, 12.8588, -7.42404)
+
+[node name="SM_Floor2" parent="." instance=ExtResource("1_4dd8g")]
+transform = Transform3D(-0.866026, -2.53176e-07, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433013, 21.2176, 10.6088, -6.125)
+
+[node name="SM_Floor3" parent="." instance=ExtResource("1_4dd8g")]
+transform = Transform3D(-0.866026, -2.53176e-07, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433013, 24.9138, 15.4569, -8.92404)
+
+[node name="SM_Floor4" parent="." instance=ExtResource("1_4dd8g")]
+transform = Transform3D(-0.866026, -2.53176e-07, -0.5, -0.433013, 0.5, 0.75, 0.25, 0.866026, -0.433013, 26.4138, 13.2069, -7.625)
