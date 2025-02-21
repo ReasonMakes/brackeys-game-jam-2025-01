@@ -1,13 +1,39 @@
-[gd_scene load_steps=12 format=3 uid="uid://b1cc7jehhov"]
+[gd_scene load_steps=41 format=3 uid="uid://b1cc7jehhov"]
 
 [ext_resource type="Script" path="res://player/Player.cs" id="1_n2wtf"]
 [ext_resource type="Material" uid="uid://daiyptmfwsngr" path="res://player/dash_lines_material.tres" id="2_y11ih"]
 [ext_resource type="Texture2D" uid="uid://c536iphygdlso" path="res://UI/health.png" id="3_c18dq"]
+[ext_resource type="AudioStream" uid="uid://cvsno70drq81s" path="res://music/player_spawns_music/starting_spawn_music.mp3" id="3_jwuw3"]
 [ext_resource type="Texture2D" uid="uid://b5sf3u7trt2vp" path="res://UI/ability hex.png" id="4_5hopm"]
+[ext_resource type="AudioStream" uid="uid://bhvcytagrbbra" path="res://music/non_combat_music/player_not_in_combat_music.wav" id="4_ahomr"]
 [ext_resource type="Texture2D" uid="uid://bpikbdh4qapfe" path="res://UI/task.png" id="5_4y014"]
+[ext_resource type="AudioStream" uid="uid://dio7c84yj4k8h" path="res://music/non_combat_music/gameplay_round.mp3" id="5_v3wjm"]
+[ext_resource type="Script" path="res://music/Music.cs" id="6_db354"]
 [ext_resource type="Texture2D" uid="uid://dd6je6ov171wm" path="res://UI/dash icon.png" id="6_na62b"]
 [ext_resource type="Texture2D" uid="uid://diodiiuvs1muo" path="res://UI/grapple icon.png" id="7_0m3ji"]
+[ext_resource type="AudioStream" uid="uid://bfb2hv20kdmxo" path="res://player/footsteps/_foley02.mp3" id="7_hxwdb"]
 [ext_resource type="Texture2D" uid="uid://bmutsl3cfv1rs" path="res://UI/water plants icon.png" id="8_3w5je"]
+[ext_resource type="AudioStream" uid="uid://vyc6uvdg2jmd" path="res://player/footsteps/_foley03.mp3" id="8_q3c0k"]
+[ext_resource type="AudioStream" uid="uid://byf4rwa27khoc" path="res://player/footsteps/_foley12.mp3" id="9_m6hi7"]
+[ext_resource type="AudioStream" uid="uid://ieymvf5d7wc8" path="res://player/footsteps/_foley13.mp3" id="10_5qvbr"]
+[ext_resource type="AudioStream" uid="uid://unnwgcais14v" path="res://player/footsteps/_foley14.mp3" id="11_6ocbr"]
+[ext_resource type="AudioStream" uid="uid://c4jhhki2sqd4p" path="res://player/footsteps/_foley15.mp3" id="12_wo2jv"]
+[ext_resource type="AudioStream" uid="uid://bhumxrepuatpk" path="res://player/footsteps/_foley04.mp3" id="13_1uypc"]
+[ext_resource type="AudioStream" uid="uid://c4tcsckrie76h" path="res://player/footsteps/_foley05.mp3" id="14_uc52s"]
+[ext_resource type="AudioStream" uid="uid://bjp633qlxa64o" path="res://player/footsteps/_foley06.mp3" id="15_jt373"]
+[ext_resource type="AudioStream" uid="uid://dd7qnidh2t67r" path="res://player/footsteps/_foley07.mp3" id="16_lvxna"]
+[ext_resource type="AudioStream" uid="uid://bch5sep3qncm7" path="res://player/footsteps/_foley08.mp3" id="17_3h8es"]
+[ext_resource type="AudioStream" uid="uid://cpkb0npbuif0v" path="res://player/footsteps/_foley09.mp3" id="18_bs0xh"]
+[ext_resource type="AudioStream" uid="uid://b5cn4tlnoeomv" path="res://player/footsteps/_foley10.mp3" id="19_rukcd"]
+[ext_resource type="AudioStream" uid="uid://c82l68vi5x0yp" path="res://player/footsteps/_foley11.mp3" id="20_ji372"]
+[ext_resource type="AudioStream" uid="uid://vi5yywl7pw54" path="res://player/clothes/clothes_brush_0.mp3" id="21_vgvmd"]
+[ext_resource type="AudioStream" uid="uid://d0uwfbtfvwstt" path="res://player/movement/jump_breath_in.mp3" id="22_q25uf"]
+[ext_resource type="AudioStream" uid="uid://dnwqoqf8uqsm3" path="res://player/movement/land.mp3" id="23_uoqh0"]
+[ext_resource type="AudioStream" uid="uid://cu3tj81o8rwh8" path="res://player/movement/dash.mp3" id="24_nld4q"]
+[ext_resource type="AudioStream" uid="uid://dxbpoaqhuxkd8" path="res://level/environment_sounds/creaking_noise.mp3" id="25_7xm5u"]
+[ext_resource type="AudioStream" uid="uid://dfgv3pl2v8dq" path="res://level/environment_sounds/task_sounds/adjust_course.mp3" id="26_sw0pg"]
+[ext_resource type="AudioStream" uid="uid://bengsh4olwvjw" path="res://level/environment_sounds/task_sounds/button_click.wav" id="27_c8tmv"]
+[ext_resource type="AudioStream" uid="uid://csmrejgg2eacs" path="res://level/environment_sounds/task_sounds/button_click_2.wav" id="28_3535r"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf7un"]
 
@@ -15,32 +41,64 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3x3s7"]
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "Control", "LabelPhysicsTickRate", "AudioFootsteps", "AudioClothes", "ColliderCapsule", "ColliderSphere", "AudioDash")]
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_2vrce"]
+fade_time = 1.0
+stream_count = 4
+stream_0 = ExtResource("3_jwuw3")
+stream_1 = ExtResource("4_ahomr")
+stream_2 = ExtResource("5_v3wjm")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_pqvfr"]
+random_pitch = 1.02
+random_volume_offset_db = 3.0
+streams_count = 14
+stream_0/stream = ExtResource("7_hxwdb")
+stream_1/stream = ExtResource("8_q3c0k")
+stream_2/stream = ExtResource("13_1uypc")
+stream_3/stream = ExtResource("14_uc52s")
+stream_4/stream = ExtResource("15_jt373")
+stream_5/stream = ExtResource("16_lvxna")
+stream_6/stream = ExtResource("17_3h8es")
+stream_7/stream = ExtResource("18_bs0xh")
+stream_8/stream = ExtResource("19_rukcd")
+stream_9/stream = ExtResource("20_ji372")
+stream_10/stream = ExtResource("9_m6hi7")
+stream_11/stream = ExtResource("10_5qvbr")
+stream_12/stream = ExtResource("11_6ocbr")
+stream_13/stream = ExtResource("12_wo2jv")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_ee7kt"]
+random_pitch = 1.02
+random_volume_offset_db = 3.0
+streams_count = 1
+stream_0/stream = ExtResource("21_vgvmd")
+
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "LabelFPS", "LabelPhysicsTickRate", "AudioFootsteps", "AudioClothes", "ColliderCapsule", "ColliderSphere", "AudioDash")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, -31.1, 0, -2)
 script = ExtResource("1_n2wtf")
 Cam = NodePath("Camera3D")
-LabelHSpeed = NodePath("Camera3D/Statistics/Label HSpeed")
-RectHSpeed = NodePath("Camera3D/Statistics/ColorRect HSpeed")
-LabelJerk = NodePath("Camera3D/Statistics/Label Jerk")
-RectJerk = NodePath("Camera3D/Statistics/ColorRect Jerk")
-LabelDash = NodePath("Camera3D/Statistics/Label Dash")
-RectDash = NodePath("Camera3D/Statistics/ColorRect Dash")
-LabelClimb = NodePath("Camera3D/Statistics/Label Climb")
-RectClimb = NodePath("Camera3D/Statistics/ColorRect Climb")
-LabelJumpFatigueRecency = NodePath("Camera3D/Statistics/Label Jump Fatigue Recency")
-RectJumpFatigueRecency = NodePath("Camera3D/Statistics/Rect Jump Fatigue Recency")
-LabelJumpFatigueOnGround = NodePath("Camera3D/Statistics/Label Jump Fatigue On-Ground")
-RectJumpFatigueOnGround = NodePath("Camera3D/Statistics/Rect Jump Fatigue On-Ground")
-AudioJump = NodePath("")
-AudioLand = NodePath("")
-Control = NodePath("")
-LabelPhysicsTickRate = NodePath("Camera3D/Statistics/Label Physics Rate")
-AudioFootsteps = NodePath("")
-AudioClothes = NodePath("")
+LabelHSpeed = NodePath("Camera3D/HUD/Statistics/Label HSpeed")
+RectHSpeed = NodePath("Camera3D/HUD/Statistics/ColorRect HSpeed")
+LabelJerk = NodePath("Camera3D/HUD/Statistics/Label Jerk")
+RectJerk = NodePath("Camera3D/HUD/Statistics/ColorRect Jerk")
+LabelDash = NodePath("Camera3D/HUD/Statistics/Label Dash")
+RectDash = NodePath("Camera3D/HUD/Statistics/ColorRect Dash")
+LabelClimb = NodePath("Camera3D/HUD/Statistics/Label Climb")
+RectClimb = NodePath("Camera3D/HUD/Statistics/ColorRect Climb")
+LabelJumpFatigueRecency = NodePath("Camera3D/HUD/Statistics/Label Jump Fatigue Recency")
+RectJumpFatigueRecency = NodePath("Camera3D/HUD/Statistics/Rect Jump Fatigue Recency")
+LabelJumpFatigueOnGround = NodePath("Camera3D/HUD/Statistics/Label Jump Fatigue On-Ground")
+RectJumpFatigueOnGround = NodePath("Camera3D/HUD/Statistics/Rect Jump Fatigue On-Ground")
+AudioJump = NodePath("AudioNonSpacial/JumpBreath")
+AudioLand = NodePath("AudioNonSpacial/Land")
+LabelFPS = NodePath("Camera3D/HUD/Statistics/Label FPS")
+LabelPhysicsTickRate = NodePath("Camera3D/HUD/Statistics/Label Physics Rate")
+AudioFootsteps = NodePath("AudioNonSpacial/Footsteps")
+AudioClothes = NodePath("AudioNonSpacial/Clothes")
 RunAudioTimerPeriod = 0.3
 ColliderCapsule = NodePath("ColliderCapsule")
 ColliderSphere = NodePath("ColliderSphere")
-AudioDash = NodePath("")
+AudioDash = NodePath("AudioNonSpacial/Dash")
 DashMaterial = ExtResource("2_y11ih")
 
 [node name="ColliderCapsule" type="CollisionShape3D" parent="."]
@@ -56,11 +114,57 @@ disabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_3x3s7")
 
+[node name="AudioNonSpacial" type="Node3D" parent="."]
+
+[node name="Music" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = SubResource("AudioStreamPlaylist_2vrce")
+volume_db = -12.412
+script = ExtResource("6_db354")
+SettingMusicOn = false
+
+[node name="Footsteps" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = SubResource("AudioStreamRandomizer_pqvfr")
+volume_db = -23.449
+
+[node name="Clothes" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = SubResource("AudioStreamRandomizer_ee7kt")
+volume_db = -11.0
+
+[node name="JumpBreath" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = ExtResource("22_q25uf")
+volume_db = 3.098
+
+[node name="Land" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = ExtResource("23_uoqh0")
+volume_db = -11.798
+
+[node name="Dash" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = ExtResource("24_nld4q")
+volume_db = 2.955
+
+[node name="shipcreaking" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = ExtResource("25_7xm5u")
+volume_db = -18.123
+autoplay = true
+playback_type = 1
+parameters/looping = true
+
+[node name="Adjust_course" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = ExtResource("26_sw0pg")
+
+[node name="Simplebutton_click" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = ExtResource("27_c8tmv")
+
+[node name="Simplebutton_click2" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = ExtResource("28_3535r")
+
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 fov = 80.0
 
-[node name="ColorRect Dash Lines" type="ColorRect" parent="Camera3D"]
+[node name="HUD" type="Node2D" parent="Camera3D"]
+
+[node name="ColorRect Dash Lines" type="ColorRect" parent="Camera3D/HUD"]
 material = ExtResource("2_y11ih")
 anchors_preset = 15
 anchor_right = 1.0
@@ -69,161 +173,164 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0)
 
-[node name="health" type="TextureRect" parent="Camera3D"]
+[node name="health" type="TextureRect" parent="Camera3D/HUD"]
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_top = -98.0
+offset_top = 702.0
 offset_right = 676.0
+offset_bottom = 800.0
 grow_vertical = 0
 texture = ExtResource("3_c18dq")
 
-[node name="abilities" type="TextureRect" parent="Camera3D"]
+[node name="abilities" type="TextureRect" parent="Camera3D/HUD"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -380.0
-offset_top = -98.0
+offset_left = 1540.0
+offset_top = 702.0
+offset_right = 1920.0
+offset_bottom = 800.0
 grow_horizontal = 0
 grow_vertical = 0
 texture = ExtResource("4_5hopm")
 
-[node name="tasks" type="TextureRect" parent="Camera3D"]
+[node name="tasks" type="TextureRect" parent="Camera3D/HUD"]
 offset_left = 342.0
 offset_top = 23.0
 offset_right = 520.0
 offset_bottom = 170.0
 texture = ExtResource("5_4y014")
 
-[node name="dash icon" type="TextureRect" parent="Camera3D"]
+[node name="dash icon" type="TextureRect" parent="Camera3D/HUD"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -264.0
-offset_top = -77.0
-offset_right = -115.0
-offset_bottom = 44.0
+offset_left = 1656.0
+offset_top = 723.0
+offset_right = 1805.0
+offset_bottom = 844.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.45, 0.45)
 texture = ExtResource("6_na62b")
 
-[node name="grapple icon" type="TextureRect" parent="Camera3D"]
+[node name="grapple icon" type="TextureRect" parent="Camera3D/HUD"]
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -172.0
-offset_top = -78.0
-offset_right = -24.0
-offset_bottom = 60.0
+offset_left = 1748.0
+offset_top = 722.0
+offset_right = 1896.0
+offset_bottom = 860.0
 grow_horizontal = 0
 grow_vertical = 0
 scale = Vector2(0.42, 0.42)
 texture = ExtResource("7_0m3ji")
 
-[node name="water plants icon" type="TextureRect" parent="Camera3D"]
+[node name="water plants icon" type="TextureRect" parent="Camera3D/HUD"]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 23.0
+offset_left = 983.0
 offset_top = 24.0
-offset_right = 201.0
+offset_right = 1161.0
 offset_bottom = 171.0
 grow_horizontal = 2
 texture = ExtResource("8_3w5je")
 
-[node name="Statistics" type="Node2D" parent="Camera3D"]
+[node name="Statistics" type="Node2D" parent="Camera3D/HUD"]
 
-[node name="Label FPS" type="Label" parent="Camera3D/Statistics"]
+[node name="Label FPS" type="Label" parent="Camera3D/HUD/Statistics"]
 offset_right = 318.0
 offset_bottom = 99.0
 text = "FPS: "
 
-[node name="Label Physics Rate" type="Label" parent="Camera3D/Statistics"]
+[node name="Label Physics Rate" type="Label" parent="Camera3D/HUD/Statistics"]
 offset_top = 20.0
 offset_right = 318.0
 offset_bottom = 119.0
 text = "Physics rate: "
 
-[node name="ColorRect HSpeed" type="ColorRect" parent="Camera3D/Statistics"]
+[node name="ColorRect HSpeed" type="ColorRect" parent="Camera3D/HUD/Statistics"]
 offset_left = 64.0
 offset_top = 45.0
 offset_right = 172.0
 offset_bottom = 61.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
-[node name="Label HSpeed" type="Label" parent="Camera3D/Statistics"]
+[node name="Label HSpeed" type="Label" parent="Camera3D/HUD/Statistics"]
 offset_top = 41.0
 offset_right = 318.0
 offset_bottom = 140.0
 text = "HSpeed: "
 
-[node name="ColorRect Jerk" type="ColorRect" parent="Camera3D/Statistics"]
+[node name="ColorRect Jerk" type="ColorRect" parent="Camera3D/HUD/Statistics"]
 offset_left = 35.0
 offset_top = 67.0
 offset_right = 143.0
 offset_bottom = 83.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
-[node name="Label Jerk" type="Label" parent="Camera3D/Statistics"]
+[node name="Label Jerk" type="Label" parent="Camera3D/HUD/Statistics"]
 offset_top = 63.0
 offset_right = 318.0
 offset_bottom = 162.0
 text = "Jerk: "
 
-[node name="ColorRect Dash" type="ColorRect" parent="Camera3D/Statistics"]
+[node name="ColorRect Dash" type="ColorRect" parent="Camera3D/HUD/Statistics"]
 offset_left = 44.0
 offset_top = 90.0
 offset_right = 152.0
 offset_bottom = 106.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
-[node name="Label Dash" type="Label" parent="Camera3D/Statistics"]
+[node name="Label Dash" type="Label" parent="Camera3D/HUD/Statistics"]
 offset_top = 86.0
 offset_right = 318.0
 offset_bottom = 185.0
 text = "Dash: "
 
-[node name="ColorRect Climb" type="ColorRect" parent="Camera3D/Statistics"]
+[node name="ColorRect Climb" type="ColorRect" parent="Camera3D/HUD/Statistics"]
 offset_left = 50.0
 offset_top = 112.0
 offset_right = 158.0
 offset_bottom = 128.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
-[node name="Label Climb" type="Label" parent="Camera3D/Statistics"]
+[node name="Label Climb" type="Label" parent="Camera3D/HUD/Statistics"]
 offset_top = 108.0
 offset_right = 318.0
 offset_bottom = 207.0
 text = "Climb: "
 
-[node name="Rect Jump Fatigue Recency" type="ColorRect" parent="Camera3D/Statistics"]
+[node name="Rect Jump Fatigue Recency" type="ColorRect" parent="Camera3D/HUD/Statistics"]
 offset_left = 168.0
 offset_top = 133.0
 offset_right = 276.0
 offset_bottom = 149.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
-[node name="Label Jump Fatigue Recency" type="Label" parent="Camera3D/Statistics"]
+[node name="Label Jump Fatigue Recency" type="Label" parent="Camera3D/HUD/Statistics"]
 offset_top = 129.0
 offset_right = 318.0
 offset_bottom = 228.0
 text = "Jump fatigue recency: "
 
-[node name="Rect Jump Fatigue On-Ground" type="ColorRect" parent="Camera3D/Statistics"]
+[node name="Rect Jump Fatigue On-Ground" type="ColorRect" parent="Camera3D/HUD/Statistics"]
 offset_left = 190.0
 offset_top = 155.0
 offset_right = 298.0
 offset_bottom = 171.0
 color = Color(0.0383972, 0.0383972, 0.0383971, 1)
 
-[node name="Label Jump Fatigue On-Ground" type="Label" parent="Camera3D/Statistics"]
+[node name="Label Jump Fatigue On-Ground" type="Label" parent="Camera3D/HUD/Statistics"]
 offset_top = 151.0
 offset_right = 318.0
 offset_bottom = 250.0

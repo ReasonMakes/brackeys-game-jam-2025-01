@@ -1,6 +1,11 @@
-[gd_scene load_steps=5 format=4 uid="uid://t67wqvj801yl"]
+[gd_scene load_steps=8 format=4 uid="uid://t67wqvj801yl"]
 
+[ext_resource type="Script" path="res://robot/Robot.cs" id="1_1ymba"]
 [ext_resource type="Material" uid="uid://denw4cgalf6td" path="res://robot/robot_material.tres" id="1_ermbn"]
+[ext_resource type="AudioStream" uid="uid://bkk8pv1kf7quw" path="res://robot/sounds/robot_ambience.mp3" id="2_qtke8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fvlch"]
+size = Vector3(0.828125, 0.532806, 1.06348)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dxdtb"]
 
@@ -34,8 +39,26 @@ _surfaces = [{
 blend_shape_mode = 0
 shadow_mesh = SubResource("ArrayMesh_nxtak")
 
-[node name="Cube_003" type="MeshInstance3D"]
+[node name="Robot" type="RigidBody3D"]
+script = ExtResource("1_1ymba")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.266767, 0)
+shape = SubResource("BoxShape3D_fvlch")
+
+[node name="Mesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.326, 0)
 mesh = SubResource("ArrayMesh_jncsn")
 skeleton = NodePath("")
 surface_material_override/0 = ExtResource("1_ermbn")
+
+[node name="Ambience" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.326, 0)
+stream = ExtResource("2_qtke8")
+attenuation_model = 1
+volume_db = 7.386
+unit_size = 3.33
+max_db = 0.0
+autoplay = true
+playback_type = 1
+parameters/looping = true
