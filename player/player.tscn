@@ -1,18 +1,20 @@
-[gd_scene load_steps=41 format=3 uid="uid://b1cc7jehhov"]
+[gd_scene load_steps=44 format=3 uid="uid://b1cc7jehhov"]
 
 [ext_resource type="Script" path="res://player/Player.cs" id="1_n2wtf"]
 [ext_resource type="Material" uid="uid://daiyptmfwsngr" path="res://player/dash_lines_material.tres" id="2_y11ih"]
 [ext_resource type="Texture2D" uid="uid://c536iphygdlso" path="res://UI/health.png" id="3_c18dq"]
-[ext_resource type="AudioStream" uid="uid://cvsno70drq81s" path="res://music/player_spawns_music/starting_spawn_music.mp3" id="3_jwuw3"]
+[ext_resource type="AudioStream" uid="uid://cvsno70drq81s" path="res://music/non_combat/0.mp3" id="3_jwuw3"]
 [ext_resource type="Texture2D" uid="uid://b5sf3u7trt2vp" path="res://UI/ability hex.png" id="4_5hopm"]
-[ext_resource type="AudioStream" uid="uid://bhvcytagrbbra" path="res://music/non_combat_music/player_not_in_combat_music.wav" id="4_ahomr"]
+[ext_resource type="AudioStream" uid="uid://byaq3kbweo0b7" path="res://music/non_combat/1.mp3" id="4_ep4de"]
 [ext_resource type="Texture2D" uid="uid://bpikbdh4qapfe" path="res://UI/task.png" id="5_4y014"]
-[ext_resource type="AudioStream" uid="uid://dio7c84yj4k8h" path="res://music/non_combat_music/gameplay_round.mp3" id="5_v3wjm"]
+[ext_resource type="AudioStream" uid="uid://bxp0jixu30r5d" path="res://music/non_combat/2.mp3" id="5_slx8f"]
 [ext_resource type="Script" path="res://music/Music.cs" id="6_db354"]
 [ext_resource type="Texture2D" uid="uid://dd6je6ov171wm" path="res://UI/dash icon.png" id="6_na62b"]
 [ext_resource type="Texture2D" uid="uid://diodiiuvs1muo" path="res://UI/grapple icon.png" id="7_0m3ji"]
 [ext_resource type="AudioStream" uid="uid://bfb2hv20kdmxo" path="res://player/footsteps/_foley02.mp3" id="7_hxwdb"]
+[ext_resource type="AudioStream" uid="uid://dqu2wfsu2dhlt" path="res://music/combat/1.mp3" id="7_wm2uf"]
 [ext_resource type="Texture2D" uid="uid://bmutsl3cfv1rs" path="res://UI/water plants icon.png" id="8_3w5je"]
+[ext_resource type="AudioStream" uid="uid://bbld48c3w7f8d" path="res://music/combat/2.mp3" id="8_fmbv4"]
 [ext_resource type="AudioStream" uid="uid://vyc6uvdg2jmd" path="res://player/footsteps/_foley03.mp3" id="8_q3c0k"]
 [ext_resource type="AudioStream" uid="uid://byf4rwa27khoc" path="res://player/footsteps/_foley12.mp3" id="9_m6hi7"]
 [ext_resource type="AudioStream" uid="uid://ieymvf5d7wc8" path="res://player/footsteps/_foley13.mp3" id="10_5qvbr"]
@@ -41,12 +43,16 @@
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_3x3s7"]
 
-[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_2vrce"]
-fade_time = 1.0
-stream_count = 4
-stream_0 = ExtResource("3_jwuw3")
-stream_1 = ExtResource("4_ahomr")
-stream_2 = ExtResource("5_v3wjm")
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_jreeg"]
+streams_count = 3
+stream_0/stream = ExtResource("3_jwuw3")
+stream_1/stream = ExtResource("4_ep4de")
+stream_2/stream = ExtResource("5_slx8f")
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tsrak"]
+streams_count = 2
+stream_0/stream = ExtResource("7_wm2uf")
+stream_1/stream = ExtResource("8_fmbv4")
 
 [sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_pqvfr"]
 random_pitch = 1.02
@@ -114,12 +120,18 @@ disabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mesh = SubResource("CapsuleMesh_3x3s7")
 
-[node name="AudioNonSpacial" type="Node3D" parent="."]
-
-[node name="Music" type="AudioStreamPlayer" parent="AudioNonSpacial"]
-stream = SubResource("AudioStreamPlaylist_2vrce")
-volume_db = -12.412
+[node name="AudioNonSpacial" type="Node3D" parent="." node_paths=PackedStringArray("StreamNonCombat", "StreamCombat")]
 script = ExtResource("6_db354")
+StreamNonCombat = NodePath("MusicNonCombat")
+StreamCombat = NodePath("MusicCombat")
+VolumeAll = -80.0
+VolumeMultiplierCombat = 0.7
+
+[node name="MusicNonCombat" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = SubResource("AudioStreamRandomizer_jreeg")
+
+[node name="MusicCombat" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = SubResource("AudioStreamRandomizer_tsrak")
 
 [node name="Footsteps" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = SubResource("AudioStreamRandomizer_pqvfr")
