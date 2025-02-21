@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://diodiiuvs1muo"
-path="res://.godot/imported/grapple icon.png-072b2af77cdc4a0bf28a10f767bd0192.ctex"
+uid="uid://c2ello4cxxxwq"
+path="res://.godot/imported/icon_cockpit.png-96e7094f26dca8ecdcbcd414558744f2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/grapple icon.png"
-dest_files=["res://.godot/imported/grapple icon.png-072b2af77cdc4a0bf28a10f767bd0192.ctex"]
+source_file="res://task/icon_cockpit.png"
+dest_files=["res://.godot/imported/icon_cockpit.png-96e7094f26dca8ecdcbcd414558744f2.ctex"]
 
 [params]
 

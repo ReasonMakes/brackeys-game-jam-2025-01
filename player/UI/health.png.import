@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cdhyfw7mtbr8o"
-path="res://.godot/imported/abilities.png-1f93b968153cfa6c4f6268e054ed424b.ctex"
+uid="uid://c536iphygdlso"
+path="res://.godot/imported/health.png-1901cf7c3b9cea56cdce2d65cd8419d7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/abilities.png"
-dest_files=["res://.godot/imported/abilities.png-1f93b968153cfa6c4f6268e054ed424b.ctex"]
+source_file="res://player/UI/health.png"
+dest_files=["res://.godot/imported/health.png-1901cf7c3b9cea56cdce2d65cd8419d7.ctex"]
 
 [params]
 

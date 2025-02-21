@@ -26,6 +26,18 @@ public partial class Player : CharacterBody3D
     [Export] public Label LabelFPS;
     [Export] private Label LabelPhysicsTickRate;
 
+	public bool IsTaskCompleteCockpit = false;
+	public bool IsTaskCompleteElectrical = false;
+	public bool IsTaskCompleteCooler = false;
+	public bool IsTaskCompleteGarden = false;
+	public bool IsTaskCompleteReactor = false;
+
+	[Export] private TextureRect IconCockpit;
+	[Export] private TextureRect IconElectrical;
+	[Export] private TextureRect IconCooler;
+	[Export] private TextureRect IconGarden;
+	[Export] private TextureRect IconReactor;
+
 	private float MouseSensitivity = 0.001f;
 
 	//AUDIO
@@ -156,7 +168,17 @@ public partial class Player : CharacterBody3D
 		}
 	}
 
-	public override void _PhysicsProcess(double deltaDouble)
+    public override void _Process(double delta)
+    {
+		//Tasks UI
+		IconCockpit.Visible = !IsTaskCompleteCockpit;
+        IconElectrical.Visible = !IsTaskCompleteElectrical;
+        IconCooler.Visible = !IsTaskCompleteCooler;
+        IconGarden.Visible = !IsTaskCompleteGarden;
+        IconReactor.Visible = !IsTaskCompleteReactor;
+    }
+
+    public override void _PhysicsProcess(double deltaDouble)
 	{
 		float delta = (float)deltaDouble;
 

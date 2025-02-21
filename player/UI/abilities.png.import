@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5sf3u7trt2vp"
-path="res://.godot/imported/ability hex.png-8fdf2da244838fff15712bf6b34e7bab.ctex"
+uid="uid://cdhyfw7mtbr8o"
+path="res://.godot/imported/abilities.png-f56c6e02043d65af86f3049f25a47478.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/ability hex.png"
-dest_files=["res://.godot/imported/ability hex.png-8fdf2da244838fff15712bf6b34e7bab.ctex"]
+source_file="res://player/UI/abilities.png"
+dest_files=["res://.godot/imported/abilities.png-f56c6e02043d65af86f3049f25a47478.ctex"]
 
 [params]
 

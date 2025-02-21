@@ -8,6 +8,9 @@ Basic Movement
 - Crouch/slide: Ctrl
 - Dash: Mouse Wheel Up
   
+Interact
+- Interact: E
+  
 Application  
 - Unlock Cursor: Escape
 - Refocus Game: Left Mouse Button

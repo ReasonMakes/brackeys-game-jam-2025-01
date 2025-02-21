@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bmutsl3cfv1rs"
-path="res://.godot/imported/water plants icon.png-5c64edf90c445215849c7811e55429a6.ctex"
+uid="uid://b0ve5o6kfe5ec"
+path="res://.godot/imported/icon_title.png-301fc3afd779dc7efc0c6e9a292d3375.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/water plants icon.png"
-dest_files=["res://.godot/imported/water plants icon.png-5c64edf90c445215849c7811e55429a6.ctex"]
+source_file="res://splash/icon_title.png"
+dest_files=["res://.godot/imported/icon_title.png-301fc3afd779dc7efc0c6e9a292d3375.ctex"]
 
 [params]
 

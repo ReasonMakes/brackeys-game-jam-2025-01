@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c536iphygdlso"
-path="res://.godot/imported/health.png-affb43e5a380b3e4d893a6dbd393a619.ctex"
+uid="uid://b5sf3u7trt2vp"
+path="res://.godot/imported/ability hex.png-d10775fe9a188ded45227e40debb4cb4.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/health.png"
-dest_files=["res://.godot/imported/health.png-affb43e5a380b3e4d893a6dbd393a619.ctex"]
+source_file="res://player/UI/ability hex.png"
+dest_files=["res://.godot/imported/ability hex.png-d10775fe9a188ded45227e40debb4cb4.ctex"]
 
 [params]
 

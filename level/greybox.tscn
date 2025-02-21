@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://df360ha3c80kh"]
+[gd_scene load_steps=3 format=3 uid="uid://df360ha3c80kh"]
 
 [ext_resource type="PackedScene" uid="uid://beg4li20tbfv1" path="res://level/greybox_floor.tscn" id="1_frxn1"]
 [ext_resource type="Material" uid="uid://crg1ytap6icj7" path="res://robot/MM_RobotHazard.tres" id="1_hags6"]
-[ext_resource type="PackedScene" uid="uid://dwdrpbnwwabeo" path="res://task.tscn" id="2_a4c4x"]
 
 [node name="Greybox" type="CSGCombiner3D"]
 use_collision = true
@@ -130,10 +129,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 0, 0)
 operation = 2
 size = Vector3(8, 1, 15.75)
 
-[node name="Task" parent="Cockpit/Top/Console" instance=ExtResource("2_a4c4x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 0)
-skeleton = NodePath("../../..")
-
 [node name="Cooler" type="CSGCombiner3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0, 0, 40.5)
 visible = false
@@ -245,9 +240,6 @@ size = Vector3(4, 0.5, 22)
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -40.5, 24.5, 47.75)
 size = Vector3(22, 1, 3.5)
 
-[node name="TaskCooler" parent="Cooler" instance=ExtResource("2_a4c4x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -40.5, 25.5, 37.25)
-
 [node name="Garden" type="CSGCombiner3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -65.75, 0, -42.5)
 visible = false
@@ -275,10 +267,6 @@ size = Vector3(9.75, 2.75, 15)
 [node name="PlateauTask" type="CSGBox3D" parent="Garden"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.75, 5.625, 0)
 size = Vector3(10, 0.75, 10)
-
-[node name="Task" parent="Garden/PlateauTask" instance=ExtResource("2_a4c4x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, 0.9, 4.5)
-skeleton = NodePath("")
 
 [node name="Column" type="CSGCylinder3D" parent="Garden/PlateauTask"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.125, -3, 0)
@@ -331,10 +319,6 @@ size = Vector3(3, 0.5, 22.75)
 [node name="Pedestal" type="CSGBox3D" parent="Reactor/Catwalk5"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.125, -10)
 size = Vector3(1.25, 1.75, 1.25)
-
-[node name="TaskReactor" parent="Reactor/Catwalk5/Pedestal" instance=ExtResource("2_a4c4x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.375, 0)
-skeleton = NodePath("../../../../..")
 
 [node name="Stairs" type="CSGBox3D" parent="Reactor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -122, 7, 19.625)
@@ -404,9 +388,6 @@ size = Vector3(23, 7, 8)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 2, 0)
 operation = 2
 size = Vector3(24, 1, 22)
-
-[node name="Task" parent="Electrical" instance=ExtResource("2_a4c4x")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 2, 0)
 
 [node name="Plateau" type="CSGBox3D" parent="Electrical"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5, -5.25, -4.75)

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cmonp07v1xhdd"
-path="res://.godot/imported/divert shields icon.png-34acf4f4ade79dae759df14d0d4f6f5b.ctex"
+uid="uid://diodiiuvs1muo"
+path="res://.godot/imported/grapple icon.png-f55b33b1d6d80d1a2e67694112382db7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/divert shields icon.png"
-dest_files=["res://.godot/imported/divert shields icon.png-34acf4f4ade79dae759df14d0d4f6f5b.ctex"]
+source_file="res://player/UI/grapple icon.png"
+dest_files=["res://.godot/imported/grapple icon.png-f55b33b1d6d80d1a2e67694112382db7.ctex"]
 
 [params]
 

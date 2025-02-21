@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c2ello4cxxxwq"
-path="res://.godot/imported/adjust shields icon.png-3b25a9e11495c78f575401944a2c7c56.ctex"
+uid="uid://bpikbdh4qapfe"
+path="res://.godot/imported/task.png-f0141b788e4d8e9d2365baaac6394fe1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://UI/adjust shields icon.png"
-dest_files=["res://.godot/imported/adjust shields icon.png-3b25a9e11495c78f575401944a2c7c56.ctex"]
+source_file="res://task/task.png"
+dest_files=["res://.godot/imported/task.png-f0141b788e4d8e9d2365baaac6394fe1.ctex"]
 
 [params]
 
