@@ -278,6 +278,7 @@ public partial class Player : CharacterBody3D
             {
                 taskType.Reset(control.Difficulty);
                 control.IncreaseDifficulty();
+                control.IncreaseTasksFailed();
             }
         }
     }
@@ -847,7 +848,7 @@ public partial class Player : CharacterBody3D
         }
     }
 
-    public void Kill()
+    public void Kill(string cause)
     {
         IsAlive = false;
         //THIS IS HARD-CODED IN. Force slide when dead
@@ -867,7 +868,7 @@ public partial class Player : CharacterBody3D
             GD.Print("Error: couldn't get the keybind for restarting... Defaulting to [Enter]");
         }
 
-        Cam.LabelDead.Text = $"You have died... Press [{keybind}] to restart";
+        Cam.LabelDead.Text = $"You were killed {cause}\nPress [{keybind}] to restart";
     }
 
     public void Respawn()

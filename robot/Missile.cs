@@ -81,7 +81,7 @@ public partial class Missile : CharacterBody3D
                 KinematicCollision3D collision = GetSlideCollision(i);
                 if (collision != null)
                 {
-                    GD.Print("Missile collided with: " + collision.GetCollider());
+                    //GD.Print("Missile collided with: " + collision.GetCollider());
 
                     //Due to missile speed, it may fly through the collider. This returns it to the point of collision.
                     //Most noticeable for the collision sound. Also relevant for player damage.
@@ -89,8 +89,7 @@ public partial class Missile : CharacterBody3D
 
                     if (direction.Length() <= ExplosionRadius)
                     {
-                        GD.Print("Missile exploded on player!");
-                        control.Player.Kill();
+                        control.Player.Kill("by a missile!");
                     }
 
                     Kill();

@@ -13,6 +13,29 @@ public partial class RobotsControl : Node3D
     {
         float delta = (float)deltaDouble;
 
+        //Task-failure scaling - take care that these fit within MaxFailedTasks
+        Control control = GetNode<Control>(GetTree().Root.GetChild(0).GetPath());
+        if (control.TasksFailed <= 20)
+        {
+            robotsDesiredCount = 5;
+        }
+        else if (control.TasksFailed <= 15)
+        {
+            robotsDesiredCount = 4;
+        }
+        else if (control.TasksFailed <= 10)
+        {
+            robotsDesiredCount = 3;
+        }
+        else if (control.TasksFailed <= 6)
+        {
+            robotsDesiredCount = 2;
+        }
+        else if (control.TasksFailed <= 3)
+        {
+            robotsDesiredCount = 1;
+        }
+
         //Spawn robots
         if (SpawnTimer >= SpawnPeriod)
         {

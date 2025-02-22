@@ -6,7 +6,9 @@ public partial class Control : Node
 	[Export] public Player Player;
 	[Export] public RobotsControl RobotsControl;
 
-	public float Difficulty = 1f;
+	public int TasksFailed = 0;
+	public int MaxFailedTasks = 30;
+    public float Difficulty = 1f;
 	private float DifficultyIncreaseRate = 0.9f; //value between 0 and 1, smaller values are a faster rate
 
 	//HARDWARE
@@ -76,4 +78,14 @@ public partial class Control : Node
 	{
 		Difficulty *= DifficultyIncreaseRate;
 	}
+
+	public void IncreaseTasksFailed()
+	{
+		TasksFailed++;
+
+		if (TasksFailed > MaxFailedTasks)
+		{
+			Player.Kill("after the ship's life support failed from too many neglected tasks!");
+		}
+    }
 }
