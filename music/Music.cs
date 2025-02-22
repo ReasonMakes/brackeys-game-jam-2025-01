@@ -6,21 +6,20 @@ public partial class Music : Node3D
 
 	[Export] private bool SettingMusicOn = true;
 
-	[Export] private AudioStreamPlayer StreamNonCombat;
-	[Export] private AudioStreamPlayer StreamCombat;
+	[Export] public AudioStreamPlayer StreamNonCombat;
+	[Export] public AudioStreamPlayer StreamCombat;
+	[Export] public AudioStreamPlayer StreamDead;
 
-    private AudioStreamPlayer ActiveStream;
+    public AudioStreamPlayer ActiveStream;
 
     [Export(PropertyHint.Range, "-200,0,")] private float VolumeAll = 0f;
     [Export(PropertyHint.Range, "0,1,")] private float VolumeMultiplierNonCombat = 1f;
     [Export(PropertyHint.Range, "0,1,")] private float VolumeMultiplierCombat = 1f;
+    [Export(PropertyHint.Range, "0,1,")] private float VolumeMultiplierDead = 1f;
+    [Export(PropertyHint.Range, "0,1000,")] private float VolumeFadeOutRate = 1f;
 
     public override void _Ready()
     {
-        //Set the volume
-        StreamNonCombat.VolumeDb = VolumeAll * VolumeMultiplierCombat;
-        StreamCombat.VolumeDb = VolumeAll * VolumeMultiplierCombat;
-
         //Start with non-combat music
         ActiveStream = StreamNonCombat;
 
@@ -31,11 +30,42 @@ public partial class Music : Node3D
         ActiveStream.Play();
     }
 
-    public override void _Process(double delta)
+    public override void _Process(double deltaDouble)
 	{
+        float delta = (float)deltaDouble;
+
 		if (!ActiveStream.Playing && SettingMusicOn)
 		{
             ActiveStream.Play();
 		}
-	}
+
+        //Fade out tracks and set volume based on inspector sliders
+        //These snap on to 100% volume when active, they only fade out - not in
+        if (ActiveStream == StreamNonCombat)
+        {
+            StreamNonCombat.VolumeDb = VolumeAll * VolumeMultiplierNonCombat;
+        }
+        else
+        {
+            StreamNonCombat.VolumeDb -= delta * VolumeFadeOutRate;
+        }
+
+        if (ActiveStream == StreamCombat)
+        {
+            StreamCombat.VolumeDb = VolumeAll * VolumeMultiplierCombat;
+        }
+        else
+        {
+            StreamCombat.VolumeDb -= delta * VolumeFadeOutRate;
+        }
+
+        if (ActiveStream == StreamDead)
+        {
+            StreamDead.VolumeDb = VolumeAll * VolumeMultiplierDead;
+        }
+        else
+        {
+            StreamDead.VolumeDb -= delta * VolumeFadeOutRate;
+        }
+    }
 }

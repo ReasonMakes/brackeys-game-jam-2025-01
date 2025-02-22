@@ -64,31 +64,39 @@ public partial class Robot : CharacterBody3D
 
             Vector3 direction = (NavAgent.GetNextPathPosition() - GlobalPosition).Normalized();
 
-            ApplyAccelerationOverTime(direction * Acceleration, delta);
+            Vector3 accelerationVector = direction * Acceleration;
+            if (!control.Player.IsAlive)
+            {
+                accelerationVector = Vector3.Zero;
+            }
+            ApplyAccelerationOverTime(accelerationVector, delta);
 
             MoveAndSlide();
 
             //Rotate
             UpdateLookDirection(direction, distanceDirect, control.Player.GlobalPosition, delta);
 
-            //Fire a missile
-            MissileSpawnTimer += delta;
-            if (MissileSpawnTimer >= MissileSpawnPeriod)
+            //Fire missile
+            if (control.Player.IsAlive)
             {
-                //Find a missile that isn't alive, or don't spawn at all
-                for (int i = 0; i < Pool.GetChildCount(); i++)
+                MissileSpawnTimer += delta;
+                if (MissileSpawnTimer >= MissileSpawnPeriod)
                 {
-                    Missile missile = Pool.GetChild<Missile>(i);
-                    
-                    if (!missile.IsAlive && missile.DeadTime >= Missile.DeadPeriod)
+                    //Find a missile that isn't alive, or don't spawn at all
+                    for (int i = 0; i < Pool.GetChildCount(); i++)
                     {
-                        //Spawn missile
-                        missile.Spawn(GlobalPosition + (Vector3.Up * 1f));
+                        Missile missile = Pool.GetChild<Missile>(i);
 
-                        //Reset missile spawn timer
-                        MissileSpawnTimer = 0f;
+                        if (!missile.IsAlive && missile.DeadTime >= Missile.DeadPeriod)
+                        {
+                            //Spawn missile
+                            missile.Spawn(GlobalPosition + (Vector3.Up * 1f));
 
-                        break;
+                            //Reset missile spawn timer
+                            MissileSpawnTimer = 0f;
+
+                            break;
+                        }
                     }
                 }
             }

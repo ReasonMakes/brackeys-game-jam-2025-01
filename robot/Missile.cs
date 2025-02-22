@@ -4,7 +4,7 @@ public partial class Missile : CharacterBody3D
 {
     [Export] private MeshInstance3D MeshInstance;
     public bool IsAlive = false;
-    private const float ExplosionDistance = 5f;
+    private const float ExplosionRadius = 5f;
     private float Acceleration = 1f;
     private const float Jerk = 20f; //How fast does the acceleration increase
     private const float Drag = 0.15f; //0.2f;
@@ -29,8 +29,11 @@ public partial class Missile : CharacterBody3D
             Control control = GetNode<Control>(GetTree().Root.GetChild(0).GetPath());
             Vector3 playerPosition = control.Player.GlobalPosition;
             Vector3 direction = playerPosition - GlobalPosition;
-            LookAt(GlobalTransform.Origin + direction);
-
+            if (direction != Vector3.Zero)
+            {
+                LookAt(GlobalTransform.Origin + direction);
+            }
+            
             //Move towards player
             if (Time.GetTicksMsec() - LifeStart >= LifePeriodThrusters * 1000f)
             {
@@ -60,13 +63,14 @@ public partial class Missile : CharacterBody3D
                 {
                     GD.Print("Missile collided with: " + collision.GetCollider());
 
-                    //Due to missile speed, it fly through the collider. This returns it to the point of collision.
+                    //Due to missile speed, it may fly through the collider. This returns it to the point of collision.
                     //Most noticeable for the collision sound. Also relevant for player damage.
                     GlobalPosition = collision.GetPosition();
 
-                    if (direction.Length() <= ExplosionDistance)
+                    if (direction.Length() <= ExplosionRadius)
                     {
                         GD.Print("Missile exploded on player!");
+                        control.Player.Kill();
                     }
 
                     Kill();

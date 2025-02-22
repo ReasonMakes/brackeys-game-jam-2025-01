@@ -4,6 +4,7 @@ using System;
 public partial class Control : Node
 {
 	[Export] public Player Player;
+	[Export] public RobotsControl RobotsControl;
 
 	//HARDWARE
 	private double FPSAverageSlowPrevious = 60.0; //assume 60 fps
@@ -13,6 +14,8 @@ public partial class Control : Node
 	public override void _Ready()
 	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;
+
+
 	}
 
 	public override void _Input(InputEvent @event)
@@ -26,7 +29,15 @@ public partial class Control : Node
 		{
 			Input.MouseMode = Input.MouseModeEnum.Captured;
 		}
-	}
+
+		//Restart game
+        if (Input.IsActionJustPressed("restart"))
+        {
+			Player.Respawn();
+
+			RobotsControl.KillAll();
+        }
+    }
 
 	public override void _Process(double delta)
 	{

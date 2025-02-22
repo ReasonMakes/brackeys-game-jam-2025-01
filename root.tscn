@@ -22,9 +22,10 @@ ambient_light_energy = 0.04
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="Control" type="Node3D" node_paths=PackedStringArray("Player")]
+[node name="Control" type="Node3D" node_paths=PackedStringArray("Player", "RobotsControl")]
 script = ExtResource("1_35hfb")
 Player = NodePath("Player")
+RobotsControl = NodePath("RobotsControl")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_g1wq3")

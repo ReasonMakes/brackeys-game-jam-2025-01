@@ -2,9 +2,17 @@ using Godot;
 using Godot.NativeInterop;
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 public partial class Player : CharacterBody3D
 {
+	public bool IsAlive = true;
+	[Export] private Label LabelDead;
+
+    [Export] private Music Music;
+
+	public Vector3 SpawnPosition = new(25.4f, 0f, -10.5f);
+
     [Export] private Camera3D Cam;
 
 	[Export] private Label LabelHSpeed;
@@ -147,7 +155,7 @@ public partial class Player : CharacterBody3D
 		InputTechDash   = Input.IsActionJustReleased("tech_dash"); //Mouse wheel only has a released event
 
 		//Look
-		if (@event is InputEventMouseMotion mouseMotion)
+		if (IsAlive && @event is InputEventMouseMotion mouseMotion)
 		{
 			//Yaw
 			Rotation = new Vector3(
@@ -197,7 +205,7 @@ public partial class Player : CharacterBody3D
 		IsInAir = !IsOnFloor();
 
 		//Slide
-		if (InputTechCrouchOrSlide)
+		if (InputTechCrouchOrSlide || !IsAlive)
 		{
 			if (!IsSliding)
 			{
@@ -293,6 +301,12 @@ private void ApplyAccelerationOverTime(Vector3 acceleration, float delta)
 		//F = ma
 		//F = (1)a
 		//F = a
+
+		//Don't accelerate if dead
+		if (!IsAlive)
+		{
+			acceleration = Vector3.Zero;
+        }
 
 		//Dynamic drag amount
 		float dragComponent;
@@ -718,19 +732,58 @@ private void ApplyAccelerationOverTime(Vector3 acceleration, float delta)
 
 	private void Jump(Vector3 direction, float magnitude)
 	{
-		//Determine fatigue
-		float fatigue = Mathf.Max(
-			JumpFatigueMinimumCoefficient,
-			Mathf.Min(
-				JumpFatigueRecencyTimer / JumpFatigueRecencyTimerPeriod,     //recency jump fatigue
-				JumpFatigueOnGroundTimer / JumpFatigueOnGroundTimerPeriod    //on-ground jump fatigue
-			)
-		);
+		if (IsAlive)
+		{
+            //Determine fatigue
+            float fatigue = Mathf.Max(
+                JumpFatigueMinimumCoefficient,
+                Mathf.Min(
+                    JumpFatigueRecencyTimer / JumpFatigueRecencyTimerPeriod,     //recency jump fatigue
+                    JumpFatigueOnGroundTimer / JumpFatigueOnGroundTimerPeriod    //on-ground jump fatigue
+                )
+            );
 
-		//Act
-		Velocity += direction * (magnitude * fatigue);
+            //Act
+            Velocity += direction * (magnitude * fatigue);
 
-		//Sound
-		AudioJump.Play();
+            //Sound
+            AudioJump.Play();
+        }
 	}
+
+	public void Kill()
+	{
+		IsAlive = false;
+		//THIS IS HARD-CODED IN. Force slide when dead
+		//IsSliding = true;
+        Music.ActiveStream = Music.StreamDead;
+
+		LabelDead.Visible = true;
+
+
+		string keybind = "empty";
+		if (InputMap.ActionGetEvents("restart").Count >= 2) {
+			keybind = ""+InputMap.ActionGetEvents("restart")[1];
+        }
+
+		LabelDead.Text = $"You have died... Press [{keybind}] to restart";
+    }
+
+	public void Respawn()
+	{
+        Velocity = Vector3.Zero;
+        GlobalPosition = SpawnPosition;
+
+        IsTaskCompleteCockpit = false;
+        IsTaskCompleteElectrical = false;
+        IsTaskCompleteCooler = false;
+        IsTaskCompleteGarden = false;
+        IsTaskCompleteReactor = false;
+
+        Music.ActiveStream = Music.StreamNonCombat;
+
+		LabelDead.Visible = false;
+
+        IsAlive = true;
+    }
 }

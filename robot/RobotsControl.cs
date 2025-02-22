@@ -70,4 +70,13 @@ public partial class RobotsControl : Node3D
         return closestSpawn.GlobalPosition;
     }
 
+    public void KillAll()
+    {
+        for (int i = 0; i < Pool.GetChildCount(); i++)
+        {
+            Robot robot = Pool.GetChild(i).GetChild<Robot>(0);
+
+            robot.Kill();
+        }
+    }
 }
