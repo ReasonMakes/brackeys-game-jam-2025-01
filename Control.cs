@@ -41,8 +41,12 @@ public partial class Control : Node
 			//Reset difficulty to default multiplier
 			Difficulty = 1f;
 			TasksFailed = 0;
+			Player.SetDefaultTasks();
 
-			RobotsControl.RobotsDesiredCount = 0;
+			//Replay the introduction voice acting
+			Player.AIVoiceOverStart.Play();
+
+            RobotsControl.RobotsDesiredCount = 0;
             RobotsControl.KillAll();
 		}
 	}

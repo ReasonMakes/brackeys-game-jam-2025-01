@@ -74,13 +74,14 @@ random_volume_offset_db = 3.0
 streams_count = 1
 stream_0/stream = ExtResource("21_vgvmd")
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Music", "Cam", "AudioJump", "AudioLand", "AudioFootsteps", "AudioClothes", "ColliderCapsule", "ColliderSphere", "AudioDash")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Music", "Cam", "AudioJump", "AudioLand", "AIVoiceOverStart", "AudioFootsteps", "AudioClothes", "ColliderCapsule", "ColliderSphere", "AudioDash")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_n2wtf")
 Music = NodePath("AudioNonSpacial")
 Cam = NodePath("Camera3D")
 AudioJump = NodePath("AudioNonSpacial/JumpBreath")
 AudioLand = NodePath("AudioNonSpacial/Land")
+AIVoiceOverStart = NodePath("AudioNonSpacial/AI_voice_over_start")
 AudioFootsteps = NodePath("AudioNonSpacial/Footsteps")
 AudioClothes = NodePath("AudioNonSpacial/Clothes")
 RunAudioTimerPeriod = 0.3

@@ -13,6 +13,8 @@ public partial class Player : CharacterBody3D
     [Export] private AudioStreamPlayer AudioJump;
     [Export] private AudioStreamPlayer AudioLand;
 
+    [Export] public AudioStreamPlayer AIVoiceOverStart;
+
 
     public enum TaskType
     {
@@ -164,6 +166,11 @@ public partial class Player : CharacterBody3D
         TaskReactor = new(TaskType.Reactor, Cam.IconReactor);
         tasksInited = true;
 
+        SetDefaultTasks();
+    }
+
+    public void SetDefaultTasks()
+    {
         //Manually set tasks
         TaskCockpit.IsCompleted = true;
         TaskCockpit.Timer = 30f;

@@ -78,7 +78,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.9909, 6.49846, 0)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.0162, 25.2742, 0.329437)
 
 [node name="TaskGarden" parent="NavigationRegion3D" instance=ExtResource("6_05ls5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.4789, 6.70969, -39.7867)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.4789, 6.95077, -39.7867)
 
 [node name="TaskReactor" parent="NavigationRegion3D" instance=ExtResource("6_05ls5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.2858, 11.9455, -18.3401)
