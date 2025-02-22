@@ -86,7 +86,7 @@ stream_0/stream = ExtResource("21_vgvmd")
 [node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("LabelDead", "Music", "Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "LabelFPS", "LabelPhysicsTickRate", "IconCockpit", "IconElectrical", "IconCooler", "IconGarden", "IconReactor", "LabelDifficulty", "AudioFootsteps", "AudioClothes", "ColliderCapsule", "ColliderSphere", "AudioDash")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_n2wtf")
-LabelDead = NodePath("Camera3D/HUD/LabelDead")
+LabelDead = NodePath("Camera3D/LabelDead")
 Music = NodePath("AudioNonSpacial")
 Cam = NodePath("Camera3D")
 LabelHSpeed = NodePath("Camera3D/HUD/Statistics/Label HSpeed")
@@ -190,6 +190,36 @@ stream = ExtResource("28_3535r")
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 fov = 80.0
+
+[node name="ColorRect Dash Lines" type="ColorRect" parent="Camera3D"]
+material = ExtResource("2_y11ih")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="health" type="TextureRect" parent="Camera3D"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -98.0
+offset_right = 676.0
+grow_vertical = 0
+texture = ExtResource("3_c18dq")
+
+[node name="abilities" type="TextureRect" parent="Camera3D"]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -380.0
+offset_top = -98.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("4_5hopm")
 
 [node name="HUD" type="Control" parent="Camera3D"]
 layout_mode = 3
@@ -369,22 +399,6 @@ offset_bottom = 147.0
 grow_horizontal = 1
 texture = ExtResource("35_4dtgd")
 
-[node name="abilities" type="TextureRect" parent="Camera3D/HUD"]
-visible = false
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 1540.0
-offset_top = 702.0
-offset_right = 1920.0
-offset_bottom = 800.0
-grow_horizontal = 0
-grow_vertical = 0
-texture = ExtResource("4_5hopm")
-
 [node name="tasks" type="TextureRect" parent="Camera3D/HUD"]
 visible = false
 layout_mode = 0
@@ -428,36 +442,13 @@ grow_vertical = 0
 scale = Vector2(0.42, 0.42)
 texture = ExtResource("7_0m3ji")
 
-[node name="health" type="TextureRect" parent="Camera3D/HUD"]
+[node name="LabelDead" type="Label" parent="Camera3D"]
 visible = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 12.0
-offset_top = 973.0
-offset_right = 688.0
-offset_bottom = 1071.0
-grow_vertical = 0
-texture = ExtResource("3_c18dq")
-
-[node name="LabelDead" type="Label" parent="Camera3D/HUD"]
-visible = false
-layout_mode = 0
-offset_left = 595.0
-offset_top = 291.0
-offset_right = 896.0
-offset_bottom = 314.0
-text = "You have died... Press [Enter] to restart"
-
-[node name="ColorRect Dash Lines" type="ColorRect" parent="Camera3D/HUD"]
-material = ExtResource("2_y11ih")
-layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(1, 1, 1, 0)
+text = "You have died... Press [Enter] to restart"
+horizontal_alignment = 1
+vertical_alignment = 1
