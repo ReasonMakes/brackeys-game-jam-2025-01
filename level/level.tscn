@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://bmrvxd4l4satu"]
+[gd_scene load_steps=14 format=3 uid="uid://bmrvxd4l4satu"]
 
+[ext_resource type="PackedScene" uid="uid://cgi5yg2mindtc" path="res://level/Objective/SM_Objective.tscn" id="1_41dru"]
 [ext_resource type="PackedScene" uid="uid://dyfeb401t8qqc" path="res://level/environment_sounds/creaking.tscn" id="4_3me2t"]
 [ext_resource type="PackedScene" uid="uid://bq2gdpxtrptx5" path="res://level/wallandfloor/SM_wallandfloor.tscn" id="4_i1wwq"]
 [ext_resource type="PackedScene" uid="uid://dfjhryob8i62l" path="res://level/Reactor/reactor.tscn" id="4_pgjux"]
-[ext_resource type="AudioStream" uid="uid://2a55c4quhs0g" path="res://level/environment_sounds/3dbridge_sound.mp3" id="4_xcta4"]
-[ext_resource type="PackedScene" uid="uid://dwdrpbnwwabeo" path="res://task/task.tscn" id="6_05ls5"]
+[ext_resource type="PackedScene" uid="uid://b3wi3micw0gvk" path="res://level/entrance/SM_entrance.tscn" id="6_c386q"]
 [ext_resource type="PackedScene" uid="uid://dsixjmbww1h0u" path="res://level/cockpitpot/SM_Cockpitpot.tscn" id="6_jj8n4"]
+[ext_resource type="PackedScene" uid="uid://cof67ap26pxly" path="res://level/cockpitcomputer/SM_cockpitcomputer.tscn" id="6_ts6hj"]
 [ext_resource type="PackedScene" uid="uid://clxxyxv4f5qeh" path="res://level/Cooler/SM_cooler.tscn" id="7_atqr1"]
 [ext_resource type="PackedScene" uid="uid://b2e647cke1h5y" path="res://level/cockpit/SM_cockpit.tscn" id="7_mdq5w"]
 [ext_resource type="PackedScene" uid="uid://cnsogb83jy6r" path="res://level/Garden/SM_Garden.tscn" id="8_0pqh2"]
@@ -21,6 +22,41 @@ polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Arr
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_y7hty")
 
+[node name="Objectives" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="ObjectiveLight" type="OmniLight3D" parent="NavigationRegion3D/Objectives"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 41.9332, 7.32688, 0)
+
+[node name="ObjectiveLight2" type="OmniLight3D" parent="NavigationRegion3D/Objectives"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.2115, 11.746, 52.8256)
+
+[node name="ObjectiveLight3" type="OmniLight3D" parent="NavigationRegion3D/Objectives"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.3104, 26.0765, 0.3806)
+
+[node name="ObjectiveLight4" type="OmniLight3D" parent="NavigationRegion3D/Objectives"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.4133, 12.18, -32.2221)
+
+[node name="ObjectiveLight5" type="OmniLight3D" parent="NavigationRegion3D/Objectives"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88.6683, 7.52389, -38.8712)
+
+[node name="ObjectiveLight6" type="OmniLight3D" parent="NavigationRegion3D/Objectives"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.2915, 12.0401, -17.8899)
+
+[node name="SM_Objective" parent="NavigationRegion3D/Objectives" instance=ExtResource("1_41dru")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 41.7918, 6.00991, -0.00326695)
+
+[node name="SM_Objective2" parent="NavigationRegion3D/Objectives" instance=ExtResource("1_41dru")]
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -39.2875, 24.801, 0.388769)
+
+[node name="SM_Objective3" parent="NavigationRegion3D/Objectives" instance=ExtResource("1_41dru")]
+transform = Transform3D(-3.0598e-08, 0, -0.7, 0, 0.7, 0, 0.7, 0, -3.0598e-08, -37.1827, 10.5244, 52.695)
+
+[node name="SM_Objective4" parent="NavigationRegion3D/Objectives" instance=ExtResource("1_41dru")]
+transform = Transform3D(-0.606218, 0, -0.35, 0, 0.7, 0, 0.35, 0, -0.606218, -88.627, 6.26318, -38.8275)
+
+[node name="SM_Objective5" parent="NavigationRegion3D/Objectives" instance=ExtResource("1_41dru")]
+transform = Transform3D(1.36295e-07, 0, 0.7, 0, 0.7, 0, -0.7, 0, 1.36295e-07, -63.2238, 10.864, -17.8008)
+
 [node name="SM_Cooler" parent="NavigationRegion3D" instance=ExtResource("7_atqr1")]
 transform = Transform3D(-4.37114e-08, 0, 0.999999, 0, 1, 0, -1, 0, -4.37114e-08, -36.7071, -0.0495372, 11.9311)
 
@@ -30,10 +66,16 @@ transform = Transform3D(-4.37113e-08, 0, 0.999999, 0, 1, 0, -0.999999, 0, -4.371
 [node name="SM_Electricroom" parent="NavigationRegion3D" instance=ExtResource("9_noq31")]
 transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -42.1841, 10.4855, 51.5608)
 
-[node name="SM_wallandfloor" parent="NavigationRegion3D" instance=ExtResource("4_i1wwq")]
+[node name="SM_Wallandfloor" parent="NavigationRegion3D" instance=ExtResource("4_i1wwq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.134965, 0.0174751, 0.0223932)
 
+[node name="SM_Entrance" parent="NavigationRegion3D" instance=ExtResource("6_c386q")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.2179, 0, -4.91301)
+
 [node name="Cockpit" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="SM_cockpitcomputer" parent="NavigationRegion3D/Cockpit" instance=ExtResource("6_ts6hj")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 40.4552, 5.98714, 5.45555)
 
 [node name="SM_cockpit" parent="NavigationRegion3D/Cockpit" instance=ExtResource("7_mdq5w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.3099, 0.00661182, 17.9897)
@@ -71,44 +113,17 @@ transform = Transform3D(-0.996114, 0, 0.0880773, 0, 1, 0, -0.0880773, 0, -0.9961
 [node name="SM_Reactor" parent="NavigationRegion3D" instance=ExtResource("4_pgjux")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -83.5243, 0.520239, 18.5)
 
-[node name="TaskCockpit" parent="NavigationRegion3D" instance=ExtResource("6_05ls5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.9909, 6.49846, 0)
-
-[node name="TaskCooler" parent="NavigationRegion3D" instance=ExtResource("6_05ls5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.0162, 25.2742, 0.329437)
-
-[node name="TaskGarden" parent="NavigationRegion3D" instance=ExtResource("6_05ls5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.4789, 6.95077, -39.7867)
-
-[node name="TaskReactor" parent="NavigationRegion3D" instance=ExtResource("6_05ls5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.2858, 11.9455, -18.3401)
-
-[node name="TaskElectrical" parent="NavigationRegion3D" instance=ExtResource("6_05ls5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.2071, 13.287, 53.291)
-
-[node name="Cockpit" type="AudioStreamPlayer3D" parent="."]
-transform = Transform3D(0.866025, -1.41096e-08, 0.500001, -0.433013, 0.5, 0.75, -0.25, -0.866026, 0.433012, 41.8907, 7.0435, 0.0903587)
-stream = ExtResource("4_xcta4")
-attenuation_model = 1
-volume_db = -15.57
-unit_size = 4.29
-max_db = -20.0
-autoplay = true
-bus = &"SFX"
-playback_type = 1
-parameters/looping = true
-
 [node name="Creaking1" parent="." instance=ExtResource("4_3me2t")]
 transform = Transform3D(0.866025, -1.41096e-08, 0.500001, -0.433013, 0.5, 0.75, -0.25, -0.866026, 0.433012, -19.8484, 9, 15.8189)
-bus = &"SFX"
+stream = null
 
 [node name="Creaking2" parent="." instance=ExtResource("4_3me2t")]
 transform = Transform3D(0.866025, -1.90285e-08, 0.500001, -0.433013, 0.5, 0.75, -0.25, -0.866026, 0.433012, -59.6939, 13.3358, -21.8126)
-bus = &"SFX"
+stream = null
 
 [node name="Creaking3" parent="." instance=ExtResource("4_3me2t")]
 transform = Transform3D(0.866025, -1.41096e-08, 0.500001, -0.433013, 0.5, 0.75, -0.25, -0.866026, 0.433012, -86.8484, 27, 26.8189)
-bus = &"SFX"
+stream = null
 
 [node name="LightShadowOmni" parent="." instance=ExtResource("8_mpxjo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 22.5, 0)
