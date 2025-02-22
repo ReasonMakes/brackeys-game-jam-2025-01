@@ -3,45 +3,16 @@ using Godot;
 public partial class Player : CharacterBody3D
 {
     public bool IsAlive = true;
-    [Export] private Label LabelDead;
-
+    
     [Export] private Music Music;
 
     public Vector3 SpawnPosition = new(25.4f, 0f, -10.5f);
 
-    [Export] private Camera3D Cam;
-
-    [Export] private Label LabelHSpeed;
-    [Export] private ColorRect RectHSpeed;
-    [Export] private Label LabelJerk;
-    [Export] private ColorRect RectJerk;
-    [Export] private Label LabelDash;
-    [Export] private ColorRect RectDash;
-    [Export] private Label LabelClimb;
-    [Export] private ColorRect RectClimb;
-    [Export] private Label LabelJumpFatigueRecency;
-    [Export] private ColorRect RectJumpFatigueRecency;
-    [Export] private Label LabelJumpFatigueOnGround;
-    [Export] private ColorRect RectJumpFatigueOnGround;
+    [Export] public CameraNode Cam;
 
     [Export] private AudioStreamPlayer AudioJump;
     [Export] private AudioStreamPlayer AudioLand;
 
-    [Export] public Label LabelFPS;
-    [Export] private Label LabelPhysicsTickRate;
-
-    //public bool IsTaskCompleteCockpit = false;
-    //public bool IsTaskCompleteElectrical = false;
-    //public bool IsTaskCompleteCooler = false;
-    //public bool IsTaskCompleteGarden = false;
-    //public bool IsTaskCompleteReactor = false;
-
-    [Export] private TextureRect IconCockpit;
-    [Export] private TextureRect IconElectrical;
-    [Export] private TextureRect IconCooler;
-    [Export] private TextureRect IconGarden;
-    [Export] private TextureRect IconReactor;
-    [Export] private Label LabelDifficulty;
 
     public enum TaskType
     {
@@ -178,7 +149,7 @@ public partial class Player : CharacterBody3D
     private float DashFadeSpeed = 5f; //How fast it fades in/out
     private float DashOpacity = 0f; //Start fully transparent
     [Export] private AudioStreamPlayer AudioDash;
-    [Export] private Material DashMaterial; //Store shader material reference
+    
 
     public override void _Ready()
     {
@@ -186,11 +157,11 @@ public partial class Player : CharacterBody3D
         SpawnPosition = GlobalPosition;
 
         //We have to init here because we cannot export static - and we would need static to field init
-        TaskCockpit = new(TaskType.Cockpit, IconCockpit);
-        TaskElectrical = new(TaskType.Electrical, IconElectrical);
-        TaskCooler = new(TaskType.Cooler, IconCooler);
-        TaskGarden = new(TaskType.Garden, IconGarden);
-        TaskReactor = new(TaskType.Reactor, IconReactor);
+        TaskCockpit = new(TaskType.Cockpit, Cam.IconCockpit);
+        TaskElectrical = new(TaskType.Electrical, Cam.IconElectrical);
+        TaskCooler = new(TaskType.Cooler, Cam.IconCooler);
+        TaskGarden = new(TaskType.Garden, Cam.IconGarden);
+        TaskReactor = new(TaskType.Reactor, Cam.IconReactor);
         tasksInited = true;
 
         //Manually set tasks
@@ -274,7 +245,7 @@ public partial class Player : CharacterBody3D
 
         //GD.Print($"{TaskCockpit.IsCompleted} - {TaskCockpit.Timer}/{TaskCockpit.TimerBegin}");
 
-        LabelDifficulty.Text = $"Difficulty: {control.Difficulty:F2}";
+        Cam.LabelDifficulty.Text = $"Difficulty: {control.Difficulty:F2}";
 
         if (tasksInited)
         {
@@ -316,7 +287,7 @@ public partial class Player : CharacterBody3D
         float delta = (float)deltaDouble;
 
         //Hardware
-        LabelPhysicsTickRate.Text = $"Physics rate: {Engine.PhysicsTicksPerSecond}";
+        Cam.LabelPhysicsTickRate.Text = $"Physics rate: {Engine.PhysicsTicksPerSecond}";
 
         //Audio
         //Landing
@@ -541,8 +512,8 @@ public partial class Player : CharacterBody3D
 
         //+ if aligned, - if opposite, 0 if perpendicular
         Vector3 velocityHorizontal = new(Velocity.X, 0f, Velocity.Z);
-        LabelHSpeed.Text = $"HSpeed: {velocityHorizontal.Length():F2}";
-        RectHSpeed.Scale = new(velocityHorizontal.Length() / RunMaxSpeedGround, 1f);
+        Cam.LabelHSpeed.Text = $"HSpeed: {velocityHorizontal.Length():F2}";
+        Cam.RectHSpeed.Scale = new(velocityHorizontal.Length() / RunMaxSpeedGround, 1f);
         float runAlignment = velocityHorizontal.Dot(runDirection);
 
         //Gradient value from 0 to 1, with:
@@ -609,8 +580,8 @@ public partial class Player : CharacterBody3D
         float jerk = (RunJerkDevelopment / RunJerkDevelopmentPeriod) * RunJerkMagnitude;
 
         //Labels
-        LabelJerk.Text = $"Jerk: {jerk:F2}";
-        RectJerk.Scale = new(jerk / RunJerkMagnitude, 1f);
+        Cam.LabelJerk.Text = $"Jerk: {jerk:F2}";
+        Cam.RectJerk.Scale = new(jerk / RunJerkMagnitude, 1f);
         //--
 
 
@@ -681,8 +652,8 @@ public partial class Player : CharacterBody3D
         DashCooldown = Mathf.Max(DashCooldown - delta, 0f);
 
         //Label
-        LabelDash.Text = $"Dash: {DashCooldown:F2}";
-        RectDash.Scale = new(DashCooldown / DashCooldownPeriod, 1f);
+        Cam.LabelDash.Text = $"Dash: {DashCooldown:F2}";
+        Cam.RectDash.Scale = new(DashCooldown / DashCooldownPeriod, 1f);
 
         //Shader
         float to = 0f;
@@ -691,11 +662,11 @@ public partial class Player : CharacterBody3D
             to = 1f;
         }
         DashOpacity = Mathf.Lerp(DashOpacity, to, delta * DashFadeSpeed);
-        DashMaterial.Set("shader_parameter/opacity", DashOpacity);
+        Cam.DashMaterial.Set("shader_parameter/opacity", DashOpacity);
 
         float startLinePosition = 0.6f;
         float dashLinesMovement = startLinePosition + ((1f - startLinePosition) - ((DashCooldown / DashCooldownPeriod) * (1f - startLinePosition)));
-        DashMaterial.Set("shader_parameter/movement", dashLinesMovement);
+        Cam.DashMaterial.Set("shader_parameter/movement", dashLinesMovement);
     }
 
     private void Climb(float delta, Vector3 runVector)
@@ -821,8 +792,8 @@ public partial class Player : CharacterBody3D
         }
 
         //Label
-        LabelClimb.Text = $"Climb: {ClimbRemaining:F2}, CanClimb: {CanClimb}";
-        RectClimb.Scale = new(ClimbRemaining / ClimbPeriod, 1f);
+        Cam.LabelClimb.Text = $"Climb: {ClimbRemaining:F2}, CanClimb: {CanClimb}";
+        Cam.RectClimb.Scale = new(ClimbRemaining / ClimbPeriod, 1f);
     }
 
     private void ProcessJump(float delta, Vector3 direction, float magnitude)
@@ -848,11 +819,11 @@ public partial class Player : CharacterBody3D
         }
 
         //Label
-        LabelJumpFatigueRecency.Text = $"Jump fatigue recency: {JumpFatigueRecencyTimer:F2}";
-        RectJumpFatigueRecency.Scale = new(JumpFatigueRecencyTimer / JumpFatigueRecencyTimerPeriod, 1f);
+        Cam.LabelJumpFatigueRecency.Text = $"Jump fatigue recency: {JumpFatigueRecencyTimer:F2}";
+        Cam.RectJumpFatigueRecency.Scale = new(JumpFatigueRecencyTimer / JumpFatigueRecencyTimerPeriod, 1f);
 
-        LabelJumpFatigueOnGround.Text = $"Jump fatigue on-ground: {JumpFatigueOnGroundTimer:F2}";
-        RectJumpFatigueOnGround.Scale = new(JumpFatigueOnGroundTimer / JumpFatigueOnGroundTimerPeriod, 1f);
+        Cam.LabelJumpFatigueOnGround.Text = $"Jump fatigue on-ground: {JumpFatigueOnGroundTimer:F2}";
+        Cam.RectJumpFatigueOnGround.Scale = new(JumpFatigueOnGroundTimer / JumpFatigueOnGroundTimerPeriod, 1f);
     }
 
     private void Jump(Vector3 direction, float magnitude)
@@ -883,7 +854,7 @@ public partial class Player : CharacterBody3D
         //IsSliding = true;
         Music.ActiveStream = Music.StreamDead;
 
-        LabelDead.Visible = true;
+        Cam.LabelDead.Visible = true;
 
 
         string keybind = "Enter";
@@ -896,7 +867,7 @@ public partial class Player : CharacterBody3D
             GD.Print("Error: couldn't get the keybind for restarting... Defaulting to [Enter]");
         }
 
-        LabelDead.Text = $"You have died... Press [{keybind}] to restart";
+        Cam.LabelDead.Text = $"You have died... Press [{keybind}] to restart";
     }
 
     public void Respawn()
@@ -918,7 +889,7 @@ public partial class Player : CharacterBody3D
 
         Music.ActiveStream = Music.StreamNonCombat;
 
-        LabelDead.Visible = false;
+        Cam.LabelDead.Visible = false;
 
         IsAlive = true;
     }

@@ -1,0 +1,302 @@
+[gd_scene load_steps=12 format=3 uid="uid://boamnlyv84vsi"]
+
+[ext_resource type="Script" path="res://player/CameraNode.cs" id="1_tsoiq"]
+[ext_resource type="Material" uid="uid://daiyptmfwsngr" path="res://player/dash_lines_material.tres" id="1_wsxk4"]
+[ext_resource type="Texture2D" uid="uid://c536iphygdlso" path="res://player/UI/health.png" id="2_vequ1"]
+[ext_resource type="Texture2D" uid="uid://b5sf3u7trt2vp" path="res://player/UI/ability hex.png" id="3_u68yr"]
+[ext_resource type="PackedScene" uid="uid://b0hxt7re0nsrj" path="res://task/icon.tscn" id="4_5e532"]
+[ext_resource type="Texture2D" uid="uid://cmonp07v1xhdd" path="res://task/icon_electrical.png" id="5_5e7q8"]
+[ext_resource type="Texture2D" uid="uid://bpikbdh4qapfe" path="res://task/task.png" id="6_5prji"]
+[ext_resource type="Texture2D" uid="uid://bmutsl3cfv1rs" path="res://task/icon_garden.png" id="7_dymyh"]
+[ext_resource type="Texture2D" uid="uid://vgnv0r8q5pbi" path="res://task/icon_reactor.png" id="8_vsb0o"]
+[ext_resource type="Texture2D" uid="uid://dd6je6ov171wm" path="res://player/UI/dash icon.png" id="9_nfhmb"]
+[ext_resource type="Texture2D" uid="uid://diodiiuvs1muo" path="res://player/UI/grapple icon.png" id="10_cstoi"]
+
+[node name="Camera3D" type="Camera3D" node_paths=PackedStringArray("LabelDead", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "IconCockpit", "IconElectrical", "IconCooler", "IconGarden", "IconReactor", "LabelFPS", "LabelPhysicsTickRate", "LabelDifficulty")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+fov = 80.0
+script = ExtResource("1_tsoiq")
+LabelDead = NodePath("LabelDead")
+LabelHSpeed = NodePath("HUD/Statistics/Label HSpeed")
+RectHSpeed = NodePath("HUD/Statistics/ColorRect HSpeed")
+LabelJerk = NodePath("HUD/Statistics/Label Jerk")
+RectJerk = NodePath("HUD/Statistics/ColorRect Jerk")
+LabelDash = NodePath("HUD/Statistics/Label Dash")
+RectDash = NodePath("HUD/Statistics/ColorRect Dash")
+LabelClimb = NodePath("HUD/Statistics/Label Climb")
+RectClimb = NodePath("HUD/Statistics/ColorRect Climb")
+LabelJumpFatigueRecency = NodePath("HUD/Statistics/Label Jump Fatigue Recency")
+RectJumpFatigueRecency = NodePath("HUD/Statistics/Rect Jump Fatigue Recency")
+LabelJumpFatigueOnGround = NodePath("HUD/Statistics/Label Jump Fatigue On-Ground")
+RectJumpFatigueOnGround = NodePath("HUD/Statistics/Rect Jump Fatigue On-Ground")
+IconCockpit = NodePath("HUD/IconTaskCockpit")
+IconElectrical = NodePath("HUD/IconTaskElectrical")
+IconCooler = NodePath("HUD/IconTaskCooler")
+IconGarden = NodePath("HUD/IconTaskGarden")
+IconReactor = NodePath("HUD/IconTaskReactor")
+LabelFPS = NodePath("HUD/Statistics/Label FPS")
+LabelPhysicsTickRate = NodePath("HUD/Statistics/Label Physics Rate")
+LabelDifficulty = NodePath("HUD/Statistics/LabelDifficulty")
+DashMaterial = ExtResource("1_wsxk4")
+
+[node name="ColorRect Dash Lines" type="ColorRect" parent="."]
+material = ExtResource("1_wsxk4")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0)
+
+[node name="health" type="TextureRect" parent="."]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -98.0
+offset_right = 676.0
+grow_vertical = 0
+texture = ExtResource("2_vequ1")
+
+[node name="abilities" type="TextureRect" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -380.0
+offset_top = -98.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("3_u68yr")
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Statistics" type="Control" parent="HUD"]
+anchors_preset = 0
+offset_top = 200.075
+offset_bottom = 200.075
+
+[node name="Label FPS" type="Label" parent="HUD/Statistics"]
+layout_mode = 0
+offset_right = 318.0
+offset_bottom = 99.0
+text = "FPS: "
+
+[node name="Label Physics Rate" type="Label" parent="HUD/Statistics"]
+layout_mode = 0
+offset_top = 20.0
+offset_right = 318.0
+offset_bottom = 119.0
+text = "Physics rate: "
+
+[node name="ColorRect HSpeed" type="ColorRect" parent="HUD/Statistics"]
+layout_mode = 0
+offset_left = 64.0
+offset_top = 45.0
+offset_right = 172.0
+offset_bottom = 61.0
+color = Color(0.0383972, 0.0383972, 0.0383971, 1)
+
+[node name="Label HSpeed" type="Label" parent="HUD/Statistics"]
+layout_mode = 0
+offset_top = 41.0
+offset_right = 318.0
+offset_bottom = 140.0
+text = "HSpeed: "
+
+[node name="ColorRect Jerk" type="ColorRect" parent="HUD/Statistics"]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 67.0
+offset_right = 143.0
+offset_bottom = 83.0
+color = Color(0.0383972, 0.0383972, 0.0383971, 1)
+
+[node name="Label Jerk" type="Label" parent="HUD/Statistics"]
+layout_mode = 0
+offset_top = 63.0
+offset_right = 318.0
+offset_bottom = 162.0
+text = "Jerk: "
+
+[node name="ColorRect Dash" type="ColorRect" parent="HUD/Statistics"]
+layout_mode = 0
+offset_left = 44.0
+offset_top = 90.0
+offset_right = 152.0
+offset_bottom = 106.0
+color = Color(0.0383972, 0.0383972, 0.0383971, 1)
+
+[node name="Label Dash" type="Label" parent="HUD/Statistics"]
+layout_mode = 0
+offset_top = 86.0
+offset_right = 318.0
+offset_bottom = 185.0
+text = "Dash: "
+
+[node name="ColorRect Climb" type="ColorRect" parent="HUD/Statistics"]
+layout_mode = 0
+offset_left = 50.0
+offset_top = 112.0
+offset_right = 158.0
+offset_bottom = 128.0
+color = Color(0.0383972, 0.0383972, 0.0383971, 1)
+
+[node name="Label Climb" type="Label" parent="HUD/Statistics"]
+layout_mode = 0
+offset_top = 108.0
+offset_right = 318.0
+offset_bottom = 207.0
+text = "Climb: "
+
+[node name="Rect Jump Fatigue Recency" type="ColorRect" parent="HUD/Statistics"]
+layout_mode = 0
+offset_left = 168.0
+offset_top = 133.0
+offset_right = 276.0
+offset_bottom = 149.0
+color = Color(0.0383972, 0.0383972, 0.0383971, 1)
+
+[node name="Label Jump Fatigue Recency" type="Label" parent="HUD/Statistics"]
+layout_mode = 0
+offset_top = 129.0
+offset_right = 318.0
+offset_bottom = 228.0
+text = "Jump fatigue recency: "
+
+[node name="Rect Jump Fatigue On-Ground" type="ColorRect" parent="HUD/Statistics"]
+layout_mode = 0
+offset_left = 190.0
+offset_top = 155.0
+offset_right = 298.0
+offset_bottom = 171.0
+color = Color(0.0383972, 0.0383972, 0.0383971, 1)
+
+[node name="Label Jump Fatigue On-Ground" type="Label" parent="HUD/Statistics"]
+layout_mode = 0
+offset_top = 151.0
+offset_right = 318.0
+offset_bottom = 250.0
+text = "Jump fatigue on-ground: "
+
+[node name="LabelDifficulty" type="Label" parent="HUD/Statistics"]
+layout_mode = 0
+offset_top = 151.0
+offset_right = 318.0
+offset_bottom = 250.0
+text = "Difficulty: "
+
+[node name="IconTaskCockpit" parent="HUD" instance=ExtResource("4_5e532")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 178.0
+offset_bottom = 147.0
+grow_horizontal = 1
+
+[node name="IconTaskElectrical" parent="HUD" instance=ExtResource("4_5e532")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 178.0
+offset_top = 0.0
+offset_right = 356.0
+offset_bottom = 147.0
+grow_horizontal = 1
+texture = ExtResource("5_5e7q8")
+
+[node name="IconTaskCooler" parent="HUD" instance=ExtResource("4_5e532")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 712.0
+offset_top = 0.0
+offset_right = 890.0
+offset_bottom = 147.0
+grow_horizontal = 1
+texture = ExtResource("6_5prji")
+
+[node name="IconTaskGarden" parent="HUD" instance=ExtResource("4_5e532")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 356.0
+offset_top = 0.0
+offset_right = 534.0
+offset_bottom = 147.0
+grow_horizontal = 1
+texture = ExtResource("7_dymyh")
+
+[node name="IconTaskReactor" parent="HUD" instance=ExtResource("4_5e532")]
+layout_mode = 0
+anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 534.0
+offset_top = 0.0
+offset_right = 712.0
+offset_bottom = 147.0
+grow_horizontal = 1
+texture = ExtResource("8_vsb0o")
+
+[node name="tasks" type="TextureRect" parent="HUD"]
+visible = false
+layout_mode = 0
+offset_left = 228.02
+offset_top = 23.0
+offset_right = 406.02
+offset_bottom = 170.0
+texture = ExtResource("6_5prji")
+
+[node name="dash icon" type="TextureRect" parent="HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1656.0
+offset_top = 723.0
+offset_right = 1805.0
+offset_bottom = 844.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("9_nfhmb")
+
+[node name="grapple icon" type="TextureRect" parent="HUD"]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 1748.0
+offset_top = 722.0
+offset_right = 1896.0
+offset_bottom = 860.0
+grow_horizontal = 0
+grow_vertical = 0
+scale = Vector2(0.42, 0.42)
+texture = ExtResource("10_cstoi")
+
+[node name="LabelDead" type="Label" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "You have died... Press [Enter] to restart"
+horizontal_alignment = 1
+vertical_alignment = 1

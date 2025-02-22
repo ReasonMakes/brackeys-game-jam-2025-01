@@ -45,7 +45,7 @@ public partial class Control : Node
 
 	public override void _Process(double delta)
 	{
-		Player.LabelFPS.Text = $"FPS: {Engine.GetFramesPerSecond()}";
+		Player.Cam.LabelFPS.Text = $"FPS: {Engine.GetFramesPerSecond()}";
 	}
 
 	public override void _PhysicsProcess(double deltaDouble)
