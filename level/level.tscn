@@ -37,7 +37,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.3104, 26.0765, 0.3806)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -74.4133, 12.18, -32.2221)
 
 [node name="ObjectiveLight5" type="OmniLight3D" parent="NavigationRegion3D/Objectives"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -88.6683, 7.52389, -38.8712)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.8886, 8.27815, -38.7066)
 
 [node name="ObjectiveLight6" type="OmniLight3D" parent="NavigationRegion3D/Objectives"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.2915, 12.0401, -17.8899)
@@ -52,7 +52,7 @@ transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -39.2875, 24.801, 0.388
 transform = Transform3D(-3.0598e-08, 0, -0.7, 0, 0.7, 0, 0.7, 0, -3.0598e-08, -37.1827, 10.5244, 52.695)
 
 [node name="SM_Objective4" parent="NavigationRegion3D/Objectives" instance=ExtResource("1_41dru")]
-transform = Transform3D(-0.606218, 0, -0.35, 0, 0.7, 0, 0.35, 0, -0.606218, -88.627, 6.26318, -38.8275)
+transform = Transform3D(-0.606218, 0, -0.35, 0, 0.7, 0, 0.35, 0, -0.606218, -87.8473, 7.01744, -38.6628)
 
 [node name="SM_Objective5" parent="NavigationRegion3D/Objectives" instance=ExtResource("1_41dru")]
 transform = Transform3D(1.36295e-07, 0, 0.7, 0, 0.7, 0, -0.7, 0, 1.36295e-07, -63.2238, 10.864, -17.8008)
