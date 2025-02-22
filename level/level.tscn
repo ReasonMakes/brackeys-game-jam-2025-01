@@ -94,17 +94,21 @@ volume_db = -15.57
 unit_size = 4.29
 max_db = -20.0
 autoplay = true
+bus = &"SFX"
 playback_type = 1
 parameters/looping = true
 
 [node name="Creaking1" parent="." instance=ExtResource("4_3me2t")]
 transform = Transform3D(0.866025, -1.41096e-08, 0.500001, -0.433013, 0.5, 0.75, -0.25, -0.866026, 0.433012, -19.8484, 9, 15.8189)
+bus = &"SFX"
 
 [node name="Creaking2" parent="." instance=ExtResource("4_3me2t")]
 transform = Transform3D(0.866025, -1.90285e-08, 0.500001, -0.433013, 0.5, 0.75, -0.25, -0.866026, 0.433012, -59.6939, 13.3358, -21.8126)
+bus = &"SFX"
 
 [node name="Creaking3" parent="." instance=ExtResource("4_3me2t")]
 transform = Transform3D(0.866025, -1.41096e-08, 0.500001, -0.433013, 0.5, 0.75, -0.25, -0.866026, 0.433012, -86.8484, 27, 26.8189)
+bus = &"SFX"
 
 [node name="LightShadowOmni" parent="." instance=ExtResource("8_mpxjo")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29, 22.5, 0)

@@ -77,23 +77,28 @@ radius = 2.0
 [node name="Spawn" type="AudioStreamPlayer3D" parent="CharacterBody3D"]
 stream = ExtResource("3_uq1cp")
 attenuation_model = 2
+volume_db = -7.0
+bus = &"SFX"
 
 [node name="Ambience" type="AudioStreamPlayer3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.656, 0)
 stream = ExtResource("2_qtke8")
 attenuation_model = 1
-volume_db = -80.0
+volume_db = -20.0
 unit_size = 3.33
 max_db = 0.0
 autoplay = true
+bus = &"SFX"
 playback_type = 1
 parameters/looping = true
 
 [node name="Destroyed" type="AudioStreamPlayer3D" parent="CharacterBody3D"]
 stream = ExtResource("4_d3ove")
 attenuation_model = 1
+volume_db = -7.0
 unit_size = 3.33
 max_db = 0.0
+bus = &"SFX"
 
 [node name="Pool" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.275196, 0)
