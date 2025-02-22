@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://dbwcelxi8oyen"
-path="res://.godot/imported/SM_Wallsandfloors.glb-76312e09d383b42a5a12678d7e9d055c.scn"
+uid="uid://bqs5yas7143l6"
+path="res://.godot/imported/SM_cockpitpot.glb-ad36e960ada03bf42ba3ec2353183b1d.scn"
 
 [deps]
 
-source_file="res://level/Wallsandfloors/SM_Wallsandfloors.glb"
-dest_files=["res://.godot/imported/SM_Wallsandfloors.glb-76312e09d383b42a5a12678d7e9d055c.scn"]
+source_file="res://level/cockpitpot/SM_cockpitpot.glb"
+dest_files=["res://.godot/imported/SM_cockpitpot.glb-ad36e960ada03bf42ba3ec2353183b1d.scn"]
 
 [params]
 

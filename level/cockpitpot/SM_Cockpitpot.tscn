@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dsixjmbww1h0u"]
+
+[ext_resource type="PackedScene" uid="uid://bqs5yas7143l6" path="res://level/cockpitpot/SM_cockpitpot.glb" id="1_8fbju"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_62uvr"]
+size = Vector3(3.00378, 5.00781, 1.99585)
+
+[node name="StaticBody3D" type="StaticBody3D"]
+
+[node name="SM_cockpitpot" parent="." instance=ExtResource("1_8fbju")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.48912, 2.49967, -0.992959)
+shape = SubResource("BoxShape3D_62uvr")

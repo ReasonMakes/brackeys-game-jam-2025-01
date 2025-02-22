@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bjefbk1r6muv1"
-path.s3tc="res://.godot/imported/SM_Wallsandfloors_wall_tillable_Albedo.png-33ea26ec22c22da93a282eebd3ca9bfc.s3tc.ctex"
+uid="uid://bxgti0bgubrm1"
+path.s3tc="res://.godot/imported/SM_cockpitpot_tillmud_Albedo.png-5b2230b3e70ba993f2fa27900d34aefb.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "1654fb6edf08ae3ed83cf05a99842e86"
+}
 
 [deps]
 
-source_file="res://level/Wallsandfloors/SM_Wallsandfloors_wall_tillable_Albedo.png"
-dest_files=["res://.godot/imported/SM_Wallsandfloors_wall_tillable_Albedo.png-33ea26ec22c22da93a282eebd3ca9bfc.s3tc.ctex"]
+source_file="res://level/cockpitpot/SM_cockpitpot_tillmud_Albedo.png"
+dest_files=["res://.godot/imported/SM_cockpitpot_tillmud_Albedo.png-5b2230b3e70ba993f2fa27900d34aefb.s3tc.ctex"]
 
 [params]
 
