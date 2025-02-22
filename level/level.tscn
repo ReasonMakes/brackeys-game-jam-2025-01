@@ -33,37 +33,39 @@ transform = Transform3D(0.999999, 0, 0, 0, 1, 0, 0, 0, 0.999999, -42.1841, 10.48
 [node name="SM_wallandfloor" parent="NavigationRegion3D" instance=ExtResource("4_i1wwq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.134965, 0.0174751, 0.0223932)
 
-[node name="SM_cockpit" parent="NavigationRegion3D" instance=ExtResource("7_mdq5w")]
+[node name="Cockpit" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="SM_cockpit" parent="NavigationRegion3D/Cockpit" instance=ExtResource("7_mdq5w")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.3099, 0.00661182, 17.9897)
 
-[node name="SM_cockpitpot" parent="NavigationRegion3D" instance=ExtResource("6_jj8n4")]
+[node name="SM_cockpitpot" parent="NavigationRegion3D/Cockpit" instance=ExtResource("6_jj8n4")]
 transform = Transform3D(0.999648, 0, -0.0265259, 0, 1, 0, 0.0265259, 0, 0.999648, -17.5077, 0.00661802, -5.56844)
 
-[node name="SM_cockpitpot2" parent="NavigationRegion3D" instance=ExtResource("6_jj8n4")]
+[node name="SM_cockpitpot2" parent="NavigationRegion3D/Cockpit" instance=ExtResource("6_jj8n4")]
 transform = Transform3D(0.999013, 0, 0.0444215, 0, 1, 0, -0.0444215, 0, 0.999013, -14.2127, 0.00661802, -5.46808)
 
-[node name="SM_cockpitpot3" parent="NavigationRegion3D" instance=ExtResource("6_jj8n4")]
+[node name="SM_cockpitpot3" parent="NavigationRegion3D/Cockpit" instance=ExtResource("6_jj8n4")]
 transform = Transform3D(0.996114, 0, -0.0880772, 0, 1, 0, 0.0880772, 0, 0.996114, -10.8378, 0.00661802, -5.46808)
 
-[node name="SM_cockpitpot7" parent="NavigationRegion3D" instance=ExtResource("6_jj8n4")]
+[node name="SM_cockpitpot7" parent="NavigationRegion3D/Cockpit" instance=ExtResource("6_jj8n4")]
 transform = Transform3D(-0.999013, 0, -0.0444214, 0, 1, 0, 0.0444214, 0, -0.999013, 23.0736, 6.02104, -3.03694)
 
-[node name="SM_cockpitpot8" parent="NavigationRegion3D" instance=ExtResource("6_jj8n4")]
+[node name="SM_cockpitpot8" parent="NavigationRegion3D/Cockpit" instance=ExtResource("6_jj8n4")]
 transform = Transform3D(-0.996114, 0, 0.0880773, 0, 1, 0, -0.0880773, 0, -0.996114, 19.6987, 6.02104, -3.03694)
 
-[node name="SM_cockpitpot9" parent="NavigationRegion3D" instance=ExtResource("6_jj8n4")]
+[node name="SM_cockpitpot9" parent="NavigationRegion3D/Cockpit" instance=ExtResource("6_jj8n4")]
 transform = Transform3D(0.999013, 0, 0.0444215, 0, 1, 0, -0.0444215, 0, 0.999013, 16.334, 5.93315, 2.65032)
 
-[node name="SM_cockpitpot10" parent="NavigationRegion3D" instance=ExtResource("6_jj8n4")]
+[node name="SM_cockpitpot10" parent="NavigationRegion3D/Cockpit" instance=ExtResource("6_jj8n4")]
 transform = Transform3D(0.996114, 0, -0.0880772, 0, 1, 0, 0.0880772, 0, 0.996114, 19.7089, 5.93315, 2.65032)
 
-[node name="SM_cockpitpot4" parent="NavigationRegion3D" instance=ExtResource("6_jj8n4")]
+[node name="SM_cockpitpot4" parent="NavigationRegion3D/Cockpit" instance=ExtResource("6_jj8n4")]
 transform = Transform3D(-0.999648, 0, 0.026526, 0, 1, 0, -0.026526, 0, -0.999648, -7.33142, 0.00661802, 5.22343)
 
-[node name="SM_cockpitpot5" parent="NavigationRegion3D" instance=ExtResource("6_jj8n4")]
+[node name="SM_cockpitpot5" parent="NavigationRegion3D/Cockpit" instance=ExtResource("6_jj8n4")]
 transform = Transform3D(-0.999013, 0, -0.0444214, 0, 1, 0, 0.0444214, 0, -0.999013, -10.7964, 0.0066185, 4.53069)
 
-[node name="SM_cockpitpot6" parent="NavigationRegion3D" instance=ExtResource("6_jj8n4")]
+[node name="SM_cockpitpot6" parent="NavigationRegion3D/Cockpit" instance=ExtResource("6_jj8n4")]
 transform = Transform3D(-0.996114, 0, 0.0880773, 0, 1, 0, -0.0880773, 0, -0.996114, -14.0014, 0.00661802, 5.12307)
 
 [node name="SM_Reactor" parent="NavigationRegion3D" instance=ExtResource("4_pgjux")]

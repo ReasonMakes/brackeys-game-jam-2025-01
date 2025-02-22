@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://da3cc6bh5v41y"]
+[gd_scene load_steps=10 format=3 uid="uid://da3cc6bh5v41y"]
 
 [ext_resource type="Script" path="res://Control.cs" id="1_35hfb"]
 [ext_resource type="Script" path="res://robot/RobotsControl.cs" id="4_bbxcq"]
 [ext_resource type="PackedScene" uid="uid://t67wqvj801yl" path="res://robot/robot.tscn" id="4_xnik5"]
+[ext_resource type="PackedScene" uid="uid://mcqw6favapt4" path="res://robot/spawn_point_tube.tscn" id="6_vtw6n"]
 [ext_resource type="PackedScene" uid="uid://b1cc7jehhov" path="res://player/player.tscn" id="29_0dube"]
 [ext_resource type="PackedScene" uid="uid://bmrvxd4l4satu" path="res://level/level.tscn" id="34_oikqa"]
 
@@ -67,11 +68,19 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.83861, 0.330002, 0)
 [node name="SpawnPoint1" type="Node3D" parent="RobotsControl/SpawnPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -23.2727, 202.225, 12.6556)
 
+[node name="CSGCylinder3D" parent="RobotsControl/SpawnPoints/SpawnPoint1" instance=ExtResource("6_vtw6n")]
+
 [node name="SpawnPoint2" type="Node3D" parent="RobotsControl/SpawnPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -31.2433, 202.225, -36.0115)
+
+[node name="CSGCylinder3D" parent="RobotsControl/SpawnPoints/SpawnPoint2" instance=ExtResource("6_vtw6n")]
 
 [node name="SpawnPoint3" type="Node3D" parent="RobotsControl/SpawnPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.9497, 202.225, -26.8936)
 
+[node name="CSGCylinder3D" parent="RobotsControl/SpawnPoints/SpawnPoint3" instance=ExtResource("6_vtw6n")]
+
 [node name="SpawnPoint4" type="Node3D" parent="RobotsControl/SpawnPoints"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.531, 211.814, 24.7964)
+
+[node name="CSGCylinder3D" parent="RobotsControl/SpawnPoints/SpawnPoint4" instance=ExtResource("6_vtw6n")]

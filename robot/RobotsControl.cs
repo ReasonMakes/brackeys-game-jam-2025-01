@@ -6,8 +6,8 @@ public partial class RobotsControl : Node3D
     [Export] private Node3D Pool;
     [Export] private Node3D SpawnPoints;
     private float SpawnTimer = 0f; //counts up and spawns a robots once >= SpawnPeriod. Resets to 0f
-    private const float SpawnPeriod = 40f; //Time period in seconds between robot spawns
-    private int robotsDesiredCount = 3; //must be <= pool size (5 at time of writing)
+    private const float SpawnPeriod = 10f; //40f; //Time period in seconds between robot spawns
+    private int robotsDesiredCount = 1; //3; //must be <= pool size (5 at time of writing)
 
     public override void _Process(double deltaDouble)
     {

@@ -3,20 +3,28 @@ using Godot;
 public partial class Missile : CharacterBody3D
 {
     [Export] private MeshInstance3D MeshInstance;
+
     public bool IsAlive = false;
+
     private const float ExplosionRadius = 5f;
+
     private float Acceleration = 1f;
     private const float Jerk = 20f; //How fast does the acceleration increase
     private const float Drag = 0.15f; //0.2f;
     private const float VerticalLaunchSpeed = 8f; //20f;
+    private const float MaxSpeed = 12f; //will not accelerate toward the dot of velocity if Velocity.Length() >= than this value
+
     private ulong LifeStart = 0;
     private const float LifePeriodThrusters = 0.5f; //Time in seconds until the missile begins thrusting toward the player
     private const ulong LifePeriodMax = 5; //Maximum time in seconds before the missile self-destructs
+
     [Export] private AudioStreamPlayer3D AudioDestroyed;
     [Export] private AudioStreamPlayer3D AudioAlive;
     [Export] private CollisionShape3D Collider;
+
     public float DeadTime = 0f; //time the missile's been dead for
     public const float DeadPeriod = 3f; //time the missile needs to be dead for before being possible to spawn again. This is necessary to let the death sound play
+
     [Export] private GpuParticles3D ParticlesDestroyed;
     [Export] private GpuParticles3D ParticlesThrust;
     public override void _PhysicsProcess(double deltaDouble)
@@ -40,13 +48,23 @@ public partial class Missile : CharacterBody3D
             if (Time.GetTicksMsec() - LifeStart >= LifePeriodThrusters * 1000f)
             {
                 ApplyJerkOverTime(Jerk, delta);
-                ApplyAccelerationOverTime(direction * Acceleration, delta);
+                //ApplyAccelerationOverTime(direction * Acceleration, delta);
+
+                //Limit speed
+                Vector3 velocityHorizontal = new(Velocity.X, 0f, Velocity.Z);
+                float thrusterAlignment = velocityHorizontal.Dot(Velocity.Normalized());
+                float runAlignmentScaled = Mathf.Clamp(1f - thrusterAlignment / MaxSpeed, 0f, 1f);
+                ApplyAccelerationOverTime(direction * (Acceleration * runAlignmentScaled), delta);
+
+                //Limit velocity magnitude to MaxSpeed
+                //Velocity = (Velocity.Length() <= MaxSpeed) ? Velocity : Velocity.Normalized() * MaxSpeed;
             }
             else
             {
                 //Drag
                 ApplyAccelerationOverTime(Vector3.Zero, delta);
             }
+
             MoveAndSlide();
 
             //GD.Print($"{Name} Acceleration: {Acceleration}");

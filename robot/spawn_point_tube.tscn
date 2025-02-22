@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://mcqw6favapt4"]
+
+[ext_resource type="Texture2D" uid="uid://copnfbtj6g8iq" path="res://level/wallandfloor/SM_wallfloor_wall_Albedo.png" id="1_xbypp"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ecknv"]
+albedo_texture = ExtResource("1_xbypp")
+
+[node name="CSGCylinder3D" type="CSGCylinder3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.9235, 0)
+radius = 1.55265
+height = 36.5602
+sides = 14
+material = SubResource("StandardMaterial3D_ecknv")
+
+[node name="CSGCylinder3D2" type="CSGCylinder3D" parent="."]
+operation = 2
+radius = 1.45291
+height = 36.5602
+sides = 14

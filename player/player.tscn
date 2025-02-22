@@ -130,6 +130,7 @@ disabled = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+visible = false
 mesh = SubResource("CapsuleMesh_3x3s7")
 
 [node name="AudioNonSpacial" type="Node3D" parent="." node_paths=PackedStringArray("StreamNonCombat", "StreamCombat", "StreamDead")]
@@ -312,35 +313,60 @@ text = "Difficulty: "
 [node name="IconTaskCockpit" parent="Camera3D/HUD" instance=ExtResource("32_ykv44")]
 layout_mode = 0
 anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
 offset_left = 0.0
+offset_top = 0.0
 offset_right = 178.0
+offset_bottom = 147.0
+grow_horizontal = 1
 
 [node name="IconTaskElectrical" parent="Camera3D/HUD" instance=ExtResource("32_ykv44")]
 layout_mode = 0
 anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
 offset_left = 178.0
+offset_top = 0.0
 offset_right = 356.0
+offset_bottom = 147.0
+grow_horizontal = 1
 texture = ExtResource("32_le7h6")
 
 [node name="IconTaskCooler" parent="Camera3D/HUD" instance=ExtResource("32_ykv44")]
 layout_mode = 0
 anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
 offset_left = 712.0
+offset_top = 0.0
 offset_right = 890.0
+offset_bottom = 147.0
+grow_horizontal = 1
 texture = ExtResource("5_4y014")
 
 [node name="IconTaskGarden" parent="Camera3D/HUD" instance=ExtResource("32_ykv44")]
 layout_mode = 0
 anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
 offset_left = 356.0
+offset_top = 0.0
 offset_right = 534.0
+offset_bottom = 147.0
+grow_horizontal = 1
 texture = ExtResource("8_3w5je")
 
 [node name="IconTaskReactor" parent="Camera3D/HUD" instance=ExtResource("32_ykv44")]
 layout_mode = 0
 anchors_preset = 0
+anchor_left = 0.0
+anchor_right = 0.0
 offset_left = 534.0
+offset_top = 0.0
 offset_right = 712.0
+offset_bottom = 147.0
+grow_horizontal = 1
 texture = ExtResource("35_4dtgd")
 
 [node name="abilities" type="TextureRect" parent="Camera3D/HUD"]
