@@ -116,6 +116,7 @@ stream = SubResource("AudioStreamRandomizer_jreeg")
 
 [node name="MusicCombat" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = SubResource("AudioStreamRandomizer_tsrak")
+bus = &"Music"
 
 [node name="MusicDead" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = ExtResource("9_6cfce")
