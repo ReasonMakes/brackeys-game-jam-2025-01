@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b1cc7jehhov"]
+[gd_scene load_steps=39 format=3 uid="uid://b1cc7jehhov"]
 
 [ext_resource type="Script" path="res://player/Player.cs" id="1_n2wtf"]
 [ext_resource type="AudioStream" uid="uid://cvsno70drq81s" path="res://music/non_combat/0.mp3" id="3_jwuw3"]
@@ -29,6 +29,7 @@
 [ext_resource type="AudioStream" uid="uid://dfgv3pl2v8dq" path="res://level/environment_sounds/task_sounds/adjust_course.mp3" id="26_sw0pg"]
 [ext_resource type="AudioStream" uid="uid://bengsh4olwvjw" path="res://level/environment_sounds/task_sounds/button_click.wav" id="27_c8tmv"]
 [ext_resource type="AudioStream" uid="uid://csmrejgg2eacs" path="res://level/environment_sounds/task_sounds/button_click_2.wav" id="28_3535r"]
+[ext_resource type="AudioStream" uid="uid://ccmgbmo2s4fr5" path="res://level/environment_sounds/ai_voice/ai_voice_start.mp3" id="30_j1or5"]
 [ext_resource type="PackedScene" uid="uid://boamnlyv84vsi" path="res://player/camera_and_HUD.tscn" id="32_r1bbn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf7un"]
@@ -154,5 +155,10 @@ stream = ExtResource("27_c8tmv")
 
 [node name="Simplebutton_click2" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = ExtResource("28_3535r")
+
+[node name="AI_voice_over_start" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = ExtResource("30_j1or5")
+autoplay = true
+bus = &"Dialogue"
 
 [node name="Camera3D" parent="." instance=ExtResource("32_r1bbn")]
