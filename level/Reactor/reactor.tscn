@@ -1,9 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://dfjhryob8i62l"]
+[gd_scene load_steps=19 format=3 uid="uid://dfjhryob8i62l"]
 
 [ext_resource type="PackedScene" uid="uid://clbdstb01pmdb" path="res://level/Reactor/SM_Reactor.glb" id="1_jpfqm"]
 [ext_resource type="Material" uid="uid://bo6g7n1oivjou" path="res://level/Reactor/reactor_emissive.tres" id="2_0ehqs"]
 [ext_resource type="Material" uid="uid://b0sgbe58kuxrs" path="res://level/Reactor/reactor_catwalk.tres" id="3_20ld8"]
 [ext_resource type="Material" uid="uid://cxbht1u3flbl4" path="res://level/Reactor/reactor_glass.tres" id="3_k0mmo"]
+[ext_resource type="PackedScene" uid="uid://behgib8s7rin5" path="res://level/Reactor/audio_ambient_reactor.tscn" id="5_ubs1a"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_t8h65"]
 radius = 3.82638
@@ -134,3 +135,5 @@ shape = SubResource("BoxShape3D_btvwf")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" index="18"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.38605, 11.2744, -0.0955176)
 shape = SubResource("ConcavePolygonShape3D_ptto0")
+
+[node name="AudioAmbientReactor" parent="." index="10" instance=ExtResource("5_ubs1a")]

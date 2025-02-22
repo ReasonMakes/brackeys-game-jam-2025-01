@@ -1,0 +1,30 @@
+[gd_scene load_steps=9 format=3 uid="uid://dyfeb401t8qqc"]
+
+[ext_resource type="Script" path="res://level/sounds/Creaking.cs" id="1_5yeuq"]
+[ext_resource type="AudioStream" uid="uid://c5suotdkkvke8" path="res://level/sounds/ambience_creaking1.mp3" id="1_i7pg3"]
+[ext_resource type="AudioStream" uid="uid://dt852d2cp6hhl" path="res://level/sounds/ambience_creaking2.mp3" id="2_h8bmd"]
+[ext_resource type="AudioStream" uid="uid://haihh2reed8i" path="res://level/sounds/ambience_creaking3.mp3" id="3_7gsx1"]
+[ext_resource type="AudioStream" uid="uid://dlc7mxyb5g6fg" path="res://level/sounds/ambience_creaking4.mp3" id="4_peen0"]
+[ext_resource type="AudioStream" uid="uid://cvk4t74bbbi0f" path="res://level/sounds/ambience_creaking5.mp3" id="5_821ux"]
+[ext_resource type="AudioStream" uid="uid://b37bb8p3o1b6x" path="res://level/sounds/ambience_creaking6.mp3" id="6_4h71g"]
+
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5hxpj"]
+streams_count = 6
+stream_0/stream = ExtResource("1_i7pg3")
+stream_1/stream = ExtResource("2_h8bmd")
+stream_2/stream = ExtResource("3_7gsx1")
+stream_3/stream = ExtResource("4_peen0")
+stream_4/stream = ExtResource("5_821ux")
+stream_5/stream = ExtResource("6_4h71g")
+
+[node name="Creaking" type="Node3D" node_paths=PackedStringArray("Audio")]
+script = ExtResource("1_5yeuq")
+Audio = NodePath("AudioStreamPlayer3D")
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+stream = SubResource("AudioStreamRandomizer_5hxpj")
+attenuation_model = 2
+volume_db = 10.0
+max_db = -5.238
+autoplay = true
+playback_type = 1

@@ -1,8 +1,8 @@
 [gd_scene load_steps=11 format=3 uid="uid://mwmurykmhf71"]
 
 [ext_resource type="Script" path="res://robot/Missile.cs" id="1_ampv4"]
-[ext_resource type="AudioStream" uid="uid://de04o8a3exbxc" path="res://robot/sounds/robot_dying.mp3" id="2_cp5gs"]
-[ext_resource type="AudioStream" uid="uid://egrlb3lmcw7f" path="res://robot/sounds/robot_spawn_sound.mp3" id="3_4n7hf"]
+[ext_resource type="AudioStream" uid="uid://dqgbt15sls4jh" path="res://robot/sounds/explosion_clearer.mp3" id="2_fm4f8"]
+[ext_resource type="AudioStream" uid="uid://bgs7lhhmc6aan" path="res://robot/sounds/missile_loop_clear.mp3" id="3_yurbj"]
 [ext_resource type="PackedScene" uid="uid://bd18tdt4jhcml" path="res://robot/particles_destroyed.tscn" id="4_yi0k8"]
 [ext_resource type="PackedScene" uid="uid://bmhhnn1d2si08" path="res://robot/particles_thrust.tscn" id="5_643ug"]
 
@@ -40,17 +40,16 @@ skeleton = NodePath("")
 surface_material_override/0 = SubResource("StandardMaterial3D_na4tx")
 
 [node name="AudioDestroyed" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("2_cp5gs")
+stream = ExtResource("2_fm4f8")
 attenuation_model = 2
-volume_db = -67.951
+volume_db = 4.233
 unit_size = 56.52
 max_db = 0.0
-bus = &"SFX"
 
 [node name="AudioAlive" type="AudioStreamPlayer3D" parent="."]
-stream = ExtResource("3_4n7hf")
+stream = ExtResource("3_yurbj")
 attenuation_model = 2
-volume_db = -23.132
+volume_db = -13.82
 max_db = 0.0
 
 [node name="ParticlesDestroyed" parent="." instance=ExtResource("4_yi0k8")]

@@ -16,8 +16,10 @@ public partial class Robot : CharacterBody3D
 
     public bool IsAlive = false;
 
+    [Export] private AudioStreamPlayer3D AudioFire;
     [Export] private AudioStreamPlayer3D AudioSpawn;
     [Export] private AudioStreamPlayer3D AudioAmbience;
+    [Export] private float AudioAmbienceVolume = 0f;
     [Export] private AudioStreamPlayer3D AudioDestroyed;
 
     [Export] private Node3D Pool;
@@ -36,7 +38,7 @@ public partial class Robot : CharacterBody3D
         }
         else
         {
-            GD.PrintErr($"[{GetType().Name}] Error: Stream is not an MP3! Did you use a WAV or AIF by mistake? I see you, Yetty!! -Scale");
+            GD.PrintErr($"[{GetType().Name}] Error: Stream is not an MP3! Did you use a WAV or AIF by mistake?");
         }
     }
 
@@ -95,6 +97,9 @@ public partial class Robot : CharacterBody3D
                             //Reset missile spawn timer
                             MissileSpawnTimer = 0f;
 
+                            //Play audio
+                            AudioFire.Play();
+
                             break;
                         }
                     }
@@ -151,6 +156,8 @@ public partial class Robot : CharacterBody3D
             MeshInstance.Visible = false;
             //Position = Vector3.Zero;
 
+            AudioAmbience.VolumeDb = 0f;
+
             IsAlive = false;
         }
     }
@@ -165,6 +172,8 @@ public partial class Robot : CharacterBody3D
         Collider.Disabled = false;
         Visible = true;
         MeshInstance.Visible = true;
+
+        AudioAmbience.VolumeDb = AudioAmbienceVolume;
 
         //Initialize missile spawn timer
         MissileSpawnTimer = 0f;

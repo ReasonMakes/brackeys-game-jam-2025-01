@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://y5w4p2lpreyc"]
+
+[ext_resource type="AudioStream" uid="uid://cl1xt3nhk8xi5" path="res://level/Cooler/sounds/cooler.mp3" id="1_db5xr"]
+
+[node name="AudioAmbientCooler" type="AudioStreamPlayer3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 11.0925, 11.9119, -11.5508)
+stream = ExtResource("1_db5xr")
+attenuation_model = 1
+autoplay = true

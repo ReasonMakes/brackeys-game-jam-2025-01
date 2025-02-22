@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bk88x0ml7ou18"
+path="res://.godot/imported/10-gm crewmember paul-250222_1044-01.wav-bee9f761c4ea7273aca55b5fd3a6e946.sample"
+
+[deps]
+
+source_file="res://va/project/10-gm crewmember paul-250222_1044-01.wav"
+dest_files=["res://.godot/imported/10-gm crewmember paul-250222_1044-01.wav-bee9f761c4ea7273aca55b5fd3a6e946.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

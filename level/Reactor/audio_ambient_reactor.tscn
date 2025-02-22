@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=3 uid="uid://behgib8s7rin5"]
+
+[ext_resource type="AudioStream" uid="uid://c7hu0ineikjt5" path="res://level/Reactor/sounds/reactor.mp3" id="1_mvgdc"]
+
+[node name="AudioAmbientReactor" type="Node3D"]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.39667, 6.34997, -9.01777)
+stream = ExtResource("1_mvgdc")
+attenuation_model = 1
+volume_db = -10.0
+max_db = 0.0
+autoplay = true
+
+[node name="AudioStreamPlayer3D2" type="AudioStreamPlayer3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.39667, 6.34997, -33.0489)
+stream = ExtResource("1_mvgdc")
+attenuation_model = 1
+volume_db = -10.0
+max_db = 0.0
+autoplay = true

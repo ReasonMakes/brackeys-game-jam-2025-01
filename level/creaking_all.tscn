@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1kej1lgihk3q"]
+
+[ext_resource type="PackedScene" uid="uid://dyfeb401t8qqc" path="res://level/sounds/creaking.tscn" id="1_66j3e"]
+
+[node name="CreakingAll" type="Node3D"]
+
+[node name="Creaking" parent="." instance=ExtResource("1_66j3e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.848, 9, 15.819)
+
+[node name="Creaking2" parent="." instance=ExtResource("1_66j3e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -59.694, 12, -22)
+
+[node name="Creaking3" parent="." instance=ExtResource("1_66j3e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -86.848, 27, 27)

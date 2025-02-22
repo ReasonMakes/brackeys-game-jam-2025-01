@@ -3,7 +3,8 @@ using Godot;
 public partial class Player : CharacterBody3D
 {
     public bool IsAlive = true;
-    
+    [Export] private AudioStreamPlayer AudioVADeathPlayer;
+
     [Export] public Music Music;
 
     public Vector3 SpawnPosition = new(25.4f, 0f, -10.5f);
@@ -14,7 +15,6 @@ public partial class Player : CharacterBody3D
     [Export] private AudioStreamPlayer AudioLand;
 
     [Export] public AudioStreamPlayer AIVoiceOverStart;
-
 
     public enum TaskType
     {
@@ -35,7 +35,7 @@ public partial class Player : CharacterBody3D
         public float TimerBegin = float.MaxValue;
 
         private readonly float TimerMinimum = 10f;
-        private readonly float TimerMultiplier = 80f;
+        private readonly float TimerMultiplier = 130f;
         private readonly RandomNumberGenerator rng = new();
 
         public TaskDetails(TaskType commandType, TextureRect icon) : this()
@@ -47,6 +47,7 @@ public partial class Player : CharacterBody3D
         public void Reset(float difficulty)
         {
             IsCompleted = true;
+            //Timer = 10f;
             Timer = TimerMinimum + TimerMultiplier + (difficulty * TimerMultiplier * rng.Randf());
             TimerBegin = Timer;
         }
@@ -57,7 +58,7 @@ public partial class Player : CharacterBody3D
     public TaskDetails TaskGarden;
     public TaskDetails TaskReactor;
     private bool tasksInited = false;
-
+    private float TaskGraceTimer = 40f; //34f; //0f; //
 
     private float MouseSensitivity = 0.001f;
 
@@ -99,6 +100,10 @@ public partial class Player : CharacterBody3D
     private const float RunJerkMagnitudeSlideDump = 0.2f; //How much acceleration is dumped from RunJerkDevelopment the instant the player begins a slide
 
     //CLIMB/WALL-JUMPING/WALL-RUNNING
+    [Export] private AudioStreamPlayer AudioWallrun;
+    [Export] private float AudioWallrunVolume = -10f;
+    [Export] private float AudioWallrunVolumeFadeOutRate = 100f; //0 to +inf. Larger values mean fade out faster. Decibels subtracted/second
+    [Export] private AudioStreamPlayer AudioClimb;
     private bool IsClimbingOrWallRunning = false;
 
     private const float ClimbAcceleration = 20f; //6f; //Multiple of gravity. Vertical acceleration applied when climbing
@@ -130,6 +135,9 @@ public partial class Player : CharacterBody3D
     //CROUCH/SLIDE
     [Export] private CollisionShape3D ColliderCapsule;
     [Export] private CollisionShape3D ColliderSphere;
+    [Export] private AudioStreamPlayer AudioSlide;
+    [Export] private float AudioSlideVolume = -10f;
+    [Export] private float AudioSlideVolumeFadeOutRate = 100f; //0 to +inf. Larger values mean fade out faster. Decibels subtracted/second
 
     private bool InputTechCrouchOrSlide = false;
     private bool IsSliding = false;
@@ -165,8 +173,6 @@ public partial class Player : CharacterBody3D
         TaskGarden = new(TaskType.Garden, Cam.IconGarden);
         TaskReactor = new(TaskType.Reactor, Cam.IconReactor);
         tasksInited = true;
-
-        SetDefaultTasks();
     }
 
     public void SetDefaultTasks()
@@ -177,19 +183,19 @@ public partial class Player : CharacterBody3D
         TaskCockpit.TimerBegin = TaskCockpit.Timer;
 
         TaskCooler.IsCompleted = true;
-        TaskCooler.Timer = 50f;
+        TaskCooler.Timer = TaskCockpit.Timer * 2f;
         TaskCooler.TimerBegin = TaskCooler.Timer;
 
         TaskGarden.IsCompleted = true;
-        TaskGarden.Timer = 70f;
+        TaskGarden.Timer = TaskCockpit.Timer * 3f;
         TaskGarden.TimerBegin = TaskGarden.Timer;
 
         TaskReactor.IsCompleted = true;
-        TaskReactor.Timer = 90f;
+        TaskReactor.Timer = TaskCockpit.Timer * 4f;
         TaskReactor.TimerBegin = TaskReactor.Timer;
 
         TaskElectrical.IsCompleted = true;
-        TaskElectrical.Timer = 110f;
+        TaskElectrical.Timer = TaskCockpit.Timer * 5f;
         TaskElectrical.TimerBegin = TaskElectrical.Timer;
 
         //float difficulty = GetNode<Control>(GetTree().Root.GetChild(0).GetPath()).Difficulty;
@@ -237,6 +243,13 @@ public partial class Player : CharacterBody3D
     public override void _Process(double deltaDouble)
     {
         float delta = (float)deltaDouble;
+
+        //Task grace period at game start
+        TaskGraceTimer -= delta;
+        if (TaskGraceTimer > 0f)
+        {
+            SetDefaultTasks();
+        }
 
         //Task failure
         ProcessTask(ref TaskCockpit, delta);
@@ -325,6 +338,13 @@ public partial class Player : CharacterBody3D
                 //Set camera to new height
                 CameraYTarget = 0.5f;
 
+                //Play audio
+                if (IsOnFloor())
+                {
+                    AudioSlide.VolumeDb = AudioSlideVolume - ((1f - Mathf.Min(RunMaxSpeedGround, Velocity.Length()) / RunMaxSpeedGround) * 80f);
+                    AudioSlide.Play();
+                }
+                
                 //Update bool
                 IsSliding = true;
             }
@@ -341,6 +361,13 @@ public partial class Player : CharacterBody3D
 
             //Update bool
             IsSliding = false;
+        }
+
+        //Audio fade out
+        if (!IsSliding)
+        {
+            //Stop audio
+            AudioSlide.VolumeDb -= AudioSlideVolumeFadeOutRate * delta;
         }
 
         //Update camera height
@@ -601,10 +628,15 @@ public partial class Player : CharacterBody3D
             && (
                 (IsOnFloor() && runDirection.Normalized().Length() == 1) || IsWallRunning
             )
+            && (
+                !IsSliding || (
+                    IsSliding && Velocity.Length() <= 8f
+                )
+            )
         )
         {
             AudioFootsteps.Play();
-            AudioClothes.Play();
+            //AudioClothes.Play();
             RunAudioTimer = RunAudioTimerPeriod;
         }
         //--
@@ -802,6 +834,37 @@ public partial class Player : CharacterBody3D
         //Label
         Cam.LabelClimb.Text = $"Climb: {ClimbRemaining:F2}, CanClimb: {CanClimb}";
         Cam.RectClimb.Scale = new(ClimbRemaining / ClimbPeriod, 1f);
+
+        //Audio Climb - repeat one-shots
+        if (IsClimbingOrWallRunning && !IsWallRunning)
+        {
+            if (!AudioClimb.Playing)
+            {
+                AudioClimb.Play();
+            }
+        }
+        else
+        {
+            if (AudioClimb.Playing)
+            {
+                AudioClimb.Stop();
+            }
+        }
+        //Audio Wall-run - loop fader
+        if (IsWallRunning)
+        {
+            if (!AudioWallrun.Playing)
+            {
+                AudioWallrun.Play();
+            }
+
+            AudioWallrun.VolumeDb = AudioWallrunVolume;
+        }
+        else
+        {
+            AudioWallrun.VolumeDb -= AudioWallrunVolumeFadeOutRate * delta;
+            //AudioWallrun.Stop();
+        }
     }
 
     private void ProcessJump(float delta, Vector3 direction, float magnitude)
@@ -861,6 +924,8 @@ public partial class Player : CharacterBody3D
         //THIS IS HARD-CODED IN. Force slide when dead
         //IsSliding = true;
         Music.StreamActive = Music.StreamDead;
+
+        AudioVADeathPlayer.Play();
 
         Cam.LabelDead.Visible = true;
 

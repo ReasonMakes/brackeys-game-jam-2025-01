@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://citiaias710xj"]
+
+[ext_resource type="AudioStream" uid="uid://70ueoidx6kbm" path="res://level/Electric_room/sounds/electrical.mp3" id="1_o4ufs"]
+
+[node name="AudioAmbientElectrical" type="AudioStreamPlayer3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.04801, 3.4487, 2.27087)
+stream = ExtResource("1_o4ufs")
+attenuation_model = 1
+volume_db = -5.0
+autoplay = true

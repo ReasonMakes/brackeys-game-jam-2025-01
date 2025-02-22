@@ -1,8 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://cgi5yg2mindtc"]
+[gd_scene load_steps=19 format=3 uid="uid://cgi5yg2mindtc"]
 
 [ext_resource type="PackedScene" uid="uid://n8a81kf0mxsw" path="res://level/Objective/SM_Objective.glb" id="1_d0itg"]
 [ext_resource type="Texture2D" uid="uid://dxdylje7ou851" path="res://level/Objective/SM_Objective_objective_Albedo.png" id="2_5l8ei"]
 [ext_resource type="Texture2D" uid="uid://cdjyfjnrv6jnr" path="res://level/Objective/objective_LP_Emissive.png" id="3_uefqp"]
+[ext_resource type="Script" path="res://task/Task.cs" id="4_3f1q1"]
+[ext_resource type="AudioStream" uid="uid://bb63n67w7jagl" path="res://va/va_react_neutral1.mp3" id="5_555pt"]
+[ext_resource type="AudioStream" uid="uid://bjwmvjtjnkxhm" path="res://va/va_react_angry1.mp3" id="5_gu0xl"]
+[ext_resource type="AudioStream" uid="uid://dol2hhnaxbjcl" path="res://va/va_react_pleased1.mp3" id="5_o4thi"]
+[ext_resource type="AudioStream" uid="uid://bskiwyfek6yle" path="res://va/va_react_pleased2.mp3" id="6_7vhv1"]
+[ext_resource type="AudioStream" uid="uid://b7tunqypwug3c" path="res://va/va_react_neutral2.mp3" id="6_rex0g"]
+[ext_resource type="AudioStream" uid="uid://b0a5uwvqrrxs1" path="res://va/va_react_angry2.mp3" id="6_w5jus"]
+[ext_resource type="AudioStream" uid="uid://ctlp3cu6p6k2r" path="res://va/va_react_angry3.mp3" id="7_2hj76"]
+[ext_resource type="AudioStream" uid="uid://71nbkq2l3uwh" path="res://va/va_react_pleased3.mp3" id="7_ialhg"]
+[ext_resource type="AudioStream" uid="uid://c1jra7ekqo55m" path="res://va/va_react_pleased4.mp3" id="8_slg15"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n5ox8"]
 albedo_texture = ExtResource("2_5l8ei")
@@ -13,15 +23,53 @@ emission_texture = ExtResource("3_uefqp")
 [sub_resource type="BoxShape3D" id="BoxShape3D_qbqq2"]
 size = Vector3(1.06274, 2.37851, 0.477661)
 
-[node name="StaticBody3D" type="StaticBody3D"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_mc4ib"]
+streams_count = 4
+stream_0/stream = ExtResource("5_o4thi")
+stream_1/stream = ExtResource("6_7vhv1")
+stream_2/stream = ExtResource("7_ialhg")
+stream_3/stream = ExtResource("8_slg15")
 
-[node name="SM_Objective" parent="." instance=ExtResource("1_d0itg")]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_xe63n"]
+streams_count = 2
+stream_0/stream = ExtResource("5_555pt")
+stream_1/stream = ExtResource("6_rex0g")
 
-[node name="Cube_005" parent="SM_Objective" index="0"]
+[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_5mine"]
+streams_count = 3
+stream_0/stream = ExtResource("5_gu0xl")
+stream_1/stream = ExtResource("6_w5jus")
+stream_2/stream = ExtResource("7_2hj76")
+
+[node name="Node3D" type="Node3D" node_paths=PackedStringArray("AudioVATaskCompletePleased", "AudioVATaskCompleteNeutral", "AudioVATaskCompleteAngry")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3, 0)
+script = ExtResource("4_3f1q1")
+AudioVATaskCompletePleased = NodePath("VATaskPleased")
+AudioVATaskCompleteNeutral = NodePath("VATaskNeutral")
+AudioVATaskCompleteAngry = NodePath("VATaskAngry")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3, 0)
+
+[node name="SM_Objective" parent="StaticBody3D" instance=ExtResource("1_d0itg")]
+
+[node name="Cube_005" parent="StaticBody3D/SM_Objective" index="0"]
 material_override = SubResource("StandardMaterial3D_n5ox8")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0189209, 1.19975, 0.00982666)
 shape = SubResource("BoxShape3D_qbqq2")
 
-[editable path="SM_Objective"]
+[node name="VATaskPleased" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_mc4ib")
+volume_db = 5.0
+
+[node name="VATaskNeutral" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_xe63n")
+volume_db = 5.0
+
+[node name="VATaskAngry" type="AudioStreamPlayer" parent="."]
+stream = SubResource("AudioStreamRandomizer_5mine")
+volume_db = 5.0
+
+[editable path="StaticBody3D/SM_Objective"]

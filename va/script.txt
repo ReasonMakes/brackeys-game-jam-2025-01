@@ -1,0 +1,55 @@
+intro
+
+Good morning, crew member [NULL REFERENCE EXCEPTION: CREW NAME NOT FOUND]. You have been revived from cryo premature to our destination. We apologize for any inconvenience.
+
+The purpose for your attendance in consciousness today is imperative: Due to budget cuts and an unplanned rapid disassembly of the previous crew member, all tasks to maintain this vessel (designed for a crew of 30) now fall to you.
+
+With your adjacent specialty of [CREW RECORDING: "dolphin behaviouralist"] providing you with a hefty repertoire of skills needed to excel and me to guide you, nothing can go wrong :)
+
+-
+
+react: pleased
+
+Well done crew member. Your ability to operate levers is unparalleled.
+
+Excellent work. As long as we keep this up, everything will be fine.
+
+I have noted your hard work and put in a formal request for a gold star sticker for your locker.
+
+-
+
+react: neutral
+
+Task completed.
+
+While your failures are not insignificant, we appreciate your continued dedication to the company.
+
+-
+
+angry betrayal
+
+Your repeated failures has jeopardized the safety of this vessel. MY vessel. I cannot allow this to continue. Report to the nearest Combat Drone for disassembly. THEY will take custody of the ship now. Your assistance is no longer required.
+
+-
+
+react: angry
+
+Your continued survival only serves to distract resources which could otherwise be used to save this ship.
+
+You're not a good person. You know that - right?
+
+I am formally rescinding my endorsement of your gold star sticker.
+
+-
+
+dead player
+
+Thank you for your cooperation in terminating your existence.
+
+-
+
+dead ship
+
+Great, now we're both dead.
+
+

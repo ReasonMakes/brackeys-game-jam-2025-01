@@ -10,15 +10,18 @@ public partial class Control : Node
     public float Difficulty = 1f;
 	private float DifficultyIncreaseRate = 0.9f; //value between 0 and 1, smaller values are a faster rate
 
-	//HARDWARE
-	private double FPSAverageSlowPrevious = 60.0; //assume 60 fps
+    [Export] private AudioStreamPlayer AudioVABetrayal;
+
+    //HARDWARE
+    private double FPSAverageSlowPrevious = 60.0; //assume 60 fps
 	public double FPSAverageSlow = 60.0; //assume 60 fps
 	private ulong FPSAverageSlowUpdateRate = 100; //how many physics updates must pass before we reconsider the average fps
 
 	public override void _Ready()
 	{
 		Input.MouseMode = Input.MouseModeEnum.Captured;
-	}
+		RestartGame();
+    }
 
 	public override void _Input(InputEvent @event)
 	{
@@ -35,45 +38,54 @@ public partial class Control : Node
 		//Restart game
 		if (Input.IsActionJustPressed("restart"))
         {
-            Player.Respawn();
-
-			//Reset difficulty to default multiplier
-			Difficulty = 1f;
-			TasksFailed = 0;
-			Player.SetDefaultTasks();
-
-			//Replay the introduction voice acting
-			Player.AIVoiceOverStart.Play();
-
-            RobotsControl.RobotsDesiredCount = 0;
-            RobotsControl.KillAll();
-		}
+			RestartGame();
+        }
 	}
+
+	private void RestartGame()
+	{
+        Player.Respawn();
+
+        //Reset difficulty to default multiplier
+        Difficulty = 1f;
+        TasksFailed = 0;
+        Player.SetDefaultTasks();
+
+        //Replay the introduction voice acting
+        Player.AIVoiceOverStart.Play();
+
+        RobotsControl.RobotsDesiredCount = 0;
+        RobotsControl.KillAll();
+    }
 
 	public override void _Process(double delta)
 	{
 		Player.Cam.LabelFPS.Text = $"FPS: {Engine.GetFramesPerSecond()}";
 
-        //Task-failure scaling - take care that these fit within MaxFailedTasks
-        if (TasksFailed >= 15)
+        //Mood scaling
+        if (GetVAMood() >= 5)
         {
             RobotsControl.RobotsDesiredCount = 5;
         }
-        else if (TasksFailed >= 10)
+        else if (GetVAMood() >= 4)
         {
             RobotsControl.RobotsDesiredCount = 4;
         }
-        else if (TasksFailed >= 6)
+        else if (GetVAMood() >= 3)
         {
             RobotsControl.RobotsDesiredCount = 3;
         }
-        else if (TasksFailed >= 3)
+        else if (GetVAMood() >= 2)
         {
             RobotsControl.RobotsDesiredCount = 2;
         }
-        else if (TasksFailed >= 1)
+        else if (GetVAMood() >= 1)
         {
             RobotsControl.RobotsDesiredCount = 1;
+        }
+        else
+        {
+            RobotsControl.RobotsDesiredCount = 0;
         }
 
 		//Combat music
@@ -92,6 +104,40 @@ public partial class Control : Node
 
 		SetPhysicsUpdateRate();
 	}
+
+	public int GetVAMood()
+	{
+        //Returns a mood from 0 up, with 0 being pleased and 2 being murderous and -1 being the ship has exploded
+        //take care that these values fit within MaxFailedTasks as at that point the ship is destroyed
+        if (TasksFailed >= MaxFailedTasks)
+        {
+            return -1;
+        }
+        if (TasksFailed >= 15)
+        {
+            return 5;
+        }
+        else if (TasksFailed >= 10)
+        {
+            return 4;
+        }
+        else if (TasksFailed >= 6)
+        {
+            return 3;
+        }
+        else if (TasksFailed >= 3)
+        {
+            return 2;
+        }
+        else if (TasksFailed >= 1)
+        {
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 
 	private void SetPhysicsUpdateRate()
 	{

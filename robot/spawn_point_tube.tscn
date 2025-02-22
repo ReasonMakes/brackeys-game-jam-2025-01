@@ -1,9 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://mcqw6favapt4"]
+[gd_scene load_steps=4 format=3 uid="uid://mcqw6favapt4"]
 
 [ext_resource type="Texture2D" uid="uid://copnfbtj6g8iq" path="res://level/wallandfloor/SM_wallfloor_wall_Albedo.png" id="1_xbypp"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ecknv"]
 albedo_texture = ExtResource("1_xbypp")
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_6v4rt"]
+height = 36.5415
+radius = 1.51568
 
 [node name="CSGCylinder3D" type="CSGCylinder3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 17.9235, 0)
@@ -17,3 +21,8 @@ operation = 2
 radius = 1.45291
 height = 36.5602
 sides = 14
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+shape = SubResource("CylinderShape3D_6v4rt")

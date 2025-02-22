@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://mpll28q1e1j0"
+path="res://.godot/imported/fridge_back_Saturday at 11-21 a.m.wav-4cb22d6e1e87f194bc5b3067946626e7.sample"
+
+[deps]
+
+source_file="res://level/Cooler/sounds/project/Media/fridge_back_Saturday at 11-21 a.m.wav"
+dest_files=["res://.godot/imported/fridge_back_Saturday at 11-21 a.m.wav-4cb22d6e1e87f194bc5b3067946626e7.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

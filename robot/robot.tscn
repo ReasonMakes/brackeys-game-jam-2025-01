@@ -1,12 +1,13 @@
-[gd_scene load_steps=12 format=4 uid="uid://t67wqvj801yl"]
+[gd_scene load_steps=13 format=4 uid="uid://t67wqvj801yl"]
 
 [ext_resource type="Script" path="res://robot/Robot.cs" id="1_1ymba"]
 [ext_resource type="Material" uid="uid://denw4cgalf6td" path="res://robot/robot_material.tres" id="1_ermbn"]
-[ext_resource type="AudioStream" uid="uid://bkk8pv1kf7quw" path="res://robot/sounds/robot_ambience.mp3" id="2_qtke8"]
 [ext_resource type="PackedScene" uid="uid://bd18tdt4jhcml" path="res://robot/particles_destroyed.tscn" id="3_bf5wu"]
-[ext_resource type="AudioStream" uid="uid://egrlb3lmcw7f" path="res://robot/sounds/robot_spawn_sound.mp3" id="3_uq1cp"]
-[ext_resource type="AudioStream" uid="uid://de04o8a3exbxc" path="res://robot/sounds/robot_dying.mp3" id="4_d3ove"]
 [ext_resource type="PackedScene" uid="uid://mwmurykmhf71" path="res://robot/missile.tscn" id="4_ljxr6"]
+[ext_resource type="AudioStream" uid="uid://ds0e04v5ojuep" path="res://robot/sounds/spawn_clear_fixed.mp3" id="4_pbn3s"]
+[ext_resource type="AudioStream" uid="uid://32xk2k2msn1c" path="res://robot/sounds/ambient.mp3" id="5_mfymb"]
+[ext_resource type="AudioStream" uid="uid://dqgbt15sls4jh" path="res://robot/sounds/explosion_clearer.mp3" id="6_40vql"]
+[ext_resource type="AudioStream" uid="uid://p05xu8n3g8x7" path="res://robot/sounds/fire_tomahawk.mp3" id="7_up5cf"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_ddnvt"]
 height = 0.517441
@@ -46,12 +47,13 @@ shadow_mesh = SubResource("ArrayMesh_nxtak")
 
 [node name="Robot" type="Node3D"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("MeshInstance", "ParticlesDestroyed", "Collider", "NavAgent", "AudioSpawn", "AudioAmbience", "AudioDestroyed", "Pool")]
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." node_paths=PackedStringArray("MeshInstance", "ParticlesDestroyed", "Collider", "NavAgent", "AudioFire", "AudioSpawn", "AudioAmbience", "AudioDestroyed", "Pool")]
 script = ExtResource("1_1ymba")
 MeshInstance = NodePath("Mesh")
 ParticlesDestroyed = NodePath("ParticlesDestroyed")
 Collider = NodePath("ColliderCylinder")
 NavAgent = NodePath("NavigationAgent3D")
+AudioFire = NodePath("FireMissile")
 AudioSpawn = NodePath("Spawn")
 AudioAmbience = NodePath("Ambience")
 AudioDestroyed = NodePath("Destroyed")
@@ -75,30 +77,26 @@ radius = 2.0
 [node name="ParticlesDestroyed" parent="CharacterBody3D" instance=ExtResource("3_bf5wu")]
 
 [node name="Spawn" type="AudioStreamPlayer3D" parent="CharacterBody3D"]
-stream = ExtResource("3_uq1cp")
+stream = ExtResource("4_pbn3s")
 attenuation_model = 2
-volume_db = -7.0
-bus = &"SFX"
 
 [node name="Ambience" type="AudioStreamPlayer3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.656, 0)
-stream = ExtResource("2_qtke8")
-attenuation_model = 1
-volume_db = -20.0
-unit_size = 3.33
+stream = ExtResource("5_mfymb")
 max_db = 0.0
-autoplay = true
-bus = &"SFX"
 playback_type = 1
-parameters/looping = true
 
 [node name="Destroyed" type="AudioStreamPlayer3D" parent="CharacterBody3D"]
-stream = ExtResource("4_d3ove")
+stream = ExtResource("6_40vql")
 attenuation_model = 1
-volume_db = -7.0
-unit_size = 3.33
+volume_db = -3.0
 max_db = 0.0
-bus = &"SFX"
+
+[node name="FireMissile" type="AudioStreamPlayer3D" parent="CharacterBody3D"]
+stream = ExtResource("7_up5cf")
+attenuation_model = 1
+volume_db = -3.0
+max_db = 0.0
 
 [node name="Pool" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.275196, 0)

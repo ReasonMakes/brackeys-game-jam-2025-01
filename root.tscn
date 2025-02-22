@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://da3cc6bh5v41y"]
+[gd_scene load_steps=11 format=3 uid="uid://da3cc6bh5v41y"]
 
 [ext_resource type="Script" path="res://Control.cs" id="1_35hfb"]
 [ext_resource type="Script" path="res://robot/RobotsControl.cs" id="4_bbxcq"]
 [ext_resource type="PackedScene" uid="uid://t67wqvj801yl" path="res://robot/robot.tscn" id="4_xnik5"]
 [ext_resource type="PackedScene" uid="uid://mcqw6favapt4" path="res://robot/spawn_point_tube.tscn" id="6_vtw6n"]
+[ext_resource type="AudioStream" uid="uid://ckt1psfomh036" path="res://va/va_betrayal.mp3" id="7_6q2ys"]
 [ext_resource type="PackedScene" uid="uid://b1cc7jehhov" path="res://player/player.tscn" id="29_0dube"]
 [ext_resource type="PackedScene" uid="uid://bmrvxd4l4satu" path="res://level/level.tscn" id="34_oikqa"]
 
@@ -23,10 +24,11 @@ ambient_light_energy = 0.04
 tonemap_mode = 2
 glow_enabled = true
 
-[node name="Control" type="Node3D" node_paths=PackedStringArray("Player", "RobotsControl")]
+[node name="Control" type="Node3D" node_paths=PackedStringArray("Player", "RobotsControl", "AudioVABetrayal")]
 script = ExtResource("1_35hfb")
 Player = NodePath("Player")
 RobotsControl = NodePath("RobotsControl")
+AudioVABetrayal = NodePath("AudioVABetrayal")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_g1wq3")
@@ -84,3 +86,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.9497, 202.225, -26.8936)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -47.531, 211.814, 24.7964)
 
 [node name="CSGCylinder3D" parent="RobotsControl/SpawnPoints/SpawnPoint4" instance=ExtResource("6_vtw6n")]
+
+[node name="AudioVABetrayal" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_6q2ys")
+volume_db = 5.0

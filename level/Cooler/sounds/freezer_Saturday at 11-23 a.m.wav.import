@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dwnbokdbpd1aq"
+path="res://.godot/imported/freezer_Saturday at 11-23 a.m.wav-19b08c316fec5b430d8d201d87a3fdab.sample"
+
+[deps]
+
+source_file="res://level/Cooler/sounds/freezer_Saturday at 11-23 a.m.wav"
+dest_files=["res://.godot/imported/freezer_Saturday at 11-23 a.m.wav-19b08c316fec5b430d8d201d87a3fdab.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
