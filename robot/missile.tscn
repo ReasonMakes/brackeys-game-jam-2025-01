@@ -42,13 +42,15 @@ surface_material_override/0 = SubResource("StandardMaterial3D_na4tx")
 [node name="AudioDestroyed" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("2_cp5gs")
 attenuation_model = 2
-volume_db = -37.581
+volume_db = -67.951
 unit_size = 56.52
 max_db = 0.0
+bus = &"SFX"
 
 [node name="AudioAlive" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_4n7hf")
 attenuation_model = 2
+volume_db = -23.132
 max_db = 0.0
 
 [node name="ParticlesDestroyed" parent="." instance=ExtResource("4_yi0k8")]
