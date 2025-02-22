@@ -1,5 +1,4 @@
 using Godot;
-using System;
 
 public partial class Control : Node
 {
@@ -35,8 +34,8 @@ public partial class Control : Node
 
 		//Restart game
 		if (Input.IsActionJustPressed("restart"))
-		{
-			Player.Respawn();
+        {
+            Player.Respawn();
 
 			//Reset difficulty to default multiplier
 			Difficulty = 1f;
