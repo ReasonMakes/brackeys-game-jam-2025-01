@@ -37,8 +37,8 @@
 [ext_resource type="AudioStream" uid="uid://dfgv3pl2v8dq" path="res://level/environment_sounds/task_sounds/adjust_course.mp3" id="26_sw0pg"]
 [ext_resource type="AudioStream" uid="uid://bengsh4olwvjw" path="res://level/environment_sounds/task_sounds/button_click.wav" id="27_c8tmv"]
 [ext_resource type="AudioStream" uid="uid://csmrejgg2eacs" path="res://level/environment_sounds/task_sounds/button_click_2.wav" id="28_3535r"]
-[ext_resource type="Texture2D" uid="uid://c2ello4cxxxwq" path="res://task/icon_cockpit.png" id="31_u36ts"]
 [ext_resource type="Texture2D" uid="uid://cmonp07v1xhdd" path="res://task/icon_electrical.png" id="32_le7h6"]
+[ext_resource type="PackedScene" uid="uid://b0hxt7re0nsrj" path="res://task/icon.tscn" id="32_ykv44"]
 [ext_resource type="Texture2D" uid="uid://vgnv0r8q5pbi" path="res://task/icon_reactor.png" id="35_4dtgd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf7un"]
@@ -83,7 +83,7 @@ random_volume_offset_db = 3.0
 streams_count = 1
 stream_0/stream = ExtResource("21_vgvmd")
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("LabelDead", "Music", "Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "LabelFPS", "LabelPhysicsTickRate", "IconCockpit", "IconElectrical", "IconCooler", "IconGarden", "IconReactor", "AudioFootsteps", "AudioClothes", "ColliderCapsule", "ColliderSphere", "AudioDash")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("LabelDead", "Music", "Cam", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "AudioJump", "AudioLand", "LabelFPS", "LabelPhysicsTickRate", "IconCockpit", "IconElectrical", "IconCooler", "IconGarden", "IconReactor", "LabelDifficulty", "AudioFootsteps", "AudioClothes", "ColliderCapsule", "ColliderSphere", "AudioDash")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_n2wtf")
 LabelDead = NodePath("Camera3D/HUD/LabelDead")
@@ -110,6 +110,7 @@ IconElectrical = NodePath("Camera3D/HUD/IconTaskElectrical")
 IconCooler = NodePath("Camera3D/HUD/IconTaskCooler")
 IconGarden = NodePath("Camera3D/HUD/IconTaskGarden")
 IconReactor = NodePath("Camera3D/HUD/IconTaskReactor")
+LabelDifficulty = NodePath("Camera3D/HUD/Statistics/LabelDifficulty")
 AudioFootsteps = NodePath("AudioNonSpacial/Footsteps")
 AudioClothes = NodePath("AudioNonSpacial/Clothes")
 RunAudioTimerPeriod = 0.3
@@ -301,63 +302,45 @@ offset_right = 318.0
 offset_bottom = 250.0
 text = "Jump fatigue on-ground: "
 
-[node name="IconTaskCockpit" type="TextureRect" parent="Camera3D/HUD"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_top = 24.0
-offset_right = 178.0
-offset_bottom = 171.0
-grow_horizontal = 2
-texture = ExtResource("31_u36ts")
+[node name="LabelDifficulty" type="Label" parent="Camera3D/HUD/Statistics"]
+layout_mode = 0
+offset_top = 151.0
+offset_right = 318.0
+offset_bottom = 250.0
+text = "Difficulty: "
 
-[node name="IconTaskElectrical" type="TextureRect" parent="Camera3D/HUD"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
+[node name="IconTaskCockpit" parent="Camera3D/HUD" instance=ExtResource("32_ykv44")]
+layout_mode = 0
+anchors_preset = 0
+offset_left = 0.0
+offset_right = 178.0
+
+[node name="IconTaskElectrical" parent="Camera3D/HUD" instance=ExtResource("32_ykv44")]
+layout_mode = 0
+anchors_preset = 0
 offset_left = 178.0
-offset_top = 24.0
 offset_right = 356.0
-offset_bottom = 171.0
-grow_horizontal = 2
 texture = ExtResource("32_le7h6")
 
-[node name="IconTaskCooler" type="TextureRect" parent="Camera3D/HUD"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 356.0
-offset_top = 24.0
-offset_right = 534.0
-offset_bottom = 171.0
-grow_horizontal = 2
+[node name="IconTaskCooler" parent="Camera3D/HUD" instance=ExtResource("32_ykv44")]
+layout_mode = 0
+anchors_preset = 0
+offset_left = 712.0
+offset_right = 890.0
 texture = ExtResource("5_4y014")
 
-[node name="IconTaskGarden" type="TextureRect" parent="Camera3D/HUD"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 534.0
-offset_top = 24.0
-offset_right = 712.0
-offset_bottom = 171.0
-grow_horizontal = 2
+[node name="IconTaskGarden" parent="Camera3D/HUD" instance=ExtResource("32_ykv44")]
+layout_mode = 0
+anchors_preset = 0
+offset_left = 356.0
+offset_right = 534.0
 texture = ExtResource("8_3w5je")
 
-[node name="IconTaskReactor" type="TextureRect" parent="Camera3D/HUD"]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 712.0
-offset_top = 24.0
-offset_right = 890.0
-offset_bottom = 171.0
-grow_horizontal = 2
+[node name="IconTaskReactor" parent="Camera3D/HUD" instance=ExtResource("32_ykv44")]
+layout_mode = 0
+anchors_preset = 0
+offset_left = 534.0
+offset_right = 712.0
 texture = ExtResource("35_4dtgd")
 
 [node name="abilities" type="TextureRect" parent="Camera3D/HUD"]

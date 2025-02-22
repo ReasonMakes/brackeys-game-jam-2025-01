@@ -27,11 +27,13 @@ public partial class Missile : CharacterBody3D
         {
             //Get direction
             Control control = GetNode<Control>(GetTree().Root.GetChild(0).GetPath());
-            Vector3 playerPosition = control.Player.GlobalPosition;
-            Vector3 direction = playerPosition - GlobalPosition;
-            if (direction != Vector3.Zero)
+            Vector3 direction = control.Player.GlobalPosition - GlobalPosition;
+
+            //Look at player, unless inside of them
+            Vector3 lookTargetVector = GlobalTransform.Origin + direction;
+            if (lookTargetVector != Vector3.Up)
             {
-                LookAt(GlobalTransform.Origin + direction);
+                LookAt(lookTargetVector);
             }
             
             //Move towards player

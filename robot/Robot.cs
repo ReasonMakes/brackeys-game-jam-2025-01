@@ -19,11 +19,11 @@ public partial class Robot : CharacterBody3D
     [Export] private AudioStreamPlayer3D AudioSpawn;
     [Export] private AudioStreamPlayer3D AudioAmbience;
     [Export] private AudioStreamPlayer3D AudioDestroyed;
-    
+
     [Export] private Node3D Pool;
     private const float MissileSpawnPeriod = 5f; //Time period in seconds between missile spawns.
-                                          //This can be overridden by the missile's minimum time spent being dead
-                                          //(which is necessary for the missile's death sound to play correctly.)
+                                                 //This can be overridden by the missile's minimum time spent being dead
+                                                 //(which is necessary for the missile's death sound to play correctly.)
     private float MissileSpawnTimer = 0f; //no touchy :) Time in seconds remaining until spawning a missile. Counts up from 0f to SpawnPeriod
 
     public override void _Ready()

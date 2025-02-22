@@ -37,7 +37,7 @@ shadow_enabled = true
 [node name="Level" parent="." instance=ExtResource("34_oikqa")]
 
 [node name="Player" parent="." instance=ExtResource("29_0dube")]
-transform = Transform3D(1, 0, -2.13163e-14, 0, 1, 0, 2.13163e-14, 0, 1, 25.4, 0, -10.5)
+transform = Transform3D(1, 0, -2.13163e-14, 0, 1, 0, 2.13163e-14, 0, 1, 25.4, 6.06652, -6.09016)
 
 [node name="RobotsControl" type="Node3D" parent="." node_paths=PackedStringArray("Player", "Pool", "SpawnPoints")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -200, 0)

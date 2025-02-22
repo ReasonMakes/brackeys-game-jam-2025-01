@@ -74,19 +74,15 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 42.9909, 6.49846, 0)
 
 [node name="TaskCooler" parent="NavigationRegion3D" instance=ExtResource("6_05ls5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.0162, 25.2742, 0.329437)
-Type = 2
 
 [node name="TaskGarden" parent="NavigationRegion3D" instance=ExtResource("6_05ls5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.4789, 6.70969, -39.7867)
-Type = 3
 
 [node name="TaskReactor" parent="NavigationRegion3D" instance=ExtResource("6_05ls5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.2858, 11.9455, -18.3401)
-Type = 4
 
 [node name="TaskElectrical" parent="NavigationRegion3D" instance=ExtResource("6_05ls5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -37.2071, 13.287, 53.291)
-Type = 1
 
 [node name="Cockpit" type="AudioStreamPlayer3D" parent="."]
 transform = Transform3D(0.866025, -1.41096e-08, 0.500001, -0.433013, 0.5, 0.75, -0.25, -0.866026, 0.433012, 41.8907, 7.0435, 0.0903587)

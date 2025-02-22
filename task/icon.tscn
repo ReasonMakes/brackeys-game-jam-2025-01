@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://b0hxt7re0nsrj"]
+
+[ext_resource type="Shader" path="res://task/flash.gdshader" id="1_fkx3w"]
+[ext_resource type="Texture2D" uid="uid://c2ello4cxxxwq" path="res://task/icon_cockpit.png" id="2_lkcy8"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_4aeo5"]
+shader = ExtResource("1_fkx3w")
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+shader_parameter/flash_value = null
+
+[sub_resource type="Animation" id="Animation_kg163"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [null]
+}
+
+[sub_resource type="Animation" id="Animation_mlngn"]
+resource_name = "flash"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:material:shader_parameter/flash_value")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [null, 1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r0pa2"]
+_data = {
+"RESET": SubResource("Animation_kg163"),
+"flash": SubResource("Animation_mlngn")
+}
+
+[node name="IconTaskCockpit" type="TextureRect"]
+material = SubResource("ShaderMaterial_4aeo5")
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -960.0
+offset_top = 24.0
+offset_right = -782.0
+offset_bottom = 171.0
+grow_horizontal = 2
+texture = ExtResource("2_lkcy8")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_r0pa2")
+}

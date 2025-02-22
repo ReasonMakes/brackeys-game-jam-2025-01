@@ -6,15 +6,7 @@ public partial class Task : Node3D
     private bool InputInteract = false;
     private float InteractDistance = 5f;
 
-    public enum TaskType
-    {
-        IconCockpit,
-        IconElectrical,
-        IconCooler,
-        IconGarden,
-        IconReactor
-    }
-    [Export] public TaskType Type = TaskType.IconCockpit;
+    [Export] private Player.TaskType TaskType = Player.TaskType.Cockpit;
 
     public override void _Input(InputEvent @event)
     {
@@ -23,35 +15,35 @@ public partial class Task : Node3D
 
     public override void _PhysicsProcess(double delta)
     {
+        //Complete task
         Player player = GetNode<Control>(GetTree().Root.GetChild(0).GetPath()).Player;
 
         if (InputInteract)
         {
             if ((GlobalPosition - player.GlobalPosition).Length() <= InteractDistance)
             {
-                if (Type == TaskType.IconCockpit)
-                {
-                    player.IsTaskCompleteCockpit = true;
-                }
+                //Mark task as completed
+                Control control = GetNode<Control>(GetTree().Root.GetChild(0).GetPath());
 
-                if (Type == TaskType.IconElectrical)
+                if (TaskType == player.TaskCockpit.TaskType)
                 {
-                    player.IsTaskCompleteElectrical = true;
+                    player.TaskCockpit.Reset(control.Difficulty);
                 }
-
-                if (Type == TaskType.IconCooler)
+                else if (TaskType == player.TaskElectrical.TaskType)
                 {
-                    player.IsTaskCompleteCooler = true;
+                    player.TaskElectrical.Reset(control.Difficulty);
                 }
-
-                if (Type == TaskType.IconGarden)
+                else if (TaskType == player.TaskCooler.TaskType)
                 {
-                    player.IsTaskCompleteGarden = true;
+                    player.TaskCooler.Reset(control.Difficulty);
                 }
-
-                if (Type == TaskType.IconReactor)
+                else if (TaskType == player.TaskGarden.TaskType)
                 {
-                    player.IsTaskCompleteReactor = true;
+                    player.TaskGarden.Reset(control.Difficulty);
+                }
+                else if (TaskType == player.TaskReactor.TaskType)
+                {
+                    player.TaskReactor.Reset(control.Difficulty);
                 }
             }
         }

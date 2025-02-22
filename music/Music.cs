@@ -4,11 +4,11 @@ using System;
 public partial class Music : Node3D
 {
 
-	[Export] private bool SettingMusicOn = true;
+    [Export] private bool SettingMusicOn = true;
 
-	[Export] public AudioStreamPlayer StreamNonCombat;
-	[Export] public AudioStreamPlayer StreamCombat;
-	[Export] public AudioStreamPlayer StreamDead;
+    [Export] public AudioStreamPlayer StreamNonCombat;
+    [Export] public AudioStreamPlayer StreamCombat;
+    [Export] public AudioStreamPlayer StreamDead;
 
     public AudioStreamPlayer ActiveStream;
 
@@ -31,13 +31,13 @@ public partial class Music : Node3D
     }
 
     public override void _Process(double deltaDouble)
-	{
+    {
         float delta = (float)deltaDouble;
 
-		if (!ActiveStream.Playing && SettingMusicOn)
-		{
+        if (!ActiveStream.Playing && SettingMusicOn)
+        {
             ActiveStream.Play();
-		}
+        }
 
         //Fade out tracks and set volume based on inspector sliders
         //These snap on to 100% volume when active, they only fade out - not in
