@@ -40,17 +40,50 @@ public partial class Control : Node
 
 			//Reset difficulty to default multiplier
 			Difficulty = 1f;
+			TasksFailed = 0;
 
-			RobotsControl.KillAll();
+			RobotsControl.RobotsDesiredCount = 0;
+            RobotsControl.KillAll();
 		}
 	}
 
 	public override void _Process(double delta)
 	{
 		Player.Cam.LabelFPS.Text = $"FPS: {Engine.GetFramesPerSecond()}";
-	}
 
-	public override void _PhysicsProcess(double deltaDouble)
+        //Task-failure scaling - take care that these fit within MaxFailedTasks
+        if (TasksFailed >= 15)
+        {
+            RobotsControl.RobotsDesiredCount = 5;
+        }
+        else if (TasksFailed >= 10)
+        {
+            RobotsControl.RobotsDesiredCount = 4;
+        }
+        else if (TasksFailed >= 6)
+        {
+            RobotsControl.RobotsDesiredCount = 3;
+        }
+        else if (TasksFailed >= 3)
+        {
+            RobotsControl.RobotsDesiredCount = 2;
+        }
+        else if (TasksFailed >= 1)
+        {
+            RobotsControl.RobotsDesiredCount = 1;
+        }
+
+		//Combat music
+        if (TasksFailed >= 1)
+        {
+            if (Player.IsAlive && Player.Music.StreamActive != Player.Music.StreamCombat)
+            {
+                Player.Music.StreamActive = Player.Music.StreamCombat;
+            }
+        }
+    }
+
+    public override void _PhysicsProcess(double deltaDouble)
 	{
 		float delta = (float)deltaDouble;
 
@@ -87,5 +120,9 @@ public partial class Control : Node
 		{
 			Player.Kill("after the ship's life support failed from too many neglected tasks!");
 		}
+
+        GD.Print($"TasksFailed: {TasksFailed}" +
+			$"\nCombat music: {Player.Music.StreamActive == Player.Music.StreamCombat}" +
+			$"\nDesired robots: {RobotsControl.RobotsDesiredCount}");
     }
 }

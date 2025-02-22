@@ -10,7 +10,7 @@ public partial class Music : Node3D
     [Export] public AudioStreamPlayer StreamCombat;
     [Export] public AudioStreamPlayer StreamDead;
 
-    public AudioStreamPlayer ActiveStream;
+    public AudioStreamPlayer StreamActive;
 
     [Export(PropertyHint.Range, "-200,0,")] private float VolumeAll = 0f;
     [Export(PropertyHint.Range, "0,1,")] private float VolumeMultiplierNonCombat = 1f;
@@ -21,27 +21,27 @@ public partial class Music : Node3D
     public override void _Ready()
     {
         //Start with non-combat music
-        ActiveStream = StreamNonCombat;
+        StreamActive = StreamNonCombat;
 
         //Force first song to be element 0
-        AudioStreamRandomizer randomizer = (AudioStreamRandomizer)ActiveStream.Stream;
+        AudioStreamRandomizer randomizer = (AudioStreamRandomizer)StreamActive.Stream;
         AudioStream streamElement0 = randomizer.GetStream(0);
-        ActiveStream.Stream = streamElement0;
-        ActiveStream.Play();
+        StreamActive.Stream = streamElement0;
+        StreamActive.Play();
     }
 
     public override void _Process(double deltaDouble)
     {
         float delta = (float)deltaDouble;
 
-        if (!ActiveStream.Playing && SettingMusicOn)
+        if (!StreamActive.Playing && SettingMusicOn)
         {
-            ActiveStream.Play();
+            StreamActive.Play();
         }
 
         //Fade out tracks and set volume based on inspector sliders
         //These snap on to 100% volume when active, they only fade out - not in
-        if (ActiveStream == StreamNonCombat)
+        if (StreamActive == StreamNonCombat)
         {
             StreamNonCombat.VolumeDb = VolumeAll * VolumeMultiplierNonCombat;
         }
@@ -50,7 +50,7 @@ public partial class Music : Node3D
             StreamNonCombat.VolumeDb -= delta * VolumeFadeOutRate;
         }
 
-        if (ActiveStream == StreamCombat)
+        if (StreamActive == StreamCombat)
         {
             StreamCombat.VolumeDb = VolumeAll * VolumeMultiplierCombat;
         }
@@ -59,7 +59,7 @@ public partial class Music : Node3D
             StreamCombat.VolumeDb -= delta * VolumeFadeOutRate;
         }
 
-        if (ActiveStream == StreamDead)
+        if (StreamActive == StreamDead)
         {
             StreamDead.VolumeDb = VolumeAll * VolumeMultiplierDead;
         }

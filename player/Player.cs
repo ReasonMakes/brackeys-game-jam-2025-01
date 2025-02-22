@@ -4,7 +4,7 @@ public partial class Player : CharacterBody3D
 {
     public bool IsAlive = true;
     
-    [Export] private Music Music;
+    [Export] public Music Music;
 
     public Vector3 SpawnPosition = new(25.4f, 0f, -10.5f);
 
@@ -853,7 +853,7 @@ public partial class Player : CharacterBody3D
         IsAlive = false;
         //THIS IS HARD-CODED IN. Force slide when dead
         //IsSliding = true;
-        Music.ActiveStream = Music.StreamDead;
+        Music.StreamActive = Music.StreamDead;
 
         Cam.LabelDead.Visible = true;
 
@@ -888,7 +888,7 @@ public partial class Player : CharacterBody3D
         TaskGarden.IsCompleted = false;
         TaskReactor.IsCompleted = false;
 
-        Music.ActiveStream = Music.StreamNonCombat;
+        Music.StreamActive = Music.StreamNonCombat;
 
         Cam.LabelDead.Visible = false;
 

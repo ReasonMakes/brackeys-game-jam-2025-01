@@ -7,34 +7,11 @@ public partial class RobotsControl : Node3D
     [Export] private Node3D SpawnPoints;
     private float SpawnTimer = 0f; //counts up and spawns a robots once >= SpawnPeriod. Resets to 0f
     private const float SpawnPeriod = 10f; //40f; //Time period in seconds between robot spawns
-    private int robotsDesiredCount = 1; //3; //must be <= pool size (5 at time of writing)
+    public int RobotsDesiredCount = 0; //3; //must be <= pool size (5 at time of writing)
 
     public override void _Process(double deltaDouble)
     {
         float delta = (float)deltaDouble;
-
-        //Task-failure scaling - take care that these fit within MaxFailedTasks
-        Control control = GetNode<Control>(GetTree().Root.GetChild(0).GetPath());
-        if (control.TasksFailed <= 20)
-        {
-            robotsDesiredCount = 5;
-        }
-        else if (control.TasksFailed <= 15)
-        {
-            robotsDesiredCount = 4;
-        }
-        else if (control.TasksFailed <= 10)
-        {
-            robotsDesiredCount = 3;
-        }
-        else if (control.TasksFailed <= 6)
-        {
-            robotsDesiredCount = 2;
-        }
-        else if (control.TasksFailed <= 3)
-        {
-            robotsDesiredCount = 1;
-        }
 
         //Spawn robots
         if (SpawnTimer >= SpawnPeriod)
@@ -52,7 +29,7 @@ public partial class RobotsControl : Node3D
             }
 
             //Find a robot that isn't alive, or don't spawn at all
-            if (robotsAliveCount < robotsDesiredCount)
+            if (RobotsDesiredCount > robotsAliveCount)
             {
                 for (int i = 0; i < Pool.GetChildCount(); i++)
                 {
