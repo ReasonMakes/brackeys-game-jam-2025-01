@@ -694,6 +694,7 @@ public partial class Player : CharacterBody3D
         //Label
         Cam.LabelDash.Text = $"Dash: {DashCooldown:F2}";
         Cam.RectDash.Scale = new(DashCooldown / DashCooldownPeriod, 1f);
+        Cam.RectAbilityDash.Scale = new(1f, DashCooldown / DashCooldownPeriod);
 
         //Shader
         float to = 0f;

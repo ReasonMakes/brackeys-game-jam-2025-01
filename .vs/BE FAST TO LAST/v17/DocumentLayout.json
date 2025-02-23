@@ -3,28 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\task\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:task\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\control.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:control.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\control.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:control.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\robot\\robot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:robot\\robot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\level\\cockpit\\sounds\\cockpitsounds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:level\\cockpit\\sounds\\cockpitsounds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\level\\sounds\\creaking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:level\\sounds\\creaking.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\level\\cockpit\\sounds\\cockpitsounds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:level\\cockpit\\sounds\\cockpitsounds.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\task\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:task\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\player\\cameranode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:player\\cameranode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,11 +38,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 6,
+              "Title": "CameraNode.cs",
+              "DocumentMoniker": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\player\\CameraNode.cs",
+              "RelativeDocumentMoniker": "player\\CameraNode.cs",
+              "ToolTip": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\player\\CameraNode.cs",
+              "RelativeToolTip": "player\\CameraNode.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-22T23:55:51.5Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "Task.cs",
               "DocumentMoniker": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\task\\Task.cs",
               "RelativeDocumentMoniker": "task\\Task.cs",
@@ -59,11 +76,12 @@
               "RelativeToolTip": "level\\sounds\\Creaking.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T21:00:37.053Z"
+              "WhenOpened": "2025-02-22T21:00:37.053Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "CockpitSounds.cs",
               "DocumentMoniker": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\level\\cockpit\\sounds\\CockpitSounds.cs",
               "RelativeDocumentMoniker": "level\\cockpit\\sounds\\CockpitSounds.cs",
@@ -71,11 +89,12 @@
               "RelativeToolTip": "level\\cockpit\\sounds\\CockpitSounds.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAASAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T20:53:59.551Z"
+              "WhenOpened": "2025-02-22T20:53:59.551Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 2,
               "Title": "Robot.cs",
               "DocumentMoniker": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\robot\\Robot.cs",
               "RelativeDocumentMoniker": "robot\\Robot.cs",
@@ -83,7 +102,8 @@
               "RelativeToolTip": "robot\\Robot.cs",
               "ViewState": "AgIAADwAAAAAAAAAAAAowGQAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T20:23:43.321Z"
+              "WhenOpened": "2025-02-22T20:23:43.321Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -93,20 +113,20 @@
               "RelativeDocumentMoniker": "player\\Player.cs",
               "ToolTip": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\player\\Player.cs",
               "RelativeToolTip": "player\\Player.cs",
-              "ViewState": "AgIAAMcCAAAAwPA9o08FwJ8DAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAkBAAAAAAAAAAAhwCwBAAArAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-22T20:04:32.497Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 0,
               "Title": "Control.cs",
               "DocumentMoniker": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\Control.cs",
               "RelativeDocumentMoniker": "Control.cs",
               "ToolTip": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\Control.cs",
               "RelativeToolTip": "Control.cs",
-              "ViewState": "AgIAAF8AAAAAAAAAAAAAAGsAAAAXAAAAAAAAAA==",
+              "ViewState": "AgIAAKgAAAAAAAAAAAArwMEAAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-22T15:05:07.542Z",
               "EditorCaption": ""

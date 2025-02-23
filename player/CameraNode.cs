@@ -11,6 +11,7 @@ public partial class CameraNode : Camera3D
     [Export] public ColorRect RectJerk;
     [Export] public Label LabelDash;
     [Export] public ColorRect RectDash;
+    [Export] public ColorRect RectAbilityDash;
     [Export] public Label LabelClimb;
     [Export] public ColorRect RectClimb;
     [Export] public Label LabelJumpFatigueRecency;

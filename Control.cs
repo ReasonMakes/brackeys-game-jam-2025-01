@@ -11,6 +11,9 @@ public partial class Control : Node
 	private float DifficultyIncreaseRate = 0.9f; //value between 0 and 1, smaller values are a faster rate
 
     [Export] private AudioStreamPlayer AudioVABetrayal;
+    [Export] private AudioStreamPlayer AudioVATaskFailed;
+    private bool AIVoiceOverIntroShouldPlay = true;
+    private float AIVoiceOverIntroDelay = 5f;
 
     //HARDWARE
     private double FPSAverageSlowPrevious = 60.0; //assume 60 fps
@@ -52,15 +55,25 @@ public partial class Control : Node
         Player.SetDefaultTasks();
 
         //Replay the introduction voice acting
-        Player.AIVoiceOverStart.Play();
+        AIVoiceOverIntroDelay = 5f;
+        AIVoiceOverIntroShouldPlay = true;
 
         RobotsControl.RobotsDesiredCount = 0;
         RobotsControl.KillAll();
     }
 
-	public override void _Process(double delta)
+	public override void _Process(double deltaDouble)
 	{
-		Player.Cam.LabelFPS.Text = $"FPS: {Engine.GetFramesPerSecond()}";
+        float delta = (float)deltaDouble;
+        AIVoiceOverIntroDelay = Mathf.Max(0f, AIVoiceOverIntroDelay - delta);
+        if (AIVoiceOverIntroDelay <= 0f && AIVoiceOverIntroShouldPlay)
+        {
+            Player.AIVoiceOverStart.Play();
+            AIVoiceOverIntroShouldPlay = false;
+        }
+        
+
+        Player.Cam.LabelFPS.Text = $"FPS: {Engine.GetFramesPerSecond()}";
 
         //Mood scaling
         if (GetVAMood() >= 5)
@@ -170,8 +183,14 @@ public partial class Control : Node
 			Player.Kill("after the ship's life support failed from too many neglected tasks!");
 		}
 
-        GD.Print($"TasksFailed: {TasksFailed}" +
-			$"\nCombat music: {Player.Music.StreamActive == Player.Music.StreamCombat}" +
-			$"\nDesired robots: {RobotsControl.RobotsDesiredCount}");
+        //GD.Print($"TasksFailed: {TasksFailed}" +
+        //	$"\nCombat music: {Player.Music.StreamActive == Player.Music.StreamCombat}" +
+        //	$"\nDesired robots: {RobotsControl.RobotsDesiredCount}");
+
+        //if (GetVAMood() < 2)
+        //{
+        //    AudioVATaskFailed.Play();
+        //}
+        AudioVATaskFailed.Play();
     }
 }

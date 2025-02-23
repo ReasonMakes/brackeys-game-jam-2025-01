@@ -190,7 +190,6 @@ volume_db = -15.0
 [node name="VAIntro" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = ExtResource("22_m0mtt")
 volume_db = 5.0
-autoplay = true
 
 [node name="VAReact1Pleased" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = SubResource("AudioStreamRandomizer_4rgb2")
