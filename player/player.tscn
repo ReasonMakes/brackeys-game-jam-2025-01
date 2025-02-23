@@ -22,6 +22,7 @@
 [ext_resource type="AudioStream" uid="uid://blqtul40hybe7" path="res://player/sounds/dash/dash_newer.mp3" id="20_ink1i"]
 [ext_resource type="AudioStream" uid="uid://dxs4aruivw85i" path="res://player/sounds/wallrun/wallrun.mp3" id="21_28g63"]
 [ext_resource type="AudioStream" uid="uid://d056f35m3ys8k" path="res://va/va_intro_adjusted2.mp3" id="22_m0mtt"]
+[ext_resource type="AudioStream" uid="uid://3r0fjhqnjwfe" path="res://va/va_interrupt.mp3" id="23_24j8n"]
 [ext_resource type="AudioStream" uid="uid://dol2hhnaxbjcl" path="res://va/va_react_pleased1.mp3" id="23_qa4ee"]
 [ext_resource type="AudioStream" uid="uid://bskiwyfek6yle" path="res://va/va_react_pleased2.mp3" id="24_wvuj8"]
 [ext_resource type="AudioStream" uid="uid://71nbkq2l3uwh" path="res://va/va_react_pleased3.mp3" id="25_x5mu3"]
@@ -34,7 +35,6 @@
 [ext_resource type="AudioStream" uid="uid://ckt1psfomh036" path="res://va/va_betrayal.mp3" id="32_andcn"]
 [ext_resource type="PackedScene" uid="uid://boamnlyv84vsi" path="res://player/camera_and_HUD.tscn" id="32_r1bbn"]
 [ext_resource type="AudioStream" uid="uid://cfcrn6b8w4adr" path="res://va/va_react_dead_player.mp3" id="33_32k3i"]
-[ext_resource type="AudioStream" uid="uid://uxaem8q0e3fx" path="res://va/va_react_dead_ship.mp3" id="34_noju1"]
 [ext_resource type="AudioStream" uid="uid://bj2k01lxb0pvc" path="res://level/sounds/ambience_ship_muffled.mp3" id="35_d8lqc"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_lf7un"]
@@ -110,14 +110,16 @@ stream_0/stream = ExtResource("29_rroxc")
 stream_1/stream = ExtResource("30_siis1")
 stream_2/stream = ExtResource("31_6a0tq")
 
-[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("Music", "Cam", "AudioJump", "AudioLand", "AIVoiceOverStart", "AudioFootsteps", "AudioClothes", "AudioWallrun", "AudioClimb", "ColliderCapsule", "ColliderSphere", "AudioSlide", "AudioDash")]
+[node name="Player" type="CharacterBody3D" node_paths=PackedStringArray("AudioVADeathPlayer", "AudioVAInterrupted", "Music", "Cam", "AudioJump", "AudioLand", "AudioVAIntro", "AudioFootsteps", "AudioClothes", "AudioWallrun", "AudioClimb", "ColliderCapsule", "ColliderSphere", "AudioSlide", "AudioDash")]
 transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 0, 0, 0)
 script = ExtResource("1_n2wtf")
+AudioVADeathPlayer = NodePath("AudioNonSpacial/VAPlayerDead")
+AudioVAInterrupted = NodePath("AudioNonSpacial/VAInterrupted")
 Music = NodePath("AudioNonSpacial")
 Cam = NodePath("Camera3D")
 AudioJump = NodePath("AudioNonSpacial/Jump")
 AudioLand = NodePath("AudioNonSpacial/Land")
-AIVoiceOverStart = NodePath("AudioNonSpacial/VAIntro")
+AudioVAIntro = NodePath("AudioNonSpacial/VAIntro")
 AudioFootsteps = NodePath("AudioNonSpacial/Footsteps")
 AudioClothes = NodePath("AudioNonSpacial/Slide")
 RunAudioTimerPeriod = 0.3
@@ -191,6 +193,10 @@ volume_db = -15.0
 stream = ExtResource("22_m0mtt")
 volume_db = 5.0
 
+[node name="VAInterrupted" type="AudioStreamPlayer" parent="AudioNonSpacial"]
+stream = ExtResource("23_24j8n")
+volume_db = 5.0
+
 [node name="VAReact1Pleased" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = SubResource("AudioStreamRandomizer_4rgb2")
 volume_db = 5.0
@@ -209,10 +215,6 @@ volume_db = 5.0
 
 [node name="VAPlayerDead" type="AudioStreamPlayer" parent="AudioNonSpacial"]
 stream = ExtResource("33_32k3i")
-volume_db = 5.0
-
-[node name="VAShipDead" type="AudioStreamPlayer" parent="AudioNonSpacial"]
-stream = ExtResource("34_noju1")
 volume_db = 5.0
 
 [node name="ShipHum" type="AudioStreamPlayer" parent="AudioNonSpacial"]

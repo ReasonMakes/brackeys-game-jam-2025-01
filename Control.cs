@@ -2,16 +2,22 @@ using Godot;
 
 public partial class Control : Node
 {
-	[Export] public Player Player;
+    [Export] public TextureRect HealthFill;
+
+    [Export] public Button ButtonQuit;
+
+    [Export] public Player Player;
 	[Export] public RobotsControl RobotsControl;
 
 	public int TasksFailed = 0;
 	public int MaxFailedTasks = 30;
     public float Difficulty = 1f;
 	private float DifficultyIncreaseRate = 0.9f; //value between 0 and 1, smaller values are a faster rate
+    private bool IsAngry = false;
 
     [Export] private AudioStreamPlayer AudioVABetrayal;
     [Export] private AudioStreamPlayer AudioVATaskFailed;
+    [Export] private AudioStreamPlayer AudioVADeathShip;
     private bool AIVoiceOverIntroShouldPlay = true;
     private float AIVoiceOverIntroDelay = 5f;
 
@@ -31,12 +37,14 @@ public partial class Control : Node
 		if (Input.IsActionJustPressed("escape"))
 		{
 			Input.MouseMode = Input.MouseModeEnum.Visible;
+            ButtonQuit.Visible = true;
 		}
 
-		if (Input.IsActionJustPressed("select"))
+		if (Input.IsActionJustPressed("select") && !ButtonQuit.IsHovered())
 		{
 			Input.MouseMode = Input.MouseModeEnum.Captured;
-		}
+            ButtonQuit.Visible = false;
+        }
 
 		//Restart game
 		if (Input.IsActionJustPressed("restart"))
@@ -55,8 +63,8 @@ public partial class Control : Node
         Player.SetDefaultTasks();
 
         //Replay the introduction voice acting
-        AIVoiceOverIntroDelay = 5f;
-        AIVoiceOverIntroShouldPlay = true;
+        //AIVoiceOverIntroDelay = 5f;
+        //AIVoiceOverIntroShouldPlay = true;
 
         RobotsControl.RobotsDesiredCount = 0;
         RobotsControl.KillAll();
@@ -64,35 +72,39 @@ public partial class Control : Node
 
 	public override void _Process(double deltaDouble)
 	{
+        if (ButtonQuit.ButtonPressed)
+        {
+            GetTree().Quit();
+        }
+
         float delta = (float)deltaDouble;
         AIVoiceOverIntroDelay = Mathf.Max(0f, AIVoiceOverIntroDelay - delta);
         if (AIVoiceOverIntroDelay <= 0f && AIVoiceOverIntroShouldPlay)
         {
-            Player.AIVoiceOverStart.Play();
+            Player.AudioVAIntro.Play();
             AIVoiceOverIntroShouldPlay = false;
         }
         
-
         Player.Cam.LabelFPS.Text = $"FPS: {Engine.GetFramesPerSecond()}";
 
         //Mood scaling
-        if (GetVAMood() >= 5)
+        if (GetVAMood() >= 6)
         {
             RobotsControl.RobotsDesiredCount = 5;
         }
-        else if (GetVAMood() >= 4)
+        else if (GetVAMood() >= 5)
         {
             RobotsControl.RobotsDesiredCount = 4;
         }
-        else if (GetVAMood() >= 3)
+        else if (GetVAMood() >= 4)
         {
             RobotsControl.RobotsDesiredCount = 3;
         }
-        else if (GetVAMood() >= 2)
+        else if (GetVAMood() >= 3)
         {
             RobotsControl.RobotsDesiredCount = 2;
         }
-        else if (GetVAMood() >= 1)
+        else if (GetVAMood() >= 2)
         {
             RobotsControl.RobotsDesiredCount = 1;
         }
@@ -126,11 +138,15 @@ public partial class Control : Node
         {
             return -1;
         }
-        if (TasksFailed >= 15)
+        if (TasksFailed >= 12)
+        {
+            return 6;
+        }
+        else if (TasksFailed >= 10)
         {
             return 5;
         }
-        else if (TasksFailed >= 10)
+        else if (TasksFailed >= 8)
         {
             return 4;
         }
@@ -181,16 +197,30 @@ public partial class Control : Node
 		if (TasksFailed > MaxFailedTasks)
 		{
 			Player.Kill("after the ship's life support failed from too many neglected tasks!");
-		}
+
+            AudioVADeathShip.Play();
+        }
+        else
+        {
+            //Betray the player
+            if (GetVAMood() >= 2 && !IsAngry)
+            {
+                AudioVABetrayal.Play();
+                IsAngry = true;
+            }
+
+            //Play task failed VA. Avoid talking over self
+            if (!AudioVABetrayal.Playing)
+            {
+                AudioVATaskFailed.Play();
+            }
+        }
+
+        //Update ship health
+        HealthFill.Scale = new(TasksFailed / MaxFailedTasks, 1f);
 
         //GD.Print($"TasksFailed: {TasksFailed}" +
         //	$"\nCombat music: {Player.Music.StreamActive == Player.Music.StreamCombat}" +
         //	$"\nDesired robots: {RobotsControl.RobotsDesiredCount}");
-
-        //if (GetVAMood() < 2)
-        //{
-        //    AudioVATaskFailed.Play();
-        //}
-        AudioVATaskFailed.Play();
     }
 }

@@ -19,15 +19,18 @@ Application
 ### Movement Tech
 - Dash: Input the dash while mid-air. You wil dash in whatever direction you are inputting, not just where you are looking.
 - Slide: Run forward until you build up enough speed and then press the crouch/slide input. Jump out of this at the right time to get the most speed/distance.
-- Wall Climb: Run forward whilst facing a wall
+- Wall Climb: Run forward whilst facing a wall. Your vertical acceleration wanes as you climb and returns over time while you are not climbing. You cannot wall climb after a wall bounce until you touch the ground again.
 - Wall Bounce: Whilst climbing, hold jump
 - Wall Run: Whilst climbing, face parallel to the wall. It is much faster to move diagonally into the wall.
 - Air Strafe: Develop at least some speed, then let go of the forward input and instead hold a sideways input while very gradually looking in that direction. You will be able to accelerate beyond the maximum speed you could otherwise achieve through running alone. You can alternate directions to go in a relatively straight path.
 
+### Combat
+- If you jump on an enemy, they will be destrroyed.
+
 ### Licence
 - Anyone can play this game for free, but you can't redistribute the software or its assets.
 - Some sounds are licensed under Pixabay's licence, which I interpret as mostly meaning to not use them commercially: https://pixabay.com/service/license-summary/
-- Some sounds sourced from FreeSound.org
+- Some sounds sourced from FreeSound.org. The list below may contain sounds which didn't make it into the final game.
 - skateboard grinding on metal rail.wav by 21100495 -- https://freesound.org/s/655371/ -- License: Creative Commons 0
 - Beep_Sequence_07.wav by AlienXXX -- https://freesound.org/s/267558/ -- License: Attribution 4.0
 - FX - Beep bomb countdown 2 by TILIADESIGN -- https://freesound.org/s/488813/ -- License: Creative Commons 0

@@ -1,6 +1,6 @@
 [gd_scene load_steps=23 format=3 uid="uid://bmrvxd4l4satu"]
 
-[ext_resource type="PackedScene" uid="uid://cgi5yg2mindtc" path="res://level/Objective/SM_Objective.tscn" id="1_41dru"]
+[ext_resource type="PackedScene" uid="uid://cgi5yg2mindtc" path="res://task/Objective/SM_Objective.tscn" id="1_41dru"]
 [ext_resource type="PackedScene" uid="uid://dyfeb401t8qqc" path="res://level/sounds/creaking.tscn" id="4_3me2t"]
 [ext_resource type="PackedScene" uid="uid://bq2gdpxtrptx5" path="res://level/wallandfloor/SM_wallandfloor.tscn" id="4_i1wwq"]
 [ext_resource type="PackedScene" uid="uid://dfjhryob8i62l" path="res://level/Reactor/reactor.tscn" id="4_pgjux"]
@@ -73,22 +73,22 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -87.8886, 8.27815, -38.7066)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.2915, 12.0401, -17.8899)
 
 [node name="SM_ObjectiveCockpit" parent="NavigationRegion3D/Objectives" instance=ExtResource("1_41dru")]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 41.792, 8.115, -0.003)
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, 41.792, 7.315, -0.003)
 
 [node name="SM_ObjectiveCooler" parent="NavigationRegion3D/Objectives" instance=ExtResource("1_41dru")]
-transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -39.287, 26.906, 0.389)
+transform = Transform3D(0.7, 0, 0, 0, 0.7, 0, 0, 0, 0.7, -39.287, 26.106, 0.389)
 TaskType = 2
 
 [node name="SM_ObjectiveElectrical" parent="NavigationRegion3D/Objectives" instance=ExtResource("1_41dru")]
-transform = Transform3D(-3.0598e-08, 0, -0.7, 0, 0.7, 0, 0.7, 0, -3.0598e-08, -37.183, 12.629, 52.695)
+transform = Transform3D(-3.0598e-08, 0, -0.7, 0, 0.7, 0, 0.7, 0, -3.0598e-08, -37.183, 11.829, 52.695)
 TaskType = 1
 
 [node name="SM_ObjectiveGarden" parent="NavigationRegion3D/Objectives" instance=ExtResource("1_41dru")]
-transform = Transform3D(-0.606218, 0, -0.35, 0, 0.7, 0, 0.35, 0, -0.606218, -87.847, 9.122, -38.663)
+transform = Transform3D(-0.606218, 0, -0.35, 0, 0.7, 0, 0.35, 0, -0.606218, -87.847, 8.322, -38.663)
 TaskType = 3
 
 [node name="SM_ObjectiveReactor" parent="NavigationRegion3D/Objectives" instance=ExtResource("1_41dru")]
-transform = Transform3D(1.36295e-07, 0, 0.7, 0, 0.7, 0, -0.7, 0, 1.36295e-07, -63.224, 12.969, -17.801)
+transform = Transform3D(1.36295e-07, 0, 0.7, 0, 0.7, 0, -0.7, 0, 1.36295e-07, -63.224, 12.169, -17.801)
 TaskType = 4
 
 [node name="SM_Cooler" parent="NavigationRegion3D" instance=ExtResource("7_atqr1")]

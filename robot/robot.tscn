@@ -79,6 +79,7 @@ radius = 2.0
 [node name="Spawn" type="AudioStreamPlayer3D" parent="CharacterBody3D"]
 stream = ExtResource("4_pbn3s")
 attenuation_model = 2
+volume_db = -2.0
 
 [node name="Ambience" type="AudioStreamPlayer3D" parent="CharacterBody3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.656, 0)

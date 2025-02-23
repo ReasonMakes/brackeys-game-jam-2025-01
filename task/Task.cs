@@ -23,30 +23,44 @@ public partial class Task : Node3D
     public override void _PhysicsProcess(double delta)
     {
         //Complete task
-        Player player = GetNode<Control>(GetTree().Root.GetChild(0).GetPath()).Player;
+        Control control = GetNode<Control>(GetTree().Root.GetChild(0).GetPath());
+        Player player = control.Player;
 
-        if (InputInteract)
+        //Radius
+        if ((GlobalPosition - player.GlobalPosition).Length() <= InteractDistance)
         {
-            if ((GlobalPosition - player.GlobalPosition).Length() <= InteractDistance)
+            //Raycast
+            if (RaycastToPlayerHit(player))
             {
-                if (RaycastToPlayerHit(player))
+                //Prompt
+                control.Player.ShowInteractPrompt();
+
+                //Input bind
+                if (InputInteract)
                 {
-                    Control control = GetNode<Control>(GetTree().Root.GetChild(0).GetPath());
-
                     //Play VA feedback
-                    if (control.GetVAMood() >= 2)
+                    //Prevent VA talking over itself "I wasn't even finished talking!"
+                    if (player.AudioVAIntro.Playing)
                     {
-                        if (!AudioVATaskCompleteAngry.Playing) AudioVATaskCompleteAngry.Play();
+                        player.AudioVAInterrupted.Play();
+                        player.AudioVAIntro.Stop();
                     }
-                    else if (control.GetVAMood() >= 1)
+                    else if(!player.AudioVAInterrupted.Playing)
                     {
-                        if (!AudioVATaskCompleteNeutral.Playing) AudioVATaskCompleteNeutral.Play();
+                        if (control.GetVAMood() >= 2)
+                        {
+                            if (!AudioVATaskCompleteAngry.Playing) AudioVATaskCompleteAngry.Play();
+                        }
+                        else if (control.GetVAMood() >= 1)
+                        {
+                            if (!AudioVATaskCompleteNeutral.Playing) AudioVATaskCompleteNeutral.Play();
+                        }
+                        else if (control.GetVAMood() >= 0)
+                        {
+                            if (!AudioVATaskCompletePleased.Playing) AudioVATaskCompletePleased.Play();
+                        }
                     }
-                    else if (control.GetVAMood() >= 0)
-                    {
-                        if (!AudioVATaskCompletePleased.Playing) AudioVATaskCompletePleased.Play();
-                    }
-
+                    
                     //Mark task as completed
                     if (TaskType == player.TaskCockpit.TaskType)
                     {
@@ -90,7 +104,7 @@ public partial class Task : Node3D
 
             if (collider is Player)
             {
-                GD.Print($"Task interact collider: {collider}");
+                //GD.Print($"Task interact collider: {collider}");
 
                 return true;
             }

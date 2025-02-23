@@ -3,6 +3,8 @@ using System;
 
 public partial class CameraNode : Camera3D
 {
+    [Export] public Label LabelInteractPrompt;
+
     [Export] public Label LabelDead;
 
     [Export] public Label LabelHSpeed;

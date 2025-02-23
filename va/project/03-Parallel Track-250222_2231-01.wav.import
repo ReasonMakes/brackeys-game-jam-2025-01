@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cxqfv7cexm1qq"
+path="res://.godot/imported/03-Parallel Track-250222_2231-01.wav-83bd333055ec47e9ad33b52d3b291fde.sample"
+
+[deps]
+
+source_file="res://va/project/03-Parallel Track-250222_2231-01.wav"
+dest_files=["res://.godot/imported/03-Parallel Track-250222_2231-01.wav-83bd333055ec47e9ad33b52d3b291fde.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

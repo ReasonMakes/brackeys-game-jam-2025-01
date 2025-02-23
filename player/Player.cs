@@ -2,8 +2,11 @@ using Godot;
 
 public partial class Player : CharacterBody3D
 {
+    private float InteractPromptEnergy = 0f;
+
     public bool IsAlive = true;
     [Export] private AudioStreamPlayer AudioVADeathPlayer;
+    [Export] public AudioStreamPlayer AudioVAInterrupted;
 
     [Export] public Music Music;
 
@@ -14,7 +17,7 @@ public partial class Player : CharacterBody3D
     [Export] private AudioStreamPlayer AudioJump;
     [Export] private AudioStreamPlayer AudioLand;
 
-    [Export] public AudioStreamPlayer AIVoiceOverStart;
+    [Export] public AudioStreamPlayer AudioVAIntro;
 
     public enum TaskType
     {
@@ -108,7 +111,9 @@ public partial class Player : CharacterBody3D
 
     private const float ClimbAcceleration = 20f; //6f; //Multiple of gravity. Vertical acceleration applied when climbing
     private const float ClimbPeriod = 2f; //time in seconds you can accelerate upwards on the wall for
-    private float ClimbRemaining = 0f; //no touchy :)
+    private float ClimbRemaining = 2f; //no touchy :)
+    private const float ClimbPenaltyWallJump = 0.5f; //climb time in seconds you lose for wall-bouncing
+    private float ClimbReplenishDelay = 0f; //delay in seconds (elapsed when not climbing) until ClimbRemaining can recharge again
 
     private bool CanClimb = false; //no touchy :) Can't climb after jumping off until landing on the ground again
 
@@ -207,6 +212,9 @@ public partial class Player : CharacterBody3D
 
     public override void _Input(InputEvent @event)
     {
+        //Test Kill() method
+        //if (InputRunBack) Kill("by dev test");
+
         //Run Direction
         InputRunForward = Input.IsActionPressed("dir_forward");
         InputRunLeft = Input.IsActionPressed("dir_left");
@@ -307,6 +315,9 @@ public partial class Player : CharacterBody3D
     {
         float delta = (float)deltaDouble;
 
+        //Show/hide interact prompt
+        ShowHideInteractPrompt(delta);
+        
         //Hardware
         Cam.LabelPhysicsTickRate.Text = $"Physics rate: {Engine.PhysicsTicksPerSecond}";
 
@@ -727,14 +738,18 @@ public partial class Player : CharacterBody3D
         if (
             !IsOnFloor()
             && IsOnWall()
-            && GlobalBasis.Z.Dot(GetWallNormal()) >= 0.75f //looking at the wall
+            //&& GlobalBasis.Z.Dot(GetWallNormal()) >= 0.75f //looking at the wall
+            && GlobalBasis.Z.Dot(GetWallNormal()) > 0f //not looking away from the wall
             && InputTechJump
             //&& !InputRunForward
             && CanClimb
             && JumpFatigueRecencyTimer >= JumpCooldown //can jump
         )
         {
-            CanClimb = false;
+            //Get tired
+            ClimbRemaining = Mathf.Max(ClimbRemaining - ClimbPenaltyWallJump, 0f);
+            ClimbReplenishDelay += 2f;
+            //CanClimb = false;
 
             //Jump up and away from the wall
             Jump((GetWallNormal() + GetWallNormal() + Vector3.Up).Normalized(), WallJumpAcceleration);
@@ -743,44 +758,58 @@ public partial class Player : CharacterBody3D
         //Climbing or wall-running
         if (IsOnWall() && InputRunForward && !IsSliding)
         {
-            if (ClimbRemaining > 0f && CanClimb)
+            if (CanClimb)
             {
-                float dotWall = Mathf.Max(GetWallNormal().Dot(GlobalBasis.Z), 0f); // 0 to 1, where 1 is facing the wall
-
-                //Climb
-                Vector3 climbVector = -GetGravity() * (ClimbAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall);
-                ApplyAccelerationOverTime(climbVector, delta);
-                //Velocity += -GetGravity() * (ClimbAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall * delta);
-
-                //Wall-run
-                if (!IsOnFloor() && dotWall < 0.75f)
+                if (ClimbRemaining > 0f)
                 {
-                    IsWallRunning = true;
+                    float dotWall = Mathf.Max(GetWallNormal().Dot(GlobalBasis.Z), 0f); // 0 to 1, where 1 is facing the wall
 
-                    //Get direction
-                    Vector3 wallTangent = GetWallNormal().Cross(Vector3.Up); //pretty much all the way there
-                    Vector3 projectedDirection = (wallTangent * runVector.Dot(wallTangent)).Normalized(); //consider which horizontal direction we're going along the wall
-                                                                                                          //testBox.Position = new Vector3(Position.X, Position.Y + 1f, Position.Z) + (2f * projectedDirection);
+                    //Climb
+                    Vector3 climbVector = -GetGravity() * (ClimbAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall);
+                    ApplyAccelerationOverTime(climbVector, delta);
+                    //Velocity += -GetGravity() * (ClimbAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall * delta);
 
-                    //Horizontal acceleration
-                    Vector3 wallRunHorizontalVector = projectedDirection * (WallRunAcceleration * (1f - dotWall));
-                    ApplyAccelerationOverTime(wallRunHorizontalVector, delta);
-                    //Velocity += projectedDirection * (WallRunAcceleration * (1f - dotWall) * delta);
+                    //Wall-run
+                    if (!IsOnFloor() && dotWall < 0.75f)
+                    {
+                        IsWallRunning = true;
 
-                    //Vertical acceleration
-                    Vector3 wallRunVerticalVector = -GetGravity() * (ClimbAcceleration * ClimbCoefficientWallRunVerticalAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall);
-                    ApplyAccelerationOverTime(wallRunVerticalVector, delta);
-                    //Velocity += -GetGravity() * (WallRunVerticalAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall * delta);
+                        //Get direction
+                        Vector3 wallTangent = GetWallNormal().Cross(Vector3.Up); //pretty much all the way there
+                        Vector3 projectedDirection = (wallTangent * runVector.Dot(wallTangent)).Normalized(); //consider which horizontal direction we're going along the wall
+                                                                                                              //testBox.Position = new Vector3(Position.X, Position.Y + 1f, Position.Z) + (2f * projectedDirection);
+
+                        //Horizontal acceleration
+                        Vector3 wallRunHorizontalVector = projectedDirection * (WallRunAcceleration * (1f - dotWall));
+                        ApplyAccelerationOverTime(wallRunHorizontalVector, delta);
+                        //Velocity += projectedDirection * (WallRunAcceleration * (1f - dotWall) * delta);
+
+                        //Vertical acceleration
+                        Vector3 wallRunVerticalVector = -GetGravity() * (ClimbAcceleration * ClimbCoefficientWallRunVerticalAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall);
+                        ApplyAccelerationOverTime(wallRunVerticalVector, delta);
+                        //Velocity += -GetGravity() * (WallRunVerticalAcceleration * (ClimbRemaining / ClimbPeriod) * dotWall * delta);
+                    }
+
+                    //Decrement
+                    ClimbRemaining = Mathf.Max(ClimbRemaining - delta, 0f);
                 }
-
-                //Decrement
-                ClimbRemaining = Mathf.Max(ClimbRemaining - delta, 0f);
+                else
+                {
+                    CanClimb = false;
+                }
             }
         }
-        else if (CanClimb)
+        else
         {
-            //Replenish climb
-            ClimbRemaining = Mathf.Min(ClimbRemaining + delta, ClimbPeriod);
+            if (IsOnFloor() || (CanClimb && ClimbReplenishDelay <= 0f))
+            {
+                //Replenish climb
+                ClimbRemaining = Mathf.Min(ClimbRemaining + delta, ClimbPeriod);
+            }
+            else
+            {
+                ClimbReplenishDelay = Mathf.Max(ClimbReplenishDelay - delta, 0f);
+            }   
         }
 
         //Reset IsWallRunning boolean
@@ -789,17 +818,11 @@ public partial class Player : CharacterBody3D
             IsWallRunning = false;
         }
 
-        //Replenish climb
-        if (IsOnFloor())
-        {
-            ClimbRemaining = Mathf.Min(ClimbRemaining + delta, ClimbPeriod);
-        }
-
         //Camera
-        if (IsWallRunning && !IsOnWall())
-        {
-            GD.Print("Not on wall while wall running!!");
-        }
+        //if (IsWallRunning && !IsOnWall())
+        //{
+        //    GD.Print("Not on wall while wall running!!");
+        //}
 
         //Wall-running camera roll
         if (IsWallRunning)
@@ -873,6 +896,7 @@ public partial class Player : CharacterBody3D
         //Increment recency timer
         JumpFatigueRecencyTimer = Mathf.Min(JumpFatigueRecencyTimer + delta, JumpFatigueRecencyTimerPeriod);
 
+        //Floor jump (different from wall-bounce)
         if (IsOnFloor())
         {
             //Increment on-ground timer
@@ -930,18 +954,7 @@ public partial class Player : CharacterBody3D
 
         Cam.LabelDead.Visible = true;
 
-
-        string keybind = "Enter";
-        if (InputMap.ActionGetEvents("restart").Count >= 2)
-        {
-            keybind = "" + InputMap.ActionGetEvents("restart")[1];
-        }
-        else
-        {
-            GD.Print("Error: couldn't get the keybind for restarting... Defaulting to [Enter]");
-        }
-
-        Cam.LabelDead.Text = $"You were killed {cause}\nPress [{keybind}] to restart";
+        Cam.LabelDead.Text = $"You were killed {cause}\nPress [{GetKeybindText("restart", "Enter")}] to restart";
     }
 
     public void Respawn()
@@ -966,5 +979,48 @@ public partial class Player : CharacterBody3D
         Cam.LabelDead.Visible = false;
 
         IsAlive = true;
+    }
+
+    public void ShowHideInteractPrompt(float delta)
+    {
+        //Generate text
+        Cam.LabelInteractPrompt.Text = $"Press [{GetKeybindText("interact", "E")}] to interact";
+
+        //Set visibility
+        //Cam.LabelInteractPrompt.Albedo.Alpha = InteractPromptEnergy?
+        if (InteractPromptEnergy > 0f)
+        {
+            Cam.LabelInteractPrompt.Visible = true;
+
+            //Decrement
+            //InteractPromptEnergy = Mathf.Max(0f, InteractPromptEnergy - delta);
+            InteractPromptEnergy = Mathf.Max(0f, InteractPromptEnergy - 1f);
+        }
+        else
+        {
+            Cam.LabelInteractPrompt.Visible = false;
+        }
+    }
+
+    public void ShowInteractPrompt()
+    {
+        InteractPromptEnergy = 2f;
+    }
+
+    private string GetKeybindText(string keybindCode, string keybindDefault)
+    {
+        //This doesn't work :) Always returns default keybind
+
+        string keybind = keybindDefault;
+        if (InputMap.ActionGetEvents(keybindCode).Count >= 2)
+        {
+            keybind = "" + InputMap.ActionGetEvents(keybindCode)[1];
+        }
+        else
+        {
+            //GD.Print($"Error: couldn't get the keybind... Defaulting to [{keybind}]");
+        }
+
+        return keybind;
     }
 }
