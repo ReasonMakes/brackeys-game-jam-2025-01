@@ -2,6 +2,8 @@ using Godot;
 
 public partial class Player : CharacterBody3D
 {
+    private float SurvivalTime = 0f;
+
     private float InteractPromptEnergy = 0f;
 
     public bool IsAlive = true;
@@ -50,8 +52,8 @@ public partial class Player : CharacterBody3D
         public void Reset(float difficulty)
         {
             IsCompleted = true;
-            //Timer = 10f;
-            Timer = TimerMinimum + TimerMultiplier + (difficulty * TimerMultiplier * rng.Randf());
+            Timer = 10f;
+            //Timer = TimerMinimum + TimerMultiplier + (difficulty * TimerMultiplier * rng.Randf());
             TimerBegin = Timer;
         }
     }
@@ -251,6 +253,18 @@ public partial class Player : CharacterBody3D
     public override void _Process(double deltaDouble)
     {
         float delta = (float)deltaDouble;
+
+        //Survival timer increment
+        if (IsAlive)
+        {
+            SurvivalTime += delta;
+
+            //Display
+            int minutes = (int)(SurvivalTime / 60);
+            int seconds = (int)(SurvivalTime % 60);
+            int deciseconds = (int)(SurvivalTime * 10f % 10);
+            Cam.LabelSurvivalTimer.Text = $"{minutes}:{seconds:D2}.{deciseconds:D1}";
+        }
 
         //Task grace period at game start
         TaskGraceTimer -= delta;
@@ -950,7 +964,11 @@ public partial class Player : CharacterBody3D
         //IsSliding = true;
         Music.StreamActive = Music.StreamDead;
 
-        AudioVADeathPlayer.Play();
+        Control control = GetNode<Control>(GetTree().Root.GetChild(0).GetPath());
+        if (control.TasksFailed < control.MaxFailedTasks)
+        {
+            AudioVADeathPlayer.Play();
+        }
 
         Cam.LabelDead.Visible = true;
 
@@ -959,6 +977,8 @@ public partial class Player : CharacterBody3D
 
     public void Respawn()
     {
+        SurvivalTime = 0f;
+
         Velocity = Vector3.Zero;
         GlobalPosition = SpawnPosition;
 

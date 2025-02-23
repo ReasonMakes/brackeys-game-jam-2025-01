@@ -81,17 +81,32 @@ public partial class Missile : CharacterBody3D
                 KinematicCollision3D collision = GetSlideCollision(i);
                 if (collision != null)
                 {
+                    //Explode and damage nearby entities
+
                     //GD.Print("Missile collided with: " + collision.GetCollider());
 
                     //Due to missile speed, it may fly through the collider. This returns it to the point of collision.
                     //Most noticeable for the collision sound. Also relevant for player damage.
                     GlobalPosition = collision.GetPosition();
 
+                    //If close to the player
                     if (direction.Length() <= ExplosionRadius)
                     {
                         control.Player.Kill("by a missile!");
                     }
 
+                    //If close to any robot
+                    for (int j = 0; j < control.RobotsControl.Pool.GetChildCount(); j++)
+                    {
+                        Robot robot = control.RobotsControl.Pool.GetChild(j).GetChild<Robot>(0);
+
+                        if (robot.IsAlive && (robot.GlobalPosition - GlobalPosition).Length() <= ExplosionRadius)
+                        {
+                            robot.Kill();
+                        }
+                    }
+
+                    //Self-destruct
                     Kill();
 
                     break;

@@ -3,7 +3,7 @@ using Godot;
 public partial class RobotsControl : Node3D
 {
     [Export] private Player Player;
-    [Export] private Node3D Pool;
+    [Export] public Node3D Pool;
     [Export] private Node3D SpawnPoints;
     private float SpawnTimer = 0f; //counts up and spawns a robots once >= SpawnPeriod. Resets to 0f
     private const float SpawnPeriod = 20f; //40f; //Time period in seconds between robot spawns

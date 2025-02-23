@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://boamnlyv84vsi"]
+[gd_scene load_steps=18 format=3 uid="uid://boamnlyv84vsi"]
 
 [ext_resource type="Script" path="res://player/CameraNode.cs" id="1_tsoiq"]
 [ext_resource type="Material" uid="uid://daiyptmfwsngr" path="res://player/dash_lines_material.tres" id="1_wsxk4"]
@@ -6,16 +6,43 @@
 [ext_resource type="PackedScene" uid="uid://b0hxt7re0nsrj" path="res://task/icon.tscn" id="4_5e532"]
 [ext_resource type="Texture2D" uid="uid://cmonp07v1xhdd" path="res://task/icon_electrical.png" id="5_5e7q8"]
 [ext_resource type="Texture2D" uid="uid://l7ew67l8belm" path="res://player/UI/icon_ability_dash.png" id="5_c4ihp"]
+[ext_resource type="Shader" path="res://task/flash.gdshader" id="6_5h61t"]
 [ext_resource type="Texture2D" uid="uid://bpikbdh4qapfe" path="res://task/task.png" id="6_5prji"]
 [ext_resource type="Texture2D" uid="uid://bmutsl3cfv1rs" path="res://task/icon_garden.png" id="7_dymyh"]
 [ext_resource type="Texture2D" uid="uid://b3yr8hsc5xdjq" path="res://task/icon_cooler.png" id="7_wn3fg"]
 [ext_resource type="Texture2D" uid="uid://vgnv0r8q5pbi" path="res://task/icon_reactor.png" id="8_vsb0o"]
 [ext_resource type="Texture2D" uid="uid://diodiiuvs1muo" path="res://player/UI/grapple icon.png" id="10_cstoi"]
 
-[node name="Camera3D" type="Camera3D" node_paths=PackedStringArray("LabelInteractPrompt", "LabelDead", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "RectAbilityDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "IconCockpit", "IconElectrical", "IconCooler", "IconGarden", "IconReactor", "LabelFPS", "LabelPhysicsTickRate", "LabelDifficulty")]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ccmfn"]
+shader = ExtResource("6_5h61t")
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+shader_parameter/flash_value = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1tfjb"]
+shader = ExtResource("6_5h61t")
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+shader_parameter/flash_value = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ap8at"]
+shader = ExtResource("6_5h61t")
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+shader_parameter/flash_value = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_10aqq"]
+shader = ExtResource("6_5h61t")
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+shader_parameter/flash_value = null
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yf2p6"]
+shader = ExtResource("6_5h61t")
+shader_parameter/flash_color = Color(1, 0, 0, 1)
+shader_parameter/flash_value = null
+
+[node name="Camera3D" type="Camera3D" node_paths=PackedStringArray("LabelSurvivalTimer", "LabelInteractPrompt", "LabelDead", "LabelHSpeed", "RectHSpeed", "LabelJerk", "RectJerk", "LabelDash", "RectDash", "RectAbilityDash", "LabelClimb", "RectClimb", "LabelJumpFatigueRecency", "RectJumpFatigueRecency", "LabelJumpFatigueOnGround", "RectJumpFatigueOnGround", "IconCockpit", "IconElectrical", "IconCooler", "IconGarden", "IconReactor", "LabelFPS", "LabelPhysicsTickRate", "LabelDifficulty")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 fov = 80.0
 script = ExtResource("1_tsoiq")
+LabelSurvivalTimer = NodePath("LabelSurvivalTimer")
 LabelInteractPrompt = NodePath("LabelInteractPrompt")
 LabelDead = NodePath("LabelDead")
 LabelHSpeed = NodePath("HUD/Statistics/Label HSpeed")
@@ -85,13 +112,13 @@ anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -95.0
-offset_top = -74.0
+offset_top = -80.0
 offset_right = -31.0
-offset_bottom = -21.0
+offset_bottom = -16.0
 grow_horizontal = 0
 grow_vertical = 0
 pivot_offset = Vector2(0, 53)
-color = Color(1, 1, 1, 0.466667)
+color = Color(0.2464, 0.42966, 0.77, 0.498039)
 
 [node name="HUD" type="Control" parent="."]
 layout_mode = 3
@@ -214,6 +241,7 @@ offset_bottom = 271.91
 text = "Difficulty: "
 
 [node name="IconTaskCockpit" parent="HUD" instance=ExtResource("4_5e532")]
+material = SubResource("ShaderMaterial_ccmfn")
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
@@ -225,6 +253,7 @@ offset_bottom = 147.0
 grow_horizontal = 1
 
 [node name="IconTaskElectrical" parent="HUD" instance=ExtResource("4_5e532")]
+material = SubResource("ShaderMaterial_1tfjb")
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
@@ -237,6 +266,7 @@ grow_horizontal = 1
 texture = ExtResource("5_5e7q8")
 
 [node name="IconTaskCooler" parent="HUD" instance=ExtResource("4_5e532")]
+material = SubResource("ShaderMaterial_ap8at")
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
@@ -249,6 +279,7 @@ grow_horizontal = 1
 texture = ExtResource("7_wn3fg")
 
 [node name="IconTaskGarden" parent="HUD" instance=ExtResource("4_5e532")]
+material = SubResource("ShaderMaterial_10aqq")
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
@@ -261,6 +292,7 @@ grow_horizontal = 1
 texture = ExtResource("7_dymyh")
 
 [node name="IconTaskReactor" parent="HUD" instance=ExtResource("4_5e532")]
+material = SubResource("ShaderMaterial_yf2p6")
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
@@ -319,3 +351,16 @@ grow_vertical = 2
 text = "Press [E] to interact"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="LabelSurvivalTimer" type="Label" parent="."]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -283.0
+offset_top = -29.105
+offset_bottom = 142.895
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0.2464, 0.42966, 0.77, 0.498039)
+theme_override_font_sizes/font_size = 100
+text = "0:00.0"
+horizontal_alignment = 2

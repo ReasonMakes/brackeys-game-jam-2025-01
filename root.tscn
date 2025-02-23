@@ -9,9 +9,9 @@
 [ext_resource type="AudioStream" uid="uid://c0pk5mif4c8ut" path="res://va/va_failure2.mp3" id="9_bnc2e"]
 [ext_resource type="AudioStream" uid="uid://fyea2t2wnufm" path="res://va/va_failure3.mp3" id="10_6d7gj"]
 [ext_resource type="AudioStream" uid="uid://ct3vhdi07nbj5" path="res://va/va_failure4.mp3" id="11_ml36f"]
-[ext_resource type="Texture2D" uid="uid://bwey3m804xygm" path="res://player/UI/health_fill.png" id="12_0ne73"]
 [ext_resource type="AudioStream" uid="uid://uxaem8q0e3fx" path="res://va/va_react_dead_ship.mp3" id="12_2kui1"]
 [ext_resource type="Texture2D" uid="uid://c536iphygdlso" path="res://player/UI/health.png" id="13_7qqw3"]
+[ext_resource type="Texture2D" uid="uid://b46ptbunnxe8" path="res://player/UI/health_fill3.png" id="13_h47ww"]
 [ext_resource type="PackedScene" uid="uid://b1cc7jehhov" path="res://player/player.tscn" id="29_0dube"]
 [ext_resource type="PackedScene" uid="uid://bmrvxd4l4satu" path="res://level/level.tscn" id="34_oikqa"]
 
@@ -38,9 +38,9 @@ stream_1/stream = ExtResource("9_bnc2e")
 stream_2/stream = ExtResource("10_6d7gj")
 stream_3/stream = ExtResource("11_ml36f")
 
-[node name="Control" type="Node3D" node_paths=PackedStringArray("HealthFill", "ButtonQuit", "Player", "RobotsControl", "AudioVABetrayal", "AudioVATaskFailed", "AudioVADeathShip")]
+[node name="Control" type="Node3D" node_paths=PackedStringArray("ControlHealthFill", "ButtonQuit", "Player", "RobotsControl", "AudioVABetrayal", "AudioVATaskFailed", "AudioVADeathShip")]
 script = ExtResource("1_35hfb")
-HealthFill = NodePath("HealthFill")
+ControlHealthFill = NodePath("Control")
 ButtonQuit = NodePath("ButtonQuit")
 Player = NodePath("Player")
 RobotsControl = NodePath("RobotsControl")
@@ -132,14 +132,25 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "Quit to Desktop"
 
-[node name="HealthFill" type="TextureRect" parent="."]
+[node name="Control" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
 offset_top = -98.0
 offset_right = 676.0
 grow_vertical = 0
-texture = ExtResource("12_0ne73")
+
+[node name="HealthFill" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -98.0
+offset_right = 676.0
+grow_vertical = 0
+texture = ExtResource("13_h47ww")
 
 [node name="health" type="TextureRect" parent="."]
 anchors_preset = 2

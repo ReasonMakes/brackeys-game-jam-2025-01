@@ -2,7 +2,7 @@ using Godot;
 
 public partial class Control : Node
 {
-    [Export] public TextureRect HealthFill;
+    [Export] public Godot.Control ControlHealthFill;
 
     [Export] public Button ButtonQuit;
 
@@ -10,7 +10,7 @@ public partial class Control : Node
 	[Export] public RobotsControl RobotsControl;
 
 	public int TasksFailed = 0;
-	public int MaxFailedTasks = 30;
+	public int MaxFailedTasks = 10;
     public float Difficulty = 1f;
 	private float DifficultyIncreaseRate = 0.9f; //value between 0 and 1, smaller values are a faster rate
     private bool IsAngry = false;
@@ -44,6 +44,8 @@ public partial class Control : Node
 		{
 			Input.MouseMode = Input.MouseModeEnum.Captured;
             ButtonQuit.Visible = false;
+
+            IncreaseTasksFailed();
         }
 
 		//Restart game
@@ -61,6 +63,8 @@ public partial class Control : Node
         Difficulty = 1f;
         TasksFailed = 0;
         Player.SetDefaultTasks();
+
+        UpdateShipHealthBar();
 
         //Replay the introduction voice acting
         //AIVoiceOverIntroDelay = 5f;
@@ -107,19 +111,16 @@ public partial class Control : Node
         else if (GetVAMood() >= 2)
         {
             RobotsControl.RobotsDesiredCount = 1;
-        }
-        else
-        {
-            RobotsControl.RobotsDesiredCount = 0;
-        }
 
-		//Combat music
-        if (TasksFailed >= 1)
-        {
+            //Combat music
             if (Player.IsAlive && Player.Music.StreamActive != Player.Music.StreamCombat)
             {
                 Player.Music.StreamActive = Player.Music.StreamCombat;
             }
+        }
+        else
+        {
+            RobotsControl.RobotsDesiredCount = 0;
         }
     }
 
@@ -217,10 +218,23 @@ public partial class Control : Node
         }
 
         //Update ship health
-        HealthFill.Scale = new(TasksFailed / MaxFailedTasks, 1f);
+        UpdateShipHealthBar();
 
         //GD.Print($"TasksFailed: {TasksFailed}" +
         //	$"\nCombat music: {Player.Music.StreamActive == Player.Music.StreamCombat}" +
         //	$"\nDesired robots: {RobotsControl.RobotsDesiredCount}");
+    }
+
+    private void UpdateShipHealthBar()
+    {
+        //HealthFill.Scale = new(((float)MaxFailedTasks - (float)TasksFailed) / (float)MaxFailedTasks, 1f);
+        float textureWidth = ControlHealthFill.GetChild<TextureRect>(0).Size.X;
+        float textureHeight = ControlHealthFill.GetChild<TextureRect>(0).Size.Y;
+        float healthProportion = Mathf.Max(0f, ((float)MaxFailedTasks - (float)TasksFailed) / (float)MaxFailedTasks);
+
+        ControlHealthFill.Size = Vector2.One;
+        ControlHealthFill.Size = new(healthProportion * textureWidth, textureHeight);
+
+        GD.Print($"{textureWidth}, {ControlHealthFill.Size.X}, {healthProportion}");
     }
 }
