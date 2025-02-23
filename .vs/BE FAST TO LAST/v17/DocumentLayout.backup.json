@@ -3,12 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\task\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:task\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\control.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:control.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:player\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\robot\\robot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:robot\\robot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\robot\\missile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -21,10 +29,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\player\\cameranode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:player\\cameranode.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|c:\\users\\scale\\files\\dev\\brackeys-game-jam-2025-01\\task\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B14D6918-BDCD-4988-981F-620C92BDF856}|Be Fast to Last.csproj|solutionrelative:task\\task.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,11 +38,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 3,
+              "Title": "Robot.cs",
+              "DocumentMoniker": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\robot\\Robot.cs",
+              "RelativeDocumentMoniker": "robot\\Robot.cs",
+              "ToolTip": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\robot\\Robot.cs",
+              "RelativeToolTip": "robot\\Robot.cs",
+              "ViewState": "AgIAAIkAAAAAAAAAAAAIwJ8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-23T09:16:07.419Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "RobotsControl.cs",
               "DocumentMoniker": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\robot\\RobotsControl.cs",
               "RelativeDocumentMoniker": "robot\\RobotsControl.cs",
@@ -46,12 +63,11 @@
               "RelativeToolTip": "robot\\RobotsControl.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-23T08:31:49.688Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-23T08:31:49.688Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Missile.cs",
               "DocumentMoniker": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\robot\\Missile.cs",
               "RelativeDocumentMoniker": "robot\\Missile.cs",
@@ -59,50 +75,50 @@
               "RelativeToolTip": "robot\\Missile.cs",
               "ViewState": "AgIAAEwAAAAAAAAAAAAgwG0AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-23T08:30:25.904Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-23T08:30:25.904Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
               "Title": "Task.cs",
               "DocumentMoniker": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\task\\Task.cs",
               "RelativeDocumentMoniker": "task\\Task.cs",
               "ToolTip": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\task\\Task.cs",
               "RelativeToolTip": "task\\Task.cs",
-              "ViewState": "AgIAAB8AAAAAAAAAAADgvz4AAAAUAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAD4AAAAUAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-22T22:45:39.236Z"
+              "WhenOpened": "2025-02-22T22:45:39.236Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "Control.cs",
               "DocumentMoniker": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\Control.cs",
               "RelativeDocumentMoniker": "Control.cs",
               "ToolTip": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\Control.cs",
               "RelativeToolTip": "Control.cs",
-              "ViewState": "AgIAAMQAAAAAAAAAAAASwN8AAAAtAAAAAAAAAA==",
+              "ViewState": "AgIAALYAAAAAAAAAAAAuwMcAAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-22T15:05:07.542Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Player.cs",
               "DocumentMoniker": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\player\\Player.cs",
               "RelativeDocumentMoniker": "player\\Player.cs",
               "ToolTip": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\player\\Player.cs",
               "RelativeToolTip": "player\\Player.cs",
-              "ViewState": "AgIAAFMDAAAAAAAAAAASwD8CAAAcAAAAAAAAAA==",
+              "ViewState": "AgIAABwAAAAAAAAAAAArwDYAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-22T20:04:32.497Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 6,
               "Title": "CameraNode.cs",
               "DocumentMoniker": "C:\\Users\\scale\\Files\\Dev\\brackeys-game-jam-2025-01\\player\\CameraNode.cs",
               "RelativeDocumentMoniker": "player\\CameraNode.cs",
@@ -110,8 +126,7 @@
               "RelativeToolTip": "player\\CameraNode.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-02-23T05:54:21.969Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-02-23T05:54:21.969Z"
             }
           ]
         }

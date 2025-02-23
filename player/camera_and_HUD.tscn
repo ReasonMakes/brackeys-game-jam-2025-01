@@ -69,6 +69,7 @@ LabelDifficulty = NodePath("HUD/Statistics/LabelDifficulty")
 DashMaterial = ExtResource("1_wsxk4")
 
 [node name="ColorRect Dash Lines" type="ColorRect" parent="."]
+visible = false
 material = ExtResource("1_wsxk4")
 anchors_preset = 15
 anchor_right = 1.0
@@ -91,6 +92,7 @@ grow_vertical = 0
 texture = ExtResource("3_u68yr")
 
 [node name="AbilityDash" type="TextureRect" parent="."]
+visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -106,6 +108,7 @@ scale = Vector2(0.45, 0.45)
 texture = ExtResource("5_c4ihp")
 
 [node name="ColorRectAbilityDash" type="ColorRect" parent="."]
+visible = false
 anchors_preset = 3
 anchor_left = 1.0
 anchor_top = 1.0
@@ -121,6 +124,7 @@ pivot_offset = Vector2(0, 53)
 color = Color(0.2464, 0.42966, 0.77, 0.498039)
 
 [node name="HUD" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 0
 
@@ -353,6 +357,7 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LabelSurvivalTimer" type="Label" parent="."]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0

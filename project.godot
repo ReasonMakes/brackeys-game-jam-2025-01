@@ -14,12 +14,14 @@ config/name="Be Fast to Last"
 run/main_scene="res://root.tscn"
 config/features=PackedStringArray("4.3", "C#", "Forward Plus")
 boot_splash/image="res://splash/icon_title.png"
-config/icon="res://icon.svg"
+config/icon="res://icon.ico"
+config/windows_native_icon="res://icon.ico"
 
 [display]
 
 window/size/viewport_width=1920
-window/size/viewport_height=500
+window/size/viewport_height=1080
+window/size/mode=3
 window/size/initial_position=Vector2i(0, 1000)
 window/vsync/vsync_mode=0
 

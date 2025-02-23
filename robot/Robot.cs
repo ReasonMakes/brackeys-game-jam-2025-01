@@ -156,7 +156,7 @@ public partial class Robot : CharacterBody3D
             MeshInstance.Visible = false;
             //Position = Vector3.Zero;
 
-            AudioAmbience.VolumeDb = 0f;
+            AudioAmbience.VolumeDb = -80f;
 
             IsAlive = false;
         }

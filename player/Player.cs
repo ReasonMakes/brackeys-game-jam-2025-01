@@ -52,8 +52,8 @@ public partial class Player : CharacterBody3D
         public void Reset(float difficulty)
         {
             IsCompleted = true;
-            Timer = 10f;
-            //Timer = TimerMinimum + TimerMultiplier + (difficulty * TimerMultiplier * rng.Randf());
+            //Timer = 10f;
+            Timer = TimerMinimum + (difficulty * TimerMultiplier * rng.Randf());
             TimerBegin = Timer;
         }
     }
@@ -287,7 +287,7 @@ public partial class Player : CharacterBody3D
 
         //GD.Print($"{TaskCockpit.IsCompleted} - {TaskCockpit.Timer}/{TaskCockpit.TimerBegin}");
 
-        Cam.LabelDifficulty.Text = $"Difficulty: {control.Difficulty:F2}";
+        Cam.LabelDifficulty.Text = $"Difficulty: {control.Difficulty}";
 
         if (tasksInited)
         {
@@ -319,7 +319,6 @@ public partial class Player : CharacterBody3D
             if (taskType.Timer <= 0f)
             {
                 taskType.Reset(control.Difficulty);
-                control.IncreaseDifficulty();
                 control.IncreaseTasksFailed();
             }
         }
@@ -959,20 +958,24 @@ public partial class Player : CharacterBody3D
 
     public void Kill(string cause)
     {
-        IsAlive = false;
-        //THIS IS HARD-CODED IN. Force slide when dead
-        //IsSliding = true;
-        Music.StreamActive = Music.StreamDead;
-
-        Control control = GetNode<Control>(GetTree().Root.GetChild(0).GetPath());
-        if (control.TasksFailed < control.MaxFailedTasks)
+        if (IsAlive)
         {
-            AudioVADeathPlayer.Play();
+            //SLIDING WHEN DEAD IS HARD-CODED IN.
+
+            Music.StreamActive = Music.StreamDead;
+
+            Control control = GetNode<Control>(GetTree().Root.GetChild(0).GetPath());
+            if (control.TasksFailed < control.MaxFailedTasks)
+            {
+                AudioVADeathPlayer.Play();
+            }
+
+            Cam.LabelDead.Visible = true;
+
+            Cam.LabelDead.Text = $"You were killed {cause}\nPress [{GetKeybindText("restart", "Enter")}] to restart";
+
+            IsAlive = false;
         }
-
-        Cam.LabelDead.Visible = true;
-
-        Cam.LabelDead.Text = $"You were killed {cause}\nPress [{GetKeybindText("restart", "Enter")}] to restart";
     }
 
     public void Respawn()

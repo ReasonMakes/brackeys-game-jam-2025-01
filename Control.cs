@@ -12,12 +12,14 @@ public partial class Control : Node
 	public int TasksFailed = 0;
 	public int MaxFailedTasks = 10;
     public float Difficulty = 1f;
-	private float DifficultyIncreaseRate = 0.9f; //value between 0 and 1, smaller values are a faster rate
+	private float DifficultyIncreaseRatePerFail = 0.75f; //value between 0 and 1, smaller values are a faster rate
+    private float DifficultyIncreaseRateContinuous = 0.001f;
     private bool IsAngry = false;
 
     [Export] private AudioStreamPlayer AudioVABetrayal;
     [Export] private AudioStreamPlayer AudioVATaskFailed;
     [Export] private AudioStreamPlayer AudioVADeathShip;
+    private bool IsAudioVADeathShipPlayed = false;
     private bool AIVoiceOverIntroShouldPlay = true;
     private float AIVoiceOverIntroDelay = 5f;
 
@@ -45,7 +47,7 @@ public partial class Control : Node
 			Input.MouseMode = Input.MouseModeEnum.Captured;
             ButtonQuit.Visible = false;
 
-            IncreaseTasksFailed();
+            //IncreaseTasksFailed();
         }
 
 		//Restart game
@@ -65,6 +67,7 @@ public partial class Control : Node
         Player.SetDefaultTasks();
 
         UpdateShipHealthBar();
+        IsAudioVADeathShipPlayed = false;
 
         //Replay the introduction voice acting
         //AIVoiceOverIntroDelay = 5f;
@@ -129,7 +132,13 @@ public partial class Control : Node
 		float delta = (float)deltaDouble;
 
 		SetPhysicsUpdateRate();
-	}
+
+        //Constantly increase difficulty
+        float decayFactor = Mathf.Exp(-DifficultyIncreaseRateContinuous * delta);
+        Difficulty = 0f / DifficultyIncreaseRateContinuous * (1f - decayFactor) + (Difficulty * decayFactor);
+
+        //GD.Print(Difficulty);
+    }
 
 	public int GetVAMood()
 	{
@@ -188,32 +197,40 @@ public partial class Control : Node
 
 	public void IncreaseDifficulty()
 	{
-		Difficulty *= DifficultyIncreaseRate;
+		Difficulty *= DifficultyIncreaseRatePerFail;
 	}
 
 	public void IncreaseTasksFailed()
 	{
 		TasksFailed++;
+        IncreaseDifficulty();
 
-		if (TasksFailed > MaxFailedTasks)
-		{
-			Player.Kill("after the ship's life support failed from too many neglected tasks!");
-
-            AudioVADeathShip.Play();
-        }
-        else
+        if (Player.IsAlive)
         {
-            //Betray the player
-            if (GetVAMood() >= 2 && !IsAngry)
+            if (TasksFailed > MaxFailedTasks)
             {
-                AudioVABetrayal.Play();
-                IsAngry = true;
-            }
+                Player.Kill("after the ship's life support failed from too many neglected tasks!");
 
-            //Play task failed VA. Avoid talking over self
-            if (!AudioVABetrayal.Playing)
+                if (!IsAudioVADeathShipPlayed)
+                {
+                    AudioVADeathShip.Play();
+                    IsAudioVADeathShipPlayed = true;
+                }
+            }
+            else
             {
-                AudioVATaskFailed.Play();
+                //Betray the player
+                if (GetVAMood() >= 2 && !IsAngry)
+                {
+                    AudioVABetrayal.Play();
+                    IsAngry = true;
+                }
+
+                //Play task failed VA. Avoid talking over self
+                if (!AudioVABetrayal.Playing)
+                {
+                    AudioVATaskFailed.Play();
+                }
             }
         }
 
